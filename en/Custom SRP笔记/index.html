@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag (contains Google-Analytics、Baidu-Tongji)-->
+<head>
+  <!-- Google Analytics -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxx-xx"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-xxxxxx-xx');
+    </script>
+  
+
+  <!-- Baidu Tongji -->
+  
+    <script type="text/javascript">
+      // Originial
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  <!-- Baidu Push -->
+  
+    <script>
+      (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <meta name="google-site-verification" content="lxDfCplOZbIzjhG34NuQBgu2gdyRlAtMB4utP5AgEBc"/>
+  <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="FlowingCrescent&#39;s blog"/>
+  <meta name="keyword" content="FlowingCrescent, 流朔, Sand and Foam, gamedev  blog, Blog"/>
+  <link rel="shortcut icon" href="/img/avatar/Lloyd.jpg"/>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/beantech.min.css"/>
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css"/>
+    <link rel="stylesheet" href="/css/widget.css"/>
+    <link rel="stylesheet" href="/css/rocket.css"/>
+    <link rel="stylesheet" href="/css/signature.css"/>
+    <link rel="stylesheet" href="/css/catalog.css"/>
+    <link rel="stylesheet" href="/css/livemylife.css"/>
+
+    
+      <!-- wave start -->
+      <link rel="stylesheet" href="/css/wave.css"/>
+      <!-- wave end -->
+    
+
+    
+      <!-- top start (article top hot config) -->
+      <link rel="stylesheet" href="/css/top.css"/>
+      <!-- top end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/scroll.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+      <!-- viewer start (Picture preview) -->
+      <link rel="stylesheet" href="/css/viewer.min.css"/>
+      <!-- viewer end -->
+    
+
+    
+      <!-- Search start -->
+      <link rel="stylesheet" href="/css/search.css"/>
+      <!-- Search end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/themecolor.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+
+    
+      <!-- gitalk start -->
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+      <link rel="stylesheet" href="/css/gitalk.css"/>
+      <!-- gitalk end -->
+    
+  
+
+  <!-- Custom Fonts -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <!-- Hux change font-awesome CDN to qiniu -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Hux Delete, sad but pending in China <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> <link
+  href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/ css'> -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+
+  <!-- ga & ba script hoook -->
+  <link rel="canonical" href="http://flowingcrescent.github.io/en/Custom SRP笔记/">
+  <title>
+    
+      Custom SRP笔记 - Sand and Foam - FlowingCrescent&#39;s Blog
+    
+  </title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+
+	<body ontouchstart="" class="body--light body--light">
+
+
+		<!-- ThemeColor -->
+		
+		<!-- ThemeColor -->
+<style type="text/css">
+  .body--light {
+    --light-mode: none;
+    --dark-mode: block;
+  }
+  .body--dark {
+    --light-mode: block;
+    --dark-mode: none;
+  }
+  i.mdui-icon.material-icons.light-mode {
+    display: var(--light-mode);
+  }
+  i.mdui-icon.material-icons.dark-mode {
+    display: var(--dark-mode);
+  }
+</style>
+<div class="toggle" onclick="document.body.classList.toggle('body--dark')">
+  <i class="mdui-icon material-icons light-mode"></i>
+  <i class="mdui-icon material-icons dark-mode"></i>
+</div>
+<script>
+  //getCookieValue
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b
+      ? b.pop()
+      : '';
+  }
+  let themeMode = 'light';
+  if (getCookieValue('sb-color-mode') && (getCookieValue('sb-color-mode') !== themeMode)) {
+    let dbody = document.body.classList;
+    themeMode === 'dark' ? dbody.remove('body--dark') : dbody.add('body--dark');
+  }
+
+  //setCookieValue
+  var toggleBtn = document.querySelector(".toggle");
+  toggleBtn.addEventListener("click", function () {
+    var e = document.body.classList.contains("body--dark");
+    var cookieString = e
+      ? "dark"
+      : "light";
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+    document.cookie = "sb-color-mode=" + cookieString + ";expires=" + exp.toGMTString() + ";path=/";
+  });
+</script>
+
+		
+
+		<!-- Gitter -->
+		
+		<!-- Gitter -->
+<!-- Docs:https://gitter.im/?utm_source=left-menu-logo -->
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'your-community/your-room'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+		
+
+		<!-- Navigation (contains search)-->
+		<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Sand and Foam</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Known Issue, found by Hux: <nav>'s height woule be hold on by its content. so, when navbar scale out, the <nav> will cover tags. also mask any touch event of tags, unfortunately. -->
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/">HOME</a>
+          </li>
+
+          
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              ARCHIVES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a class="popup-trigger">
+              <span class="search-icon"></span>SEARCH</a>
+          </li>
+          
+
+          <!-- LangSelect -->
+          
+        </ul>
+      </div>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- progress -->
+<div id="progress">
+  <div class="line" style="width: 0%;"></div>
+</div>
+
+<script>
+  // Drop Bootstarp low-performance Navbar Use customize navbar with high-quality material design animation in high-perf jank-free CSS3 implementation
+  var $body = document.body;
+  var $toggle = document.querySelector('.navbar-toggle');
+  var $navbar = document.querySelector('#huxblog_navbar');
+  var $collapse = document.querySelector('.navbar-collapse');
+
+  $toggle.addEventListener('click', handleMagic)
+
+  function handleMagic(e) {
+    if ($navbar.className.indexOf('in') > 0) {
+      // CLOSE
+      $navbar.className = " ";
+      // wait until animation end.
+      setTimeout(function() {
+        // prevent frequently toggle
+        if ($navbar.className.indexOf('in') < 0) {
+          $collapse.style.height = "0px"
+        }
+      }, 400)
+    } else {
+      // OPEN
+      $collapse.style.height = "auto"
+      $navbar.className += " in";
+    }
+  }
+</script>
+
+
+		<!-- Post Header (contains intro-header、signature、wordcount、busuanzi、waveoverlay) -->
+		<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+
+  <style type="text/css">
+    .body--light {
+      /* intro-header */
+      --intro-header-background-image-url-home: url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: url('https://s.im5i.com/2021/06/19/aykta.png');
+      --intro-header-background-image-url-page: url('/https://s.im5i.com/2021/06/19/aykta.png');
+    }
+    .body--dark {
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://s.im5i.com/2021/06/19/aykta.png');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://s.im5i.com/2021/06/19/aykta.png');
+    }
+
+    header.intro-header {
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('https://s.im5i.com/2021/06/19/aykta.png'); */
+      
+    }
+
+    
+  </style>
+
+
+
+
+
+<header class="intro-header">
+  <!-- Signature -->
+  <div id="signature">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+              
+              <a class="tag" href="/tags/#SRP" title="SRP">SRP</a>
+              
+              <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+              
+            </div>
+            <h1>Custom SRP笔记</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by FlowingCrescent on
+              2021-06-19
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">6</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">1.5k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- waveoverlay start -->
+  <div class="preview-overlay">
+    <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="preview-parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--gentle-wave1)></use>
+        <use xlink:href="#gentle-wave" x="48" y="3" fill=var(--gentle-wave2)></use>
+        <use xlink:href="#gentle-wave" x="48" y="5" fill=var(--gentle-wave3)></use>
+        <use xlink:href="#gentle-wave" x="48" y="7" fill=var(--gentle-wave)></use>
+      </g>
+    </svg>
+  </div>
+  <!-- waveoverlay end -->
+  
+
+</header>
+
+
+
+		<!-- Main Content (Post contains
+	Pager、
+	tip、
+	socialshare、
+	gitalk、gitment、disqus-comment、
+	Catalog、
+	Sidebar、
+	Featured-Tags、
+	Friends Blog、
+	anchorjs、
+	) -->
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <p>本文为个人学习Catlike Coding的教程系列<a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/custom-srp/">Custom SRP</a>时的学习笔记<br>
+​</p>
+<h2 id="Custom-Render-Pipeline-Taking-Control-of-Rendering">Custom Render Pipeline - Taking Control of Rendering</h2>
+<p>搭建了渲染不透明、天空盒、半透明物体以及错误渲染物体的基本渲染管线<br>
+此时会发现调用到的API与RenderFeature中的相差无几，或许RenderFeature其实就是作为管线的补充内容。<br>
+​</p>
+<h3 id="使用C-的partial关键字对类进行分割">使用C#的partial关键字对类进行分割</h3>
+<p>catlike使用partial关键字将CameraRenderer类进行了拆分，将Editor模式时才运行的功能拆分了出去，<br>
+然后使用<code>#if UNITY_EDITOR</code>以及<code>#endif</code>包含了Editor模式时才运行的代码。<br>
+具体可参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/partial-classes-and-methods">官方文档</a><br>
+​</p>
+<h3 id="一次DrawRenderers可包含多种ShaderTagId的物体">一次DrawRenderers可包含多种ShaderTagId的物体</h3>
+<p>写法如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">static</span> ShaderTagId[] legacyShaderTagIds = &#123;</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;Always&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;ForwardBase&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;PrepassBase&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;Vertex&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;VertexLMRGBM&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> ShaderTagId(<span class="string">&quot;VertexLM&quot;</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//.....</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">var</span> drawingSettings = <span class="keyword">new</span> DrawingSettings(</span><br><span class="line">            legacyShaderTagIds[<span class="number">0</span>], <span class="keyword">new</span> SortingSettings(camera)</span><br><span class="line">        )</span><br><span class="line">        &#123;</span><br><span class="line">            overrideMaterial = errorMaterial</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; legacyShaderTagIds.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            drawingSettings.SetShaderPassName(i, legacyShaderTagIds[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> filteringSettings = FilteringSettings.defaultValue;</span><br><span class="line">        context.DrawRenderers(</span><br><span class="line">            cullingResults, <span class="keyword">ref</span> drawingSettings, <span class="keyword">ref</span> filteringSettings</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>就是给DrawingSetting调用SetShaderPassName以增加更多的Pass种类<br>
+<img src="https://s.im5i.com/2021/06/19/ayZ0C.png" alt="image.png"></p>
+<p align="center">这节做完时的效果</p>
+<p>​<p align="right">2021.06.18</p></p>
+<hr>
+<h2 id="Draw-Calls-Shaders-and-Batches">Draw Calls - Shaders and Batches</h2>
+<p>这一节主要是写Shader以及实现批处理，是个人比较熟悉的内容，没什么特别好讲的，但其中有一处细节是第一次知道。<br>
+关于Unity各种批处理的详细内容也可以看此文：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/98642798">相关文档</a></p>
+<h3 id="Clear-Buffer也是一次DrawCall">Clear Buffer也是一次DrawCall</h3>
+<p>第一节中有提到如果Clear的位置在SetUpCameraProperties之前，则会比较低效地调用Shader进行Clear，因此本质上算是一次绘制，这也是比较好理解的<br>
+<img src="https://s.im5i.com/2021/06/19/ayj4K.png" alt="image.png"></p>
+<p>但之后的快速Clear也是作为一次DrawCall，这在第二节中被提及：<br>
+<img src="https://s.im5i.com/2021/06/19/ayhzH.png" alt="image.png"><br>
+姑且作为一个小知识记下。</p>
+<p><img src="https://s.im5i.com/2021/06/19/aykta.png" alt="image.png"></p>
+<p align="center">这节做完时的效果</p>
+<p align="right">2021.06.19</p>
+<hr>
+<h2 id="Directional-Lights-Direct-Illumination">Directional Lights - Direct Illumination</h2>
+<p>这一节主要是实现Directional Light以及BRDF，也就是PBR的直接光照部分，大部分也是我比较熟悉的内容</p>
+<h3 id="关于法线插值与归一化">关于法线插值与归一化</h3>
+<p>在fragment shader时需要对法线进行归一化也是老生常谈的基础内容，不过个人还是第一次可视化地直观看见artifact，还是挺有趣的：<br>
+<img src="https://s.im5i.com/2021/06/23/lhRD0.png" alt="image.png"></p>
+<h3 id="NativeArray">NativeArray</h3>
+<p>Catlike使用NativeArray来储存灯光数据</p>
+<blockquote>
+<p>It’s a struct that acts like an array, but provides a connection to a native memory buffer.** It makes it possible to efficiently share data between managed C# code and the native Unity engine code.**</p>
+</blockquote>
+<p>简单来说就是相比普通的数组，它在C#与Unity底层代码之间传递效率更高。<br>
+<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">NativeArray官方文档</a></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetupLights</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    NativeArray&lt;VisibleLight&gt; visibleLights = cullingResults.visibleLights;</span><br><span class="line">    <span class="built_in">int</span> dirLightCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; visibleLights.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        VisibleLight visibleLight = visibleLights[i];</span><br><span class="line">        <span class="keyword">if</span> (visibleLight.lightType == LightType.Directional)</span><br><span class="line">        &#123;</span><br><span class="line">            SetupDirectionalLight(dirLightCount++,<span class="keyword">ref</span> visibleLight);</span><br><span class="line">            <span class="keyword">if</span> (dirLightCount &gt;= maxDirLightCount)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buffer.SetGlobalInt(dirLightCountId, visibleLights.Length);</span><br><span class="line">    buffer.SetGlobalVectorArray(dirLightColorsId, dirLightColors);</span><br><span class="line">    buffer.SetGlobalVectorArray(dirLightDirectionsId, dirLightDirections);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就用法上而言可以说跟数组相差无几</p>
+<h3 id="Shader-GUI">Shader GUI</h3>
+<p>其实这是个人第一次做Shader GUI相关的内容，做过一次之后发现其实跟Editor拓展编辑器极为神似，Unity在这方面还是挺方便的。<br>
+总之，在Shader结尾写上<code>CustomEditor &quot;CustomShaderGUI&quot;</code><br>
+然后将CustomShaderGUI.cs放入Editor文件夹下表示是个Editor程序即可<br>
+最关键的就是调用<code>OnGUI()</code>函数</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params">MaterialEditor materialEditor, MaterialProperty[] properties</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//绘制原有的材质GUI</span></span><br><span class="line">    <span class="keyword">base</span>.OnGUI(materialEditor, properties);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//对自定义GUI所必要的变量进行赋值</span></span><br><span class="line">    editor = materialEditor;</span><br><span class="line">    materials = materialEditor.targets;</span><br><span class="line">    <span class="keyword">this</span>.properties = properties;</span><br><span class="line"></span><br><span class="line">    EditorGUILayout.Space();</span><br><span class="line">    <span class="comment">//嵌套选项</span></span><br><span class="line">    showPresets = EditorGUILayout.Foldout(showPresets, <span class="string">&quot;Presets&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">if</span> (showPresets)</span><br><span class="line">    &#123;</span><br><span class="line">        OpaquePreset();</span><br><span class="line">        ClipPreset();</span><br><span class="line">        FadePreset();</span><br><span class="line">        TransparentPreset();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>其对Property的变量进行赋值的做法如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">bool</span> <span class="title">SetProperty</span>(<span class="params"><span class="built_in">string</span> name, <span class="built_in">float</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MaterialProperty property = FindProperty(name, properties, <span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">if</span> (property != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        property.floatValue = <span class="keyword">value</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetProperty</span>(<span class="params"><span class="built_in">string</span> name, <span class="built_in">string</span> keyword, <span class="built_in">bool</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (SetProperty(name, <span class="keyword">value</span> ? <span class="number">1f</span> : <span class="number">0f</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        SetKeyword(keyword, <span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>是Keyword的就增加个Keyword值设置，同时还要将Property的float进行修改。<br>
+​<br>
+<img src="https://s.im5i.com/2021/06/23/lhwhB.png" alt="image.png"><br>
+​<p align="center">这节做完的效果</p><br>
+​<p align="right">2021.06.21</p></p>
+<hr>
+<h2 id="Directional-Shadows-Cascaded-Shadow-Maps">Directional Shadows - Cascaded Shadow Maps</h2>
+<p>这一节内容相当多，阴影的原理虽然早就了解，但是实现起来还是比较繁琐复杂。</p>
+<h3 id="万能的CullingResults">万能的CullingResults</h3>
+<p>在前几节的时候还觉得<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Rendering.CullingResults.html">CullingResults类</a>就是单纯的储存被裁剪后的物体的类，但后来发现这个类能做的事情相当多，且与Shadow Map的实现强相关。<br>
+​</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cullingResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(</span><br><span class="line">    light.visibleLightIndex, i, cascadeCount, ratios, tileSize,</span><br><span class="line">    light.nearPlaneOffset, <span class="keyword">out</span> Matrix4x4 viewMatrix,</span><br><span class="line">    <span class="keyword">out</span> Matrix4x4 projectionMatrix, <span class="keyword">out</span> ShadowSplitData splitData</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>可通过它自带的<code>ComputeDirectionalShadowMatricesAndCullingPrimitives()</code>获取MV矩阵以及SplitData，可以说有这几项内容之后普通的ShadowMap基本就实现完了……<br>
+​</p>
+<p>而这个cullingResults的获取也十分简单（取自CameraRenderer.cs）：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">bool</span> <span class="title">Cull</span> (<span class="params"><span class="built_in">float</span> maxShadowDistance</span>)</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (camera.TryGetCullingParameters(<span class="keyword">out</span> ScriptableCullingParameters p)) &#123;</span><br><span class="line">		p.shadowDistance = Mathf.Min(maxShadowDistance, camera.farClipPlane);</span><br><span class="line">		cullingResults = context.Cull(<span class="keyword">ref</span> p);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后调用context.DrawShadows进行shadowmap的绘制：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> shadowSettings = <span class="keyword">new</span> ShadowDrawingSettings(cullingResults, light.visibleLightIndex);</span><br><span class="line"></span><br><span class="line"><span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">shadowSettings.splitData = splitData;</span><br><span class="line"></span><br><span class="line"><span class="comment">//......</span></span><br><span class="line">    </span><br><span class="line">context.DrawShadows(<span class="keyword">ref</span> shadowSettings);</span><br></pre></td></tr></table></figure>
+<p>可发现这里也还是有cullingResults的存在</p>
+<h3 id="Shadow-Texture的一些特殊设置">Shadow Texture的一些特殊设置</h3>
+<p>Shadow Texture从它刚申请来的时候就是那么的与众不同：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">buffer.GetTemporaryRT(</span><br><span class="line">	dirShadowAtlasId, atlasSize, atlasSize,</span><br><span class="line">	<span class="number">32</span>, FilterMode.Bilinear, RenderTextureFormat.Shadowmap</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>奢华的32bit，还有Unity根据平台自适应的TextureFormat。<br>
+​</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">buffer.SetRenderTarget(</span><br><span class="line">	dirShadowAtlasId,</span><br><span class="line">	RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>关于<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Rendering.RenderBufferLoadAction.html">RenderBufferLoadAction</a>：</p>
+<blockquote>
+<p>This enum describes what should be done on the render target when it is activated (loaded).<br>
+When the GPU starts rendering into a render target, this setting specifies the action that should be performed on the existing contents of the surface. Tile-based GPUs may get performance advantage if the load action is Clear or DontCare. The user should avoid using RenderBufferLoadAction.Load whenever possible.</p>
+</blockquote>
+<blockquote>
+<p>Please note that not all platforms have load/store actions, so this setting might be ignored at runtime. Generally mobile-oriented graphics APIs (OpenGL ES, Metal) take advantage of these settings.</p>
+</blockquote>
+<p>设置为DontCare就是说读取这个RenderBuffer时不对它的内容进行任何处理<br>
+​</p>
+<h3 id="Shadow-Pancaking">Shadow Pancaking</h3>
+<p>由于ShadowCaster渲染时，相机的near plane会尽可能地靠近物体以提高精度，但这也可能导致有些物体的个别顶点比near plane更加靠近相机而被剔除<br>
+<img src="https://s.im5i.com/2021/06/23/lhNJz.png" alt="image.png"></p>
+<p>然而当物体本身就交错于near plane两边时，还是会存在artifact，这是就要将near plane进行后（向相机）移<br>
+<img src="https://s.im5i.com/2021/06/23/lhoAs.png" alt="image.png"></p>
+<h3 id="Culling-Bias">Culling Bias</h3>
+<p>由于Cascade Shadow Map会在Shadow Texture上多次绘制同一物体，为了减少Draw Call，就尽可能剔除已经在较低层级的Cascade中绘制过了的物体，因此有了Culling Bias的概念。<br>
+<img src="https://s.im5i.com/2021/06/23/lhv0o.png" alt="image.png"></p>
+<p><img src="https://s.im5i.com/2021/06/23/lh12W.png" alt="image.png"><br>
+​<p align="center">这节做完的效果</p><br>
+​<p align="right">2021.06.23</p></p>
+<blockquote>
+<p>to be continue</p>
+</blockquote>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/en/GDC-SIGGRAPH中的有趣内容/" data-toggle="tooltip" data-placement="top" title="GDC/SIGGRAPH中的有趣内容">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      If you like this blog or find it useful for you, you are welcome to comment on it. You are also welcome to share this blog, so that more people can participate in it. If the images used in the blog infringe your copyright, please contact the author to delete them. Thank you !
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=Custom SRP笔记&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/Custom SRP笔记/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+  <!-- gitalk start -->
+  <!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+  <div id="gitalk-container"></div>
+
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+    <script src="/js/comment/gitalk.js"></script>
+  
+
+  <script>
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: '',
+      id: 'Sat Jun 19 2021 20:09:30 GMT+0800', // Ensure uniqueness and length less than 50
+      distractionFreeMode: false, // Facebook-like distraction free mode
+      perPage: 10,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      language: 'en',
+      proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+    });
+    gitalk.render('gitalk-container');
+
+    var gtFolded = () => {
+      setTimeout(function () {
+        let markdownBody = document.getElementsByClassName("markdown-body");
+        let list = Array.from(markdownBody);
+        list.forEach(item => {
+          if (item.clientHeight > 250) {
+            item.classList.add('gt-comment-body-folded');
+            item.style.maxHeight = '250px';
+            item.title = 'Click to Expand';
+            item.onclick = function () {
+              item.classList.remove('gt-comment-body-folded');
+              item.style.maxHeight = '';
+              item.title = '';
+              item.onclick = null;
+            };
+          }
+        })
+      }, 800);
+    }
+  </script>
+
+  <!-- gitalk end -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Custom-Render-Pipeline-Taking-Control-of-Rendering"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Custom Render Pipeline - Taking Control of Rendering</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8C-%E7%9A%84partial%E5%85%B3%E9%94%AE%E5%AD%97%E5%AF%B9%E7%B1%BB%E8%BF%9B%E8%A1%8C%E5%88%86%E5%89%B2"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">使用C#的partial关键字对类进行分割</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%B8%80%E6%AC%A1DrawRenderers%E5%8F%AF%E5%8C%85%E5%90%AB%E5%A4%9A%E7%A7%8DShaderTagId%E7%9A%84%E7%89%A9%E4%BD%93"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">一次DrawRenderers可包含多种ShaderTagId的物体</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Draw-Calls-Shaders-and-Batches"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Draw Calls - Shaders and Batches</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Clear-Buffer%E4%B9%9F%E6%98%AF%E4%B8%80%E6%AC%A1DrawCall"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Clear Buffer也是一次DrawCall</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Directional-Lights-Direct-Illumination"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Directional Lights - Direct Illumination</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%85%B3%E4%BA%8E%E6%B3%95%E7%BA%BF%E6%8F%92%E5%80%BC%E4%B8%8E%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">关于法线插值与归一化</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#NativeArray"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">NativeArray</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Shader-GUI"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">Shader GUI</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Directional-Shadows-Cascaded-Shadow-Maps"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Directional Shadows - Cascaded Shadow Maps</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%B8%87%E8%83%BD%E7%9A%84CullingResults"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">万能的CullingResults</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Shadow-Texture%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E8%AE%BE%E7%BD%AE"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Shadow Texture的一些特殊设置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Shadow-Pancaking"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">Shadow Pancaking</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Culling-Bias"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">Culling Bias</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+      <!-- Sidebar Container -->
+      <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+        <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+            
+            <a class="tag" href="/tags/#SRP" title="SRP">SRP</a>
+            
+            <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+            
+          </div>
+        </section>
+        
+
+        <!-- Friends Blog -->
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
+
+
+		<!-- Footer (contains ThemeColor、viewer) -->
+		<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          
+
+          
+            <li>
+              <a target="_blank" href="https://github.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="https://twitter.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+
+          
+            <li>
+              <a target="_blank" href="https://www.zhihu.com/people/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse">知</i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="http://weibo.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+        </ul>
+        <p class="copyright text-muted">
+          Copyright &copy;
+          FlowingCrescent
+          2021
+          <br>
+          Theme by
+          <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
+          <span style="display: inline-block; margin: 0 5px;">
+            <i class="fa fa-heart"></i>
+          </span>
+          re-Ported by
+          <a target="_blank" rel="noopener" href="https://v-vincen.life/">Live My Life</a>
+          |
+          <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=V-Vincen&repo=V-Vincen.github.io&type=star&count=true"></iframe>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a id="rocket" href="#top" class=""></a>
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="/js/hux-blog.min.js"></script>
+  <!-- catalog -->
+  <script async="true" type="text/javascript" src="/js/catalog.js"></script>
+  <!-- totop(rocket) -->
+  <script async="true" type="text/javascript" src="/js/totop.js"></script>
+
+  
+    <!-- Busuanzi JavaScript -->
+    <script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <!-- Scroll start -->
+    <script async="async" type="text/javascript" src="/js/scroll.js"></script>
+    <!-- Scroll end -->
+  
+
+  
+
+  
+
+  
+    <!-- ribbon -->
+    <script type="text/javascript" src="/js/ribbonDynamic.js"></script>
+  
+
+  
+
+
+
+
+
+
+  <!-- viewer start -->
+  <!-- viewer start (Picture preview) -->
+  
+    <script async="async" type="text/javascript" src="/js/viewer/viewer.min.js"></script>
+    <script async="async" type="text/javascript" src="/js/viewer/pic-viewer.js"></script>
+  
+
+  <!-- viewer end -->
+
+
+<script>
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function (e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  // fastClick.js
+  async ("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    var $nav = document.querySelector("nav");
+    if ($nav)
+      FastClick.attach($nav);
+    }
+  )
+</script>
+
+<!-- Because of the native support for backtick-style fenced code blocks right within the Markdown is landed in Github Pages, From V1.6, There is no need for Highlight.js, so Huxblog drops it officially. -
+https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0 - https://help.github.com/articles/creating-and-highlighting-code-blocks/ -->
+<!-- <script> async ("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function () { hljs.initHighlightingOnLoad(); }) </script> <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet"> -->
+
+<!-- jquery.tagcloud.js -->
+<!-- <script> // only load tagcloud.js in tag.html if ($('#tag_cloud').length !== 0) { async ("http://flowingcrescent.github.io/js/jquery.tagcloud.js", function () { $.fn.tagcloud.defaults = { // size: { start: 1, end: 1, unit: 'em' }, color: {
+start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </script> -->
+
+
+		<!-- Search -->
+		
+		<div class="popup search-popup local-search-popup">
+  <span class="popup-btn-close">
+    ESC
+  </span>
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-9 col-md-offset-1"> -->
+      <div class="col-lg-9 col-lg-offset-1 col-md-10 col-md-offset-1 local-search-content">
+
+        <div class="local-search-header clearfix">
+
+          <div class="local-search-input-wrapper">
+            <span class="search-icon">
+              <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
+            </span>
+            <input autocomplete="off" placeholder="SEARCH..." type="text" id="local-search-input">
+          </div>
+        </div>
+        <div id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <script src="/js/ziploader.js"></script>
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+    // get search zip version
+    $.get('/searchVersion.json?t=' + (+new Date()), function (res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson() {
+      initLoad(['/search.flv'], {
+        loadOptions: {
+          success: function (obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function (e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions: {
+          'json': 'application/json'
+        }
+      })
+    }
+    // search function;
+    var searchFunc = function (search_id, content_id) {
+      'use strict';
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      // console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function () {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function (data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title
+              ? data.title.trim()
+              : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content
+              ? data.content.trim().replace(/<[^>]+>/g, "")
+              : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+
+            var date = data.date;
+            var dateTime = date.replace(/T/, " ").replace(/.000Z/, "");
+            var imgUrl = data.header_img;
+            
+
+
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function (keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0,
+                  position = [],
+                  index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+            // show search results
+            if (isMatch) {
+              // sort index by position of keyword
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+              // merge hits into slices
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+                  // move to next position of hit
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {hits: hits, start: start, end: end, searchTextCount: searchTextCountInSlice};
+              }
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if (start < 0) {
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if (end > content.length) {
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+              // sort slices in content by search text's count and hits' count
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+              // select top N slices in content
+              var upperBound = parseInt('1');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+              // highlight title and content
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+              var resultItem = '';
+
+              // if (slicesOfTitle.length != 0) {   resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>"; } else {   resultItem += "<li><a target='_blank' href='" +
+              // articleUrl + "' class='search-result-title'>" + title + "</a>"; } slicesOfContent.forEach(function (slice) {   resultItem += "<a target='_blank' href='" + articleUrl + "'><p class=\"search-result\">" + highlightKeyword(content, slice) +
+              // "...</p></a>"; }); resultItem += "</li>";
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              } else {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + title + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              }
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+              resultItem += "</div><div class='search-result-right'><img class='media-image' src='" + imgUrl + "' width='64px' height='48px'></img></div></a>";
+
+              resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
+            }
+          })
+        };
+
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<div class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</div>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+      // remove loading animation
+      $('body').css('overflow', '');
+      proceedsearch();
+    }
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      var _con = document.querySelector(".local-search-content");
+      if (_con) {
+        if (!_con.contains(e.target)) {
+          onPopupClose();
+        }
+      }
+    });
+  </script>
+
+
+		
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
