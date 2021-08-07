@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag (contains Google-Analytics、Baidu-Tongji)-->
+<head>
+  <!-- Google Analytics -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxx-xx"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-xxxxxx-xx');
+    </script>
+  
+
+  <!-- Baidu Tongji -->
+  
+    <script type="text/javascript">
+      // Originial
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  <!-- Baidu Push -->
+  
+    <script>
+      (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <meta name="google-site-verification" content="lxDfCplOZbIzjhG34NuQBgu2gdyRlAtMB4utP5AgEBc"/>
+  <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="FlowingCrescent&#39;s blog"/>
+  <meta name="keyword" content="FlowingCrescent, 流朔, Sand and Foam, gamedev  blog, Blog"/>
+  <link rel="shortcut icon" href="/img/avatar/Lloyd.jpg"/>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/beantech.min.css"/>
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css"/>
+    <link rel="stylesheet" href="/css/widget.css"/>
+    <link rel="stylesheet" href="/css/rocket.css"/>
+    <link rel="stylesheet" href="/css/signature.css"/>
+    <link rel="stylesheet" href="/css/catalog.css"/>
+    <link rel="stylesheet" href="/css/livemylife.css"/>
+
+    
+      <!-- wave start -->
+      <link rel="stylesheet" href="/css/wave.css"/>
+      <!-- wave end -->
+    
+
+    
+      <!-- top start (article top hot config) -->
+      <link rel="stylesheet" href="/css/top.css"/>
+      <!-- top end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/scroll.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+      <!-- viewer start (Picture preview) -->
+      <link rel="stylesheet" href="/css/viewer.min.css"/>
+      <!-- viewer end -->
+    
+
+    
+      <!-- Search start -->
+      <link rel="stylesheet" href="/css/search.css"/>
+      <!-- Search end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/themecolor.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+
+    
+  
+
+  <!-- Custom Fonts -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <!-- Hux change font-awesome CDN to qiniu -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Hux Delete, sad but pending in China <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> <link
+  href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/ css'> -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+
+  <!-- ga & ba script hoook -->
+  <link rel="canonical" href="http://flowingcrescent.github.io/en/【URP Shader】Depth of Field - 景深/">
+  <title>
+    
+      【URP Shader】Depth of Field - 景深 - Sand and Foam - FlowingCrescent&#39;s Blog
+    
+  </title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+
+	<body ontouchstart="" class="body--light body--light">
+
+
+		<!-- ThemeColor -->
+		
+		<!-- ThemeColor -->
+<style type="text/css">
+  .body--light {
+    --light-mode: none;
+    --dark-mode: block;
+  }
+  .body--dark {
+    --light-mode: block;
+    --dark-mode: none;
+  }
+  i.mdui-icon.material-icons.light-mode {
+    display: var(--light-mode);
+  }
+  i.mdui-icon.material-icons.dark-mode {
+    display: var(--dark-mode);
+  }
+</style>
+<div class="toggle" onclick="document.body.classList.toggle('body--dark')">
+  <i class="mdui-icon material-icons light-mode"></i>
+  <i class="mdui-icon material-icons dark-mode"></i>
+</div>
+<script>
+  //getCookieValue
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b
+      ? b.pop()
+      : '';
+  }
+  let themeMode = 'light';
+  if (getCookieValue('sb-color-mode') && (getCookieValue('sb-color-mode') !== themeMode)) {
+    let dbody = document.body.classList;
+    themeMode === 'dark' ? dbody.remove('body--dark') : dbody.add('body--dark');
+  }
+
+  //setCookieValue
+  var toggleBtn = document.querySelector(".toggle");
+  toggleBtn.addEventListener("click", function () {
+    var e = document.body.classList.contains("body--dark");
+    var cookieString = e
+      ? "dark"
+      : "light";
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+    document.cookie = "sb-color-mode=" + cookieString + ";expires=" + exp.toGMTString() + ";path=/";
+  });
+</script>
+
+		
+
+		<!-- Gitter -->
+		
+
+		<!-- Navigation (contains search)-->
+		<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Sand and Foam</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Known Issue, found by Hux: <nav>'s height woule be hold on by its content. so, when navbar scale out, the <nav> will cover tags. also mask any touch event of tags, unfortunately. -->
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/">HOME</a>
+          </li>
+
+          
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              ARCHIVES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a class="popup-trigger">
+              <span class="search-icon"></span>SEARCH</a>
+          </li>
+          
+
+          <!-- LangSelect -->
+          
+        </ul>
+      </div>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- progress -->
+<div id="progress">
+  <div class="line" style="width: 0%;"></div>
+</div>
+
+<script>
+  // Drop Bootstarp low-performance Navbar Use customize navbar with high-quality material design animation in high-perf jank-free CSS3 implementation
+  var $body = document.body;
+  var $toggle = document.querySelector('.navbar-toggle');
+  var $navbar = document.querySelector('#huxblog_navbar');
+  var $collapse = document.querySelector('.navbar-collapse');
+
+  $toggle.addEventListener('click', handleMagic)
+
+  function handleMagic(e) {
+    if ($navbar.className.indexOf('in') > 0) {
+      // CLOSE
+      $navbar.className = " ";
+      // wait until animation end.
+      setTimeout(function() {
+        // prevent frequently toggle
+        if ($navbar.className.indexOf('in') < 0) {
+          $collapse.style.height = "0px"
+        }
+      }, 400)
+    } else {
+      // OPEN
+      $collapse.style.height = "auto"
+      $navbar.className += " in";
+    }
+  }
+</script>
+
+
+		<!-- Post Header (contains intro-header、signature、wordcount、busuanzi、waveoverlay) -->
+		<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+
+  <style type="text/css">
+    .body--light {
+      /* intro-header */
+      --intro-header-background-image-url-home: url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: url('https://e.im5i.com/2021/08/07/1k7px.png');
+      --intro-header-background-image-url-page: url('/https://e.im5i.com/2021/08/07/1k7px.png');
+    }
+    .body--dark {
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://e.im5i.com/2021/08/07/1k7px.png');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://e.im5i.com/2021/08/07/1k7px.png');
+    }
+
+    header.intro-header {
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('https://e.im5i.com/2021/08/07/1k7px.png'); */
+      
+    }
+
+    
+  </style>
+
+
+
+
+
+<header class="intro-header">
+  <!-- Signature -->
+  <div id="signature">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+              
+              <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+              
+              <a class="tag" href="/tags/#URP" title="URP">URP</a>
+              
+              <a class="tag" href="/tags/#后处理" title="后处理">后处理</a>
+              
+            </div>
+            <h1>【URP Shader】Depth of Field - 景深</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by FlowingCrescent on
+              2021-08-07
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">18</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">3.6k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- waveoverlay start -->
+  <div class="preview-overlay">
+    <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="preview-parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--gentle-wave1)></use>
+        <use xlink:href="#gentle-wave" x="48" y="3" fill=var(--gentle-wave2)></use>
+        <use xlink:href="#gentle-wave" x="48" y="5" fill=var(--gentle-wave3)></use>
+        <use xlink:href="#gentle-wave" x="48" y="7" fill=var(--gentle-wave)></use>
+      </g>
+    </svg>
+  </div>
+  <!-- waveoverlay end -->
+  
+
+</header>
+
+
+
+		<!-- Main Content (Post contains
+	Pager、
+	tip、
+	socialshare、
+	gitalk、gitment、disqus-comment、
+	Catalog、
+	Sidebar、
+	Featured-Tags、
+	Friends Blog、
+	anchorjs、
+	) -->
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <p>很久没有更技术方面的内容了，主要是因为入职了之后技术方面做的东西因为大家都懂的原因不方便分享，相对闲了点就打算做一下以前从未做过的DoF，恰好<a target="_blank" rel="noopener" href="https://catlikecoding.com/unity/tutorials/advanced-rendering/depth-of-field/">Catlike</a>也有教程，他做的是build-in版，那么我就做个URP版本的好了。</p>
+<hr>
+<h2 id="为什么会有景深">为什么会有景深</h2>
+<p><img src="https://e.im5i.com/2021/08/07/1kkna.png" alt="image.png"><br>
+其实这一点在GAMES101中闫老师讲解得非常清楚，就是因为某一点发出的光线经过凸透镜折射后，未必会在感光元件上达到同一个点，它们很可能会形成一个圆，而这个圆就叫Circle of Confusion(CoC)<br>
+而显然易见的，一个点离透镜过近或者过远，都会导致CoC的出现。<br>
+<img src="https://e.im5i.com/2021/08/07/1kCGT.png" alt=""><br>
+如图，稍远的花蕊产生了CoC</p>
+<h2 id="URP实践">URP实践</h2>
+<p>在Catlike的文章中，一共用了5个Pass来实现DoF：</p>
+<ol>
+<li>模拟CoC的强度值，输出为CoC Buffer</li>
+<li>对CoC Buffer的降采样进行特殊操作</li>
+<li>计算DoF，输出为DoF Buffer</li>
+<li>对DoF Buffer进一步模糊</li>
+<li>将DoF Buffer与原本的FrameBuffer混合</li>
+</ol>
+<p>通过对这5步的拆解，就能够直观了解简单的DoF效果的制作流程了<br>
+​</p>
+<h3 id="CoC-Buffer">CoC Buffer</h3>
+<p>一个与FrameBuffer同样宽高的Buffer，格式为RHalf（单通道16bit浮点）<br>
+<img src="https://e.im5i.com/2021/08/07/1kcwA.png" alt="image.png"><br>
+将输出的CoC Buffer直接显示在屏幕上是这样，但其实它黑色区域储存了负值，这也是我第一次知道原来RT能够存负值……不过将RT想成是half的数组倒也能理解。<br>
+<img src="https://e.im5i.com/2021/08/07/1k8iS.png" alt="image.png"></p>
+<p align="center">输出-coc值时</p>
+正负值正是用于区别近景与远景。
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half <span class="title">frag</span><span class="params">(v2f i)</span> : SV_Target </span>&#123;</span><br><span class="line">    half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line">    half depth = SampleSceneDepth(i.uv);</span><br><span class="line">    depth = LinearEyeDepth(depth, _ZBufferParams);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> coc = (depth - _FocusDistance) / _FocusRange;</span><br><span class="line">    coc = clamp(coc, <span class="number">-1</span>, <span class="number">1</span>) * _BokehRadius;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> coc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+fragment shader部分也比较简单，就是深度减去一个焦距值，再进行除法来调节比值，然后被Clamp(-1,1)后映射到[-_BokehRadius, _BokehRadius]，而`_BokehRadius`正是最后实现的模糊光圈大小（似乎Bokeh一词语义来自日语）
+<h3 id="对CoC-Buffer的降采样">对CoC Buffer的降采样</h3>
+<p>首先说明一下为什么要降采样，因为之后在计算Bokeh时也同样用的是1/2宽高的RT，因此对CoC Buffer进行采样时会产生线性插值，而对于深度以及从深度延伸计算出来的值而言，被双线性插值是毫无意义的，因此我们需要提前对CoC Buffer进行一个特殊的降采样操作。<br>
+​</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span> : SV_Target </span>&#123;</span><br><span class="line">    <span class="comment">//-0.5x, -0.5y, 0.5x, 0.5y</span></span><br><span class="line">    float4 o = _MainTex_TexelSize.xyxy * float2(<span class="number">-0.5</span>, <span class="number">0.5</span>).xxyy;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4个斜向采样</span></span><br><span class="line">    half coc0 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.xy).r;</span><br><span class="line">    half coc1 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.zy).r;</span><br><span class="line">    half coc2 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.xw).r;</span><br><span class="line">    half coc3 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.zw).r;</span><br><span class="line">    </span><br><span class="line">    half cocMin = min(min(min(coc0, coc1), coc2), coc3);</span><br><span class="line">    half cocMax = max(max(max(coc0, coc1), coc2), coc3);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将绝对值最大的写入A通道</span></span><br><span class="line">    half coc = cocMax &gt;= -cocMin ? cocMax : cocMin;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> half4(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv).rgb, coc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p><img src="https://e.im5i.com/2021/08/07/1kFq0.png" alt="image.png"><br>
+单独输出coc值的结果是这样的，当然肉眼上看不出跟之前的区别<br>
+​</p>
+<h3 id="计算Bokeh">计算Bokeh</h3>
+<p>这个Pass也是最关键的Pass了，其中不仅做了Bokeh的采样，还进行了前后景的混合<br>
+这部分的内容应该读代码以及注释比较容易理解：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">         <span class="comment">// From https://github.com/Unity-Technologies/PostProcessing/</span></span><br><span class="line">         <span class="comment">// blob/v2/PostProcessing/Shaders/Builtins/DiskKernels.hlsl</span></span><br><span class="line"><span class="comment">//特定的采样位置</span></span><br><span class="line">         <span class="meta">#<span class="meta-keyword">if</span> defined(BOKEH_KERNEL_SMALL)</span></span><br><span class="line">             <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kernelSampleCount = <span class="number">16</span>;</span><br><span class="line">             <span class="keyword">static</span> <span class="keyword">const</span> float2 kernel[kernelSampleCount] = &#123;</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.54545456</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.16855472</span>, <span class="number">0.5187581</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.44128203</span>, <span class="number">0.3206101</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.44128197</span>, <span class="number">-0.3206102</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.1685548</span>, <span class="number">-0.5187581</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.809017</span>, <span class="number">0.58778524</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.30901697</span>, <span class="number">0.95105654</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.30901703</span>, <span class="number">0.9510565</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.80901706</span>, <span class="number">0.5877852</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.80901694</span>, <span class="number">-0.58778536</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.30901664</span>, <span class="number">-0.9510566</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.30901712</span>, <span class="number">-0.9510565</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.80901694</span>, <span class="number">-0.5877853</span>),</span><br><span class="line">             &#125;;</span><br><span class="line">         <span class="meta">#<span class="meta-keyword">elif</span> defined (BOKEH_KERNEL_MEDIUM)</span></span><br><span class="line">             <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> kernelSampleCount = <span class="number">22</span>;</span><br><span class="line">             <span class="keyword">static</span> <span class="keyword">const</span> float2 kernel[kernelSampleCount] = &#123;</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.53333336</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.3325279</span>, <span class="number">0.4169768</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.11867785</span>, <span class="number">0.5199616</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.48051673</span>, <span class="number">0.2314047</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.48051673</span>, <span class="number">-0.23140468</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.11867763</span>, <span class="number">-0.51996166</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.33252785</span>, <span class="number">-0.4169769</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.90096885</span>, <span class="number">0.43388376</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.6234898</span>, <span class="number">0.7818315</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.22252098</span>, <span class="number">0.9749279</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.22252095</span>, <span class="number">0.9749279</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.62349</span>, <span class="number">0.7818314</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.90096885</span>, <span class="number">0.43388382</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.90096885</span>, <span class="number">-0.43388376</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.6234896</span>, <span class="number">-0.7818316</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">-0.22252055</span>, <span class="number">-0.974928</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.2225215</span>, <span class="number">-0.9749278</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.6234897</span>, <span class="number">-0.7818316</span>),</span><br><span class="line">                 <span class="built_in">float2</span>(<span class="number">0.90096885</span>, <span class="number">-0.43388376</span>),</span><br><span class="line">             &#125;;</span><br><span class="line">         <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">         <span class="comment">//CoC值减去Bokeh大小，让光圈越边缘变得柔和</span></span><br><span class="line">         <span class="function">half <span class="title">Weigh</span> <span class="params">(half coc, half radius)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="built_in">saturate</span>((coc - radius + <span class="number">2</span>) / <span class="number">2</span>);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         <span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span> : SV_Target &#123;</span></span><br><span class="line">             <span class="comment">//当前位置的coc值</span></span><br><span class="line">             half coc = <span class="built_in">SAMPLE_TEXTURE2D</span>(_MainTex, sampler_MainTex,i.uv).a;</span><br><span class="line"></span><br><span class="line">             half3 bgColor = <span class="number">0</span>, fgColor = <span class="number">0</span>;</span><br><span class="line">             half bgWeight = <span class="number">0</span>, fgWeight = <span class="number">0</span>;</span><br><span class="line">             <span class="comment">//循环采样写定的位置数组</span></span><br><span class="line">             <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; kernelSampleCount; k++) &#123;</span><br><span class="line">                 <span class="comment">//预计采样位置（未归于Texel单位大小）</span></span><br><span class="line">                 float2 o = kernel[k] * _BokehRadius;</span><br><span class="line">                 <span class="comment">//采样位置距离中心的距离（未归于Texel单位大小）</span></span><br><span class="line">                 half radius = <span class="built_in">length</span>(o);</span><br><span class="line">                 <span class="comment">//将采样位置调整至Texel单位大小</span></span><br><span class="line">                 o *= _MainTex_TexelSize.xy;</span><br><span class="line">                 <span class="comment">//采样</span></span><br><span class="line">                 half4 s = <span class="built_in">SAMPLE_TEXTURE2D</span>(_MainTex, sampler_MainTex, i.uv + o);</span><br><span class="line"></span><br><span class="line">                 <span class="comment">//被采样点是背景时</span></span><br><span class="line">                 <span class="comment">//取当前位置的coc值与采样位置的coc值的最小值，这是为了消除前景受背景影响的错误效果</span></span><br><span class="line">                 <span class="comment">//Weigh函数计算权重（即是否真的使用该点的颜色值），coc值越大，权重越大</span></span><br><span class="line">                 half bgw = <span class="built_in">Weigh</span>(<span class="built_in">max</span>(<span class="number">0</span>, <span class="built_in">min</span>(s.a, coc)), radius);</span><br><span class="line">                 bgColor += s.rgb * bgw;</span><br><span class="line">                 bgWeight += bgw;</span><br><span class="line"></span><br><span class="line">                 <span class="comment">//被采样点是前景时就比较简单了，直接计算权重，因为背景受前景影响没问题</span></span><br><span class="line">                 half fgw = <span class="built_in">Weigh</span>(-s.a, radius);</span><br><span class="line">                 fgColor += s.rgb * fgw;</span><br><span class="line">                 fgWeight += fgw;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="comment">//将color映射回[0, 1]</span></span><br><span class="line">             bgColor *= <span class="number">1</span> / (bgWeight + (bgWeight == <span class="number">0</span>));</span><br><span class="line">             fgColor *= <span class="number">1</span> / (fgWeight + (fgWeight == <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">             <span class="comment">//使用PI调节前后景混合程度</span></span><br><span class="line">             half bgfg = <span class="built_in">saturate</span>(fgWeight * <span class="number">3.14159265359</span> / kernelSampleCount);</span><br><span class="line">             half3 color = <span class="built_in">lerp</span>(bgColor, fgColor, bgfg);</span><br><span class="line"></span><br><span class="line">             <span class="keyword">return</span> <span class="built_in">float4</span>(color, bgfg);</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<p>几个值的输出结果：<br>
+<img src="https://e.im5i.com/2021/08/07/1kVyB.png" alt="image.png"></p>
+<p align="center">bgColor（背景图）</p>
+​
+<p><img src="https://e.im5i.com/2021/08/07/1kWmz.png" alt="image.png"></p>
+<p align="center">fgColor（前景图）</p>
+​
+<p><img src="https://e.im5i.com/2021/08/07/1kGTs.png" alt="image.png"></p>
+<p align="center">bgfg（混合权重）</p>
+​
+<p><img src="https://e.im5i.com/2021/08/07/1kbSo.png" alt="image.png"></p>
+<p align="center">color（混合结果）</p>
+​
+<h3 id="对DoF-Buffer进一步模糊">对DoF Buffer进一步模糊</h3>
+<p>这步的代码与第二个Pass几乎一样，只是把取绝对值最大改成了取平均，而结果就是单纯的变模糊了，就不发图了。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">    half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line"></span><br><span class="line">    float4 o = _MainTex_TexelSize.xyxy * float2(<span class="number">-0.5</span>, <span class="number">0.5</span>).xxyy;</span><br><span class="line">    half4 s =</span><br><span class="line">    SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.xy) +</span><br><span class="line">    SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.zy) +</span><br><span class="line">    SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.xw) +</span><br><span class="line">    SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.zw);</span><br><span class="line">    <span class="keyword">return</span> s * <span class="number">0.25</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<h3 id="将DoF-Buffer与原本的FrameBuffer混合">将DoF Buffer与原本的FrameBuffer混合</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span> : SV_Target </span>&#123;</span><br><span class="line">    half4 source = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line">    half coc = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv).r;</span><br><span class="line">    half4 dof = SAMPLE_TEXTURE2D(_DofTex1, sampler_DofTex1, i.uv);</span><br><span class="line"></span><br><span class="line">    half dofStrength = smoothstep(<span class="number">0.1</span>, <span class="number">1</span>, coc);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//dof.a即bgfg，表示是否为前景，而dofStrength表示背景</span></span><br><span class="line">    half3 color = lerp(source.rgb, dof.rgb,dofStrength + dof.a - dofStrength * dof.a);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> float4(color, source.a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个插值方式很奇妙，<code>x + y - xy</code>的形式是怎么凑出来的？<br>
+Catlike如此解释：<br>
+<img src="https://e.im5i.com/2021/08/07/1kzuW.png" alt="image.png"></p>
+<p>总之，当连续两次插值时（一次插值前景，一次插值背景），若第一次插值的比例记为x， 第二次插值的比例记为y，则可以直接合为一次插值，插值因子为 x + y - xy</p>
+<p>不过Catlike后来还是把<br>
+<code>half dofStrength = smoothstep(0.1, 1, coc);</code><br>
+改为了<br>
+<code>half dofStrength = smoothstep(0.1, 1, abs(coc));</code><br>
+他表示不把前景的效果增强一些的话还是会出现一些视觉上的错误……<br>
+​</p>
+<p><img src="https://e.im5i.com/2021/08/07/1k7px.png" alt="image.png"></p>
+<p>总之，我们的景深效果就这样大功告成了。</p>
+<hr>
+<h2 id="总结">总结</h2>
+<p>景深在后处理中也算是比较复杂的一类了（从它需要5个不同的Pass中也可以看出来），GDC中也有不少针对景深的优化以及Trick，但我因为还未做过景深，没有基础理解，所以还未细看过，之后有空也可以研究一下。<br>
+这次比较值得注意的点有那么几个：</p>
+<ol>
+<li>RT能够存储负值</li>
+<li>对深度相关内容的降采样需要特殊处理</li>
+<li>连续两次的插值能够用数学方法优化成一次</li>
+</ol>
+<hr>
+<h2 id="Render-Feature代码-Shader">Render Feature代码 &amp; Shader</h2>
+<p>RenderFeature:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Rendering;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Rendering.Universal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">myDepthOfField</span> : <span class="title">ScriptableRendererFeature</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">System.Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Setting</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> RenderPassEvent passEvent = RenderPassEvent.AfterRenderingTransparents;</span><br><span class="line">        <span class="keyword">public</span> Material DOFMat;</span><br><span class="line">        [<span class="meta">Range(0.1f, 10000f)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">float</span> focusDistance = <span class="number">10f</span>;</span><br><span class="line">        [<span class="meta">Range(0.1f, 10000f)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">float</span> focusRange = <span class="number">3f</span>;</span><br><span class="line">        [<span class="meta">Range(1f, 10f)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">float</span> bokehRadius = <span class="number">4f</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> circleOfConfusionPass = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> preFilterPass = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> bokehPass = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> postFilterPass = <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> combinePass = <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Setting setting = <span class="keyword">new</span> Setting();</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CustomRenderPass</span> : <span class="title">ScriptableRenderPass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> cocID = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> dof1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> dof2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> tempRT = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> Setting setting;</span><br><span class="line">        <span class="keyword">public</span> RenderTargetIdentifier source;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomRenderPass</span>(<span class="params">Setting <span class="keyword">set</span></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            setting = <span class="keyword">set</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            cocID = Shader.PropertyToID(<span class="string">&quot;_CoCTex&quot;</span>);</span><br><span class="line">            dof1 = Shader.PropertyToID(<span class="string">&quot;_DofTex1&quot;</span>);</span><br><span class="line">            dof2 = Shader.PropertyToID(<span class="string">&quot;_DofTex2&quot;</span>);</span><br><span class="line">            tempRT = Shader.PropertyToID(<span class="string">&quot;TemporaryTexture&quot;</span>);</span><br><span class="line">            setting.DOFMat.SetFloat(<span class="string">&quot;_FocusDistance&quot;</span>, setting.focusDistance);</span><br><span class="line">            setting.DOFMat.SetFloat(<span class="string">&quot;_FocusRange&quot;</span>, setting.focusRange);</span><br><span class="line">            setting.DOFMat.SetFloat(<span class="string">&quot;_BokehRadius&quot;</span>, setting.bokehRadius);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params">ScriptableRenderContext context, <span class="keyword">ref</span> RenderingData renderingData</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            CommandBuffer cmd = CommandBufferPool.Get(<span class="string">&quot;DepthOfField&quot;</span>);</span><br><span class="line">            RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;</span><br><span class="line">            <span class="built_in">int</span> width = opaqueDesc.width;</span><br><span class="line">            <span class="built_in">int</span> height = opaqueDesc.height;</span><br><span class="line"></span><br><span class="line">            cmd.GetTemporaryRT(cocID, width, height, <span class="number">0</span>, FilterMode.Bilinear, RenderTextureFormat.RHalf, RenderTextureReadWrite.Linear);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Pass 1, CoC</span></span><br><span class="line">            cmd.Blit(source, cocID, setting.DOFMat, setting.circleOfConfusionPass);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            cmd.GetTemporaryRT(dof1, width / <span class="number">2</span>, height / <span class="number">2</span>, <span class="number">0</span>, FilterMode.Bilinear, opaqueDesc.colorFormat);</span><br><span class="line">            cmd.GetTemporaryRT(dof2, width / <span class="number">2</span>, height / <span class="number">2</span>, <span class="number">0</span>, FilterMode.Bilinear, opaqueDesc.colorFormat);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Pass 2, Pre Filter</span></span><br><span class="line">            cmd.Blit(source, dof1, setting.DOFMat, setting.preFilterPass);</span><br><span class="line">            <span class="comment">//cmd.Blit(dof1, source);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//Pass 3, Bokeh</span></span><br><span class="line">            cmd.Blit(dof1, dof2, setting.DOFMat, setting.bokehPass);</span><br><span class="line">            <span class="comment">//cmd.Blit(dof2, source);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//Pass 4, Post Filter</span></span><br><span class="line">            cmd.Blit(dof2, dof1, setting.DOFMat, setting.postFilterPass);</span><br><span class="line">            <span class="comment">//cmd.Blit(dof1, source);</span></span><br><span class="line"></span><br><span class="line">            cmd.GetTemporaryRT(tempRT, width, height, <span class="number">0</span>, FilterMode.Bilinear, opaqueDesc.colorFormat);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Pass 5, Combine</span></span><br><span class="line">            cmd.Blit(source, tempRT, setting.DOFMat, setting.combinePass);</span><br><span class="line">            cmd.Blit(tempRT, source);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            context.ExecuteCommandBuffer(cmd);</span><br><span class="line">            cmd.ReleaseTemporaryRT(cocID);</span><br><span class="line">            cmd.ReleaseTemporaryRT(dof1);</span><br><span class="line">            cmd.ReleaseTemporaryRT(dof2);</span><br><span class="line">            cmd.ReleaseTemporaryRT(tempRT);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Cleanup any allocated resources that were created during the execution of this render pass.</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">FrameCleanup</span>(<span class="params">CommandBuffer cmd</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CustomRenderPass m_ScriptablePass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Create</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        m_ScriptablePass = <span class="keyword">new</span> CustomRenderPass(setting);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Configures where the render pass should be injected.</span></span><br><span class="line">        m_ScriptablePass.renderPassEvent = setting.passEvent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Here you can inject one or multiple render passes in the renderer.</span></span><br><span class="line">    <span class="comment">// This method is called when setting up the renderer once per-camera.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddRenderPasses</span>(<span class="params">ScriptableRenderer renderer, <span class="keyword">ref</span> RenderingData renderingData</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        m_ScriptablePass.source = renderer.cameraColorTarget;</span><br><span class="line">        <span class="keyword">if</span> (setting.DOFMat != <span class="literal">null</span>)</span><br><span class="line">            renderer.EnqueuePass(m_ScriptablePass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Shader：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">&quot;Custom/myDoF&quot;</span> &#123;</span><br><span class="line">    Properties &#123;</span><br><span class="line">        _MainTex (<span class="string">&quot;Example Texture&quot;</span>, <span class="number">2</span>D) = <span class="string">&quot;white&quot;</span> &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Tags &#123; <span class="string">&quot;RenderType&quot;</span>=<span class="string">&quot;Opaque&quot;</span> <span class="string">&quot;RenderPipeline&quot;</span>=<span class="string">&quot;UniversalRenderPipeline&quot;</span> &#125;</span><br><span class="line">        </span><br><span class="line">        HLSLINCLUDE</span><br><span class="line">        <span class="meta">#include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;</span></span><br><span class="line">        <span class="meta">#include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl&quot;</span></span><br><span class="line">        </span><br><span class="line">        CBUFFER_START(UnityPerMaterial)</span><br><span class="line">        float4 _MainTex_ST, _MainTex_TexelSize;</span><br><span class="line">        <span class="built_in">float</span> _FocusDistance, _FocusRange, _BokehRadius;</span><br><span class="line">        CBUFFER_END</span><br><span class="line">        ENDHLSL</span><br><span class="line">        </span><br><span class="line">        Pass &#123;</span><br><span class="line">            Name <span class="string">&quot;CircleOfConfusionPass&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span>=<span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> a2v &#123;</span><br><span class="line">                float4 positionOS   : POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> v2f &#123;</span><br><span class="line">                float4 positionCS  : SV_POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            TEXTURE2D(_MainTex);</span><br><span class="line">            SAMPLER(sampler_MainTex);</span><br><span class="line">            </span><br><span class="line">            <span class="function">v2f <span class="title">vert</span>(<span class="params">a2v v</span>)</span> &#123;</span><br><span class="line">                v2f o;</span><br><span class="line">                </span><br><span class="line">                o.positionCS = TransformObjectToHClip(v.positionOS.xyz);</span><br><span class="line">                o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="function">half <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">                half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line">                half depth = SampleSceneDepth(i.uv);</span><br><span class="line">                depth = LinearEyeDepth(depth, _ZBufferParams);</span><br><span class="line"></span><br><span class="line">                <span class="built_in">float</span> coc = (depth - _FocusDistance) / _FocusRange;</span><br><span class="line">                coc = clamp(coc, <span class="number">-1</span>, <span class="number">1</span>) * _BokehRadius;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> coc;</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Pass &#123;</span><br><span class="line">            Name <span class="string">&quot;preFilterPass&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span>=<span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> a2v &#123;</span><br><span class="line">                float4 positionOS   : POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> v2f &#123;</span><br><span class="line">                float4 positionCS  : SV_POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            TEXTURE2D(_MainTex);</span><br><span class="line">            SAMPLER(sampler_MainTex);</span><br><span class="line">            TEXTURE2D(_CoCTex);</span><br><span class="line">            SAMPLER(sampler_CoCTex);</span><br><span class="line">            </span><br><span class="line">            <span class="function">v2f <span class="title">vert</span>(<span class="params">a2v v</span>)</span> &#123;</span><br><span class="line">                v2f o;</span><br><span class="line">                </span><br><span class="line">                o.positionCS = TransformObjectToHClip(v.positionOS.xyz);</span><br><span class="line">                o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">                <span class="comment">//-0.5x, -0.5y, 0.5x, 0.5y</span></span><br><span class="line">                float4 o = _MainTex_TexelSize.xyxy * float2(<span class="number">-0.5</span>, <span class="number">0.5</span>).xxyy;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//4个斜向采样</span></span><br><span class="line">                half coc0 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.xy).r;</span><br><span class="line">                half coc1 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.zy).r;</span><br><span class="line">                half coc2 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.xw).r;</span><br><span class="line">                half coc3 = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv + o.zw).r;</span><br><span class="line">                </span><br><span class="line">                half cocMin = min(min(min(coc0, coc1), coc2), coc3);</span><br><span class="line">                half cocMax = max(max(max(coc0, coc1), coc2), coc3);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//将绝对值最大的写入A通道</span></span><br><span class="line">                half coc = cocMax &gt;= -cocMin ? cocMax : cocMin;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> half4(SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv).rgb, coc);</span><br><span class="line">                <span class="keyword">return</span> coc;</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Pass &#123;</span><br><span class="line">            Name <span class="string">&quot;bokehPass&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span>=<span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">define</span> BOKEH_KERNEL_MEDIUM</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> a2v &#123;</span><br><span class="line">                float4 positionOS   : POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> v2f &#123;</span><br><span class="line">                float4 positionCS  : SV_POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            TEXTURE2D(_MainTex);</span><br><span class="line">            SAMPLER(sampler_MainTex);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="function">v2f <span class="title">vert</span>(<span class="params">a2v v</span>)</span> &#123;</span><br><span class="line">                v2f o;</span><br><span class="line">                </span><br><span class="line">                o.positionCS = TransformObjectToHClip(v.positionOS.xyz);</span><br><span class="line">                o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// From https://github.com/Unity-Technologies/PostProcessing/</span></span><br><span class="line">            <span class="comment">// blob/v2/PostProcessing/Shaders/Builtins/DiskKernels.hlsl</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">if</span> defined(BOKEH_KERNEL_SMALL)</span></span><br><span class="line">                <span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">int</span> kernelSampleCount = <span class="number">16</span>;</span><br><span class="line">                <span class="keyword">static</span> <span class="keyword">const</span> float2 kernel[kernelSampleCount] = &#123;</span><br><span class="line">                    float2(<span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.54545456</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.16855472</span>, <span class="number">0.5187581</span>),</span><br><span class="line">                    float2(<span class="number">-0.44128203</span>, <span class="number">0.3206101</span>),</span><br><span class="line">                    float2(<span class="number">-0.44128197</span>, <span class="number">-0.3206102</span>),</span><br><span class="line">                    float2(<span class="number">0.1685548</span>, <span class="number">-0.5187581</span>),</span><br><span class="line">                    float2(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.809017</span>, <span class="number">0.58778524</span>),</span><br><span class="line">                    float2(<span class="number">0.30901697</span>, <span class="number">0.95105654</span>),</span><br><span class="line">                    float2(<span class="number">-0.30901703</span>, <span class="number">0.9510565</span>),</span><br><span class="line">                    float2(<span class="number">-0.80901706</span>, <span class="number">0.5877852</span>),</span><br><span class="line">                    float2(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">-0.80901694</span>, <span class="number">-0.58778536</span>),</span><br><span class="line">                    float2(<span class="number">-0.30901664</span>, <span class="number">-0.9510566</span>),</span><br><span class="line">                    float2(<span class="number">0.30901712</span>, <span class="number">-0.9510565</span>),</span><br><span class="line">                    float2(<span class="number">0.80901694</span>, <span class="number">-0.5877853</span>),</span><br><span class="line">                &#125;;</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">elif</span> defined (BOKEH_KERNEL_MEDIUM)</span></span><br><span class="line">                <span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">int</span> kernelSampleCount = <span class="number">22</span>;</span><br><span class="line">                <span class="keyword">static</span> <span class="keyword">const</span> float2 kernel[kernelSampleCount] = &#123;</span><br><span class="line">                    float2(<span class="number">0</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.53333336</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.3325279</span>, <span class="number">0.4169768</span>),</span><br><span class="line">                    float2(<span class="number">-0.11867785</span>, <span class="number">0.5199616</span>),</span><br><span class="line">                    float2(<span class="number">-0.48051673</span>, <span class="number">0.2314047</span>),</span><br><span class="line">                    float2(<span class="number">-0.48051673</span>, <span class="number">-0.23140468</span>),</span><br><span class="line">                    float2(<span class="number">-0.11867763</span>, <span class="number">-0.51996166</span>),</span><br><span class="line">                    float2(<span class="number">0.33252785</span>, <span class="number">-0.4169769</span>),</span><br><span class="line">                    float2(<span class="number">1</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">0.90096885</span>, <span class="number">0.43388376</span>),</span><br><span class="line">                    float2(<span class="number">0.6234898</span>, <span class="number">0.7818315</span>),</span><br><span class="line">                    float2(<span class="number">0.22252098</span>, <span class="number">0.9749279</span>),</span><br><span class="line">                    float2(<span class="number">-0.22252095</span>, <span class="number">0.9749279</span>),</span><br><span class="line">                    float2(<span class="number">-0.62349</span>, <span class="number">0.7818314</span>),</span><br><span class="line">                    float2(<span class="number">-0.90096885</span>, <span class="number">0.43388382</span>),</span><br><span class="line">                    float2(<span class="number">-1</span>, <span class="number">0</span>),</span><br><span class="line">                    float2(<span class="number">-0.90096885</span>, <span class="number">-0.43388376</span>),</span><br><span class="line">                    float2(<span class="number">-0.6234896</span>, <span class="number">-0.7818316</span>),</span><br><span class="line">                    float2(<span class="number">-0.22252055</span>, <span class="number">-0.974928</span>),</span><br><span class="line">                    float2(<span class="number">0.2225215</span>, <span class="number">-0.9749278</span>),</span><br><span class="line">                    float2(<span class="number">0.6234897</span>, <span class="number">-0.7818316</span>),</span><br><span class="line">                    float2(<span class="number">0.90096885</span>, <span class="number">-0.43388376</span>),</span><br><span class="line">                &#125;;</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//CoC值减去Bokeh大小，让光圈越边缘变得柔和</span></span><br><span class="line">            <span class="function">half <span class="title">Weigh</span> (<span class="params">half coc, half radius</span>)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> saturate((coc - radius + <span class="number">2</span>) / <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">                <span class="comment">//当前位置的coc值</span></span><br><span class="line">                half coc = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex,i.uv).a;</span><br><span class="line"></span><br><span class="line">                half3 bgColor = <span class="number">0</span>, fgColor = <span class="number">0</span>;</span><br><span class="line">                half bgWeight = <span class="number">0</span>, fgWeight = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">//循环采样写定的位置数组</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> k = <span class="number">0</span>; k &lt; kernelSampleCount; k++) &#123;</span><br><span class="line">                    <span class="comment">//预计采样位置（未归于Texel单位大小）</span></span><br><span class="line">                    float2 o = kernel[k] * _BokehRadius;</span><br><span class="line">                    <span class="comment">//采样位置距离中心的距离（未归于Texel单位大小）</span></span><br><span class="line">                    half radius = length(o);</span><br><span class="line">                    <span class="comment">//将采样位置调整至Texel单位大小</span></span><br><span class="line">                    o *= _MainTex_TexelSize.xy;</span><br><span class="line">                    <span class="comment">//采样</span></span><br><span class="line">                    half4 s = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//被采样点是背景时</span></span><br><span class="line">                    <span class="comment">//取当前位置的coc值与采样位置的coc值的最小值，这是为了消除前景受背景影响的错误效果</span></span><br><span class="line">                    <span class="comment">//Weigh函数计算权重（即是否真的使用该点的颜色值），coc值越大，权重越大</span></span><br><span class="line">                    half bgw = Weigh(max(<span class="number">0</span>, min(s.a, coc)), radius);</span><br><span class="line">                    bgColor += s.rgb * bgw;</span><br><span class="line">                    bgWeight += bgw;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//被采样点是前景时就比较简单了，直接计算权重，因为背景受前景影响没问题</span></span><br><span class="line">                    half fgw = Weigh(-s.a, radius);</span><br><span class="line">                    fgColor += s.rgb * fgw;</span><br><span class="line">                    fgWeight += fgw;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//将color映射回[0, 1]</span></span><br><span class="line">                bgColor *= <span class="number">1</span> / (bgWeight + (bgWeight == <span class="number">0</span>));</span><br><span class="line">                fgColor *= <span class="number">1</span> / (fgWeight + (fgWeight == <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">                <span class="comment">//使用PI调节前后景混合程度</span></span><br><span class="line">                half bgfg = saturate(fgWeight * <span class="number">3.14159265359</span> / kernelSampleCount);</span><br><span class="line">                half3 color = lerp(bgColor, fgColor, bgfg);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> float4(color, bgfg);</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line">        &#125;</span><br><span class="line">        Pass &#123;</span><br><span class="line">            Name <span class="string">&quot;postFilterPass&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span>=<span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> a2v &#123;</span><br><span class="line">                float4 positionOS   : POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> v2f &#123;</span><br><span class="line">                float4 positionCS  : SV_POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            TEXTURE2D(_MainTex);</span><br><span class="line">            SAMPLER(sampler_MainTex);</span><br><span class="line">            </span><br><span class="line">            <span class="function">v2f <span class="title">vert</span>(<span class="params">a2v v</span>)</span> &#123;</span><br><span class="line">                v2f o;</span><br><span class="line"></span><br><span class="line">                o.positionCS = TransformObjectToHClip(v.positionOS.xyz);</span><br><span class="line">                o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">                half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line"></span><br><span class="line">                float4 o = _MainTex_TexelSize.xyxy * float2(<span class="number">-0.5</span>, <span class="number">0.5</span>).xxyy;</span><br><span class="line">                half4 s =</span><br><span class="line">                SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.xy) +</span><br><span class="line">                SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.zy) +</span><br><span class="line">                SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.xw) +</span><br><span class="line">                SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv + o.zw);</span><br><span class="line">                <span class="keyword">return</span> s * <span class="number">0.25</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Pass &#123;</span><br><span class="line">            Name <span class="string">&quot;Combine&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span>=<span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> a2v &#123;</span><br><span class="line">                float4 positionOS   : POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">struct</span> v2f &#123;</span><br><span class="line">                float4 positionCS  : SV_POSITION;</span><br><span class="line">                float2 uv           : TEXCOORD0;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            TEXTURE2D(_MainTex);</span><br><span class="line">            SAMPLER(sampler_MainTex);</span><br><span class="line">            TEXTURE2D(_DofTex1);</span><br><span class="line">            SAMPLER(sampler_DofTex1);</span><br><span class="line">            TEXTURE2D(_CoCTex);</span><br><span class="line">            SAMPLER(sampler_CoCTex);</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">            <span class="function">v2f <span class="title">vert</span>(<span class="params">a2v v</span>)</span> &#123;</span><br><span class="line">                v2f o;</span><br><span class="line">                </span><br><span class="line">                o.positionCS = TransformObjectToHClip(v.positionOS.xyz);</span><br><span class="line">                o.uv = TRANSFORM_TEX(v.uv, _MainTex);</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line">                half4 source = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);</span><br><span class="line">                half coc = SAMPLE_TEXTURE2D(_CoCTex, sampler_CoCTex, i.uv).r;</span><br><span class="line">                half4 dof = SAMPLE_TEXTURE2D(_DofTex1, sampler_DofTex1, i.uv);</span><br><span class="line"></span><br><span class="line">                half dofStrength = smoothstep(<span class="number">0.1</span>, <span class="number">1</span>, abs(coc));</span><br><span class="line">                half3 color = lerp(source.rgb, dof.rgb, dofStrength + dof.a - dofStrength * dof.a);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> float4(color, source.a);</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/en/深爱世人的恶鬼/" data-toggle="tooltip" data-placement="top" title="深爱世人的恶鬼">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      感谢您阅读完本文，若您认为本文对您有所帮助，可以将其分享给其他人；若您发现文章对您的利益产生侵害，请联系作者进行删除。
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=【URP Shader】Depth of Field - 景深&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/【URP Shader】Depth of Field - 景深/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E6%99%AF%E6%B7%B1"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么会有景深</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#URP%E5%AE%9E%E8%B7%B5"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">URP实践</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CoC-Buffer"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">CoC Buffer</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%AF%B9CoC-Buffer%E7%9A%84%E9%99%8D%E9%87%87%E6%A0%B7"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">对CoC Buffer的降采样</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%AE%A1%E7%AE%97Bokeh"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">计算Bokeh</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%AF%B9DoF-Buffer%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%A8%A1%E7%B3%8A"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">对DoF Buffer进一步模糊</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B0%86DoF-Buffer%E4%B8%8E%E5%8E%9F%E6%9C%AC%E7%9A%84FrameBuffer%E6%B7%B7%E5%90%88"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">将DoF Buffer与原本的FrameBuffer混合</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Render-Feature%E4%BB%A3%E7%A0%81-Shader"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Render Feature代码 &amp; Shader</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+      <!-- Sidebar Container -->
+      <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+        <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+            
+            <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+            
+            <a class="tag" href="/tags/#URP" title="URP">URP</a>
+            
+            <a class="tag" href="/tags/#后处理" title="后处理">后处理</a>
+            
+          </div>
+        </section>
+        
+
+        <!-- Friends Blog -->
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
+
+
+		<!-- Footer (contains ThemeColor、viewer) -->
+		<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          
+
+          
+            <li>
+              <a target="_blank" href="https://github.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="https://twitter.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+
+          
+            <li>
+              <a target="_blank" href="https://www.zhihu.com/people/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse">知</i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="http://weibo.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+        </ul>
+        <p class="copyright text-muted">
+          Copyright &copy;
+          FlowingCrescent
+          2021
+          <br>
+          Theme by
+          <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
+          <span style="display: inline-block; margin: 0 5px;">
+            <i class="fa fa-heart"></i>
+          </span>
+          re-Ported by
+          <a target="_blank" rel="noopener" href="https://v-vincen.life/">Live My Life</a>
+          |
+          <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=V-Vincen&repo=V-Vincen.github.io&type=star&count=true"></iframe>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a id="rocket" href="#top" class=""></a>
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="/js/hux-blog.min.js"></script>
+  <!-- catalog -->
+  <script async="true" type="text/javascript" src="/js/catalog.js"></script>
+  <!-- totop(rocket) -->
+  <script async="true" type="text/javascript" src="/js/totop.js"></script>
+
+  
+    <!-- Busuanzi JavaScript -->
+    <script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <!-- Scroll start -->
+    <script async="async" type="text/javascript" src="/js/scroll.js"></script>
+    <!-- Scroll end -->
+  
+
+  
+
+  
+
+  
+    <!-- ribbon -->
+    <script type="text/javascript" src="/js/ribbonDynamic.js"></script>
+  
+
+  
+
+
+
+
+
+
+  <!-- viewer start -->
+  <!-- viewer start (Picture preview) -->
+  
+    <script async="async" type="text/javascript" src="/js/viewer/viewer.min.js"></script>
+    <script async="async" type="text/javascript" src="/js/viewer/pic-viewer.js"></script>
+  
+
+  <!-- viewer end -->
+
+
+<script>
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function (e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  // fastClick.js
+  async ("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    var $nav = document.querySelector("nav");
+    if ($nav)
+      FastClick.attach($nav);
+    }
+  )
+</script>
+
+<!-- Because of the native support for backtick-style fenced code blocks right within the Markdown is landed in Github Pages, From V1.6, There is no need for Highlight.js, so Huxblog drops it officially. -
+https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0 - https://help.github.com/articles/creating-and-highlighting-code-blocks/ -->
+<!-- <script> async ("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function () { hljs.initHighlightingOnLoad(); }) </script> <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet"> -->
+
+<!-- jquery.tagcloud.js -->
+<!-- <script> // only load tagcloud.js in tag.html if ($('#tag_cloud').length !== 0) { async ("http://flowingcrescent.github.io/js/jquery.tagcloud.js", function () { $.fn.tagcloud.defaults = { // size: { start: 1, end: 1, unit: 'em' }, color: {
+start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </script> -->
+
+
+		<!-- Search -->
+		
+		<div class="popup search-popup local-search-popup">
+  <span class="popup-btn-close">
+    ESC
+  </span>
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-9 col-md-offset-1"> -->
+      <div class="col-lg-9 col-lg-offset-1 col-md-10 col-md-offset-1 local-search-content">
+
+        <div class="local-search-header clearfix">
+
+          <div class="local-search-input-wrapper">
+            <span class="search-icon">
+              <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
+            </span>
+            <input autocomplete="off" placeholder="SEARCH..." type="text" id="local-search-input">
+          </div>
+        </div>
+        <div id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <script src="/js/ziploader.js"></script>
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+    // get search zip version
+    $.get('/searchVersion.json?t=' + (+new Date()), function (res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson() {
+      initLoad(['/search.flv'], {
+        loadOptions: {
+          success: function (obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function (e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions: {
+          'json': 'application/json'
+        }
+      })
+    }
+    // search function;
+    var searchFunc = function (search_id, content_id) {
+      'use strict';
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      // console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function () {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function (data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title
+              ? data.title.trim()
+              : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content
+              ? data.content.trim().replace(/<[^>]+>/g, "")
+              : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+
+            var date = data.date;
+            var dateTime = date.replace(/T/, " ").replace(/.000Z/, "");
+            var imgUrl = data.header_img;
+            
+
+
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function (keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0,
+                  position = [],
+                  index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+            // show search results
+            if (isMatch) {
+              // sort index by position of keyword
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+              // merge hits into slices
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+                  // move to next position of hit
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {hits: hits, start: start, end: end, searchTextCount: searchTextCountInSlice};
+              }
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if (start < 0) {
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if (end > content.length) {
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+              // sort slices in content by search text's count and hits' count
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+              // select top N slices in content
+              var upperBound = parseInt('1');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+              // highlight title and content
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+              var resultItem = '';
+
+              // if (slicesOfTitle.length != 0) {   resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>"; } else {   resultItem += "<li><a target='_blank' href='" +
+              // articleUrl + "' class='search-result-title'>" + title + "</a>"; } slicesOfContent.forEach(function (slice) {   resultItem += "<a target='_blank' href='" + articleUrl + "'><p class=\"search-result\">" + highlightKeyword(content, slice) +
+              // "...</p></a>"; }); resultItem += "</li>";
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              } else {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + title + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              }
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+              resultItem += "</div><div class='search-result-right'><img class='media-image' src='" + imgUrl + "' width='64px' height='48px'></img></div></a>";
+
+              resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
+            }
+          })
+        };
+
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<div class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</div>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+      // remove loading animation
+      $('body').css('overflow', '');
+      proceedsearch();
+    }
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      var _con = document.querySelector(".local-search-content");
+      if (_con) {
+        if (!_con.contains(e.target)) {
+          onPopupClose();
+        }
+      }
+    });
+  </script>
+
+
+		
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
