@@ -229,8 +229,6 @@
 
           
           
-          
-          
           <li>
             <a href="/about/">
               
@@ -250,6 +248,8 @@
               
             </a>
           </li>
+          
+          
           
           
           
@@ -670,11 +670,11 @@
     
     
     
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="10">Real Time Rendering</a>
-    
-    
-    
     <a href="/tags/#Blog相关" title="Blog相关" rel="1">Blog相关</a>
+    
+    
+    
+    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="10">Real Time Rendering</a>
     
     
     
@@ -851,12 +851,12 @@
       <li>ACG相关</li>
     </a>
     
-    <a href="/categories/#技术相关">
-      <li>技术相关</li>
-    </a>
-    
     <a href="/categories/#个人杂记">
       <li>个人杂记</li>
+    </a>
+    
+    <a href="/categories/#技术相关">
+      <li>技术相关</li>
     </a>
     
   </ul>
@@ -1368,5 +1368,20 @@ start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </scrip
 
 
 		
-	</body>
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
 </html>
