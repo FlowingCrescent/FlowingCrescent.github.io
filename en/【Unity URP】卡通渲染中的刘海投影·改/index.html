@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag (contains Google-Analytics、Baidu-Tongji)-->
+<head>
+  <!-- Google Analytics -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxx-xx"></script>
+    <script type="text/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-xxxxxx-xx');
+    </script>
+  
+
+  <!-- Baidu Tongji -->
+  
+    <script type="text/javascript">
+      // Originial
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  <!-- Baidu Push -->
+  
+    <script>
+      (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+      })();
+    </script>
+  
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <meta name="google-site-verification" content="lxDfCplOZbIzjhG34NuQBgu2gdyRlAtMB4utP5AgEBc"/>
+  <meta name="baidu-site-verification" content="PpzM9WxOJU"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="FlowingCrescent&#39;s blog"/>
+  <meta name="keyword" content="FlowingCrescent, 流朔, Sand and Foam, gamedev  blog, Blog"/>
+  <link rel="shortcut icon" href="/img/avatar/Lloyd.jpg"/>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+
+  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/beantech.min.css"/>
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css"/>
+    <link rel="stylesheet" href="/css/widget.css"/>
+    <link rel="stylesheet" href="/css/rocket.css"/>
+    <link rel="stylesheet" href="/css/signature.css"/>
+    <link rel="stylesheet" href="/css/catalog.css"/>
+    <link rel="stylesheet" href="/css/livemylife.css"/>
+
+    
+      <!-- wave start -->
+      <link rel="stylesheet" href="/css/wave.css"/>
+      <!-- wave end -->
+    
+
+    
+      <!-- top start (article top hot config) -->
+      <link rel="stylesheet" href="/css/top.css"/>
+      <!-- top end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/scroll.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+      <!-- viewer start (Picture preview) -->
+      <link rel="stylesheet" href="/css/viewer.min.css"/>
+      <!-- viewer end -->
+    
+
+    
+      <!-- Search start -->
+      <link rel="stylesheet" href="/css/search.css"/>
+      <!-- Search end -->
+    
+
+    
+      <!-- ThemeColor start -->
+      <link rel="stylesheet" href="/css/themecolor.css"/>
+      <!-- ThemeColor end -->
+    
+
+    
+
+    
+  
+
+  <!-- Custom Fonts -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <!-- Hux change font-awesome CDN to qiniu -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Hux Delete, sad but pending in China <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'> <link
+  href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/ css'> -->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+
+  <!-- ga & ba script hoook -->
+  <link rel="canonical" href="http://flowingcrescent.github.io/en/【Unity URP】卡通渲染中的刘海投影·改/">
+  <title>
+    
+      【Unity URP】卡通渲染中的刘海投影·改 - Sand and Foam - FlowingCrescent&#39;s Blog
+    
+  </title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+
+	<body ontouchstart="" class="body--light body--light">
+
+
+		<!-- ThemeColor -->
+		
+		<!-- ThemeColor -->
+<style type="text/css">
+  .body--light {
+    --light-mode: none;
+    --dark-mode: block;
+  }
+  .body--dark {
+    --light-mode: block;
+    --dark-mode: none;
+  }
+  i.mdui-icon.material-icons.light-mode {
+    display: var(--light-mode);
+  }
+  i.mdui-icon.material-icons.dark-mode {
+    display: var(--dark-mode);
+  }
+</style>
+<div class="toggle" onclick="document.body.classList.toggle('body--dark')">
+  <i class="mdui-icon material-icons light-mode"></i>
+  <i class="mdui-icon material-icons dark-mode"></i>
+</div>
+<script>
+  //getCookieValue
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b
+      ? b.pop()
+      : '';
+  }
+  let themeMode = 'light';
+  if (getCookieValue('sb-color-mode') && (getCookieValue('sb-color-mode') !== themeMode)) {
+    let dbody = document.body.classList;
+    themeMode === 'dark' ? dbody.remove('body--dark') : dbody.add('body--dark');
+  }
+
+  //setCookieValue
+  var toggleBtn = document.querySelector(".toggle");
+  toggleBtn.addEventListener("click", function () {
+    var e = document.body.classList.contains("body--dark");
+    var cookieString = e
+      ? "dark"
+      : "light";
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+    document.cookie = "sb-color-mode=" + cookieString + ";expires=" + exp.toGMTString() + ";path=/";
+  });
+</script>
+
+		
+
+		<!-- Gitter -->
+		
+
+		<!-- Navigation (contains search)-->
+		<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Sand and Foam</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Known Issue, found by Hux: <nav>'s height woule be hold on by its content. so, when navbar scale out, the <nav> will cover tags. also mask any touch event of tags, unfortunately. -->
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/">HOME</a>
+          </li>
+
+          
+          
+          
+          
+          <li>
+            <a href="/about/">
+              
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              ARCHIVES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/categories/">
+              
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a class="popup-trigger">
+              <span class="search-icon"></span>SEARCH</a>
+          </li>
+          
+
+          <!-- LangSelect -->
+          
+        </ul>
+      </div>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- progress -->
+<div id="progress">
+  <div class="line" style="width: 0%;"></div>
+</div>
+
+<script>
+  // Drop Bootstarp low-performance Navbar Use customize navbar with high-quality material design animation in high-perf jank-free CSS3 implementation
+  var $body = document.body;
+  var $toggle = document.querySelector('.navbar-toggle');
+  var $navbar = document.querySelector('#huxblog_navbar');
+  var $collapse = document.querySelector('.navbar-collapse');
+
+  $toggle.addEventListener('click', handleMagic)
+
+  function handleMagic(e) {
+    if ($navbar.className.indexOf('in') > 0) {
+      // CLOSE
+      $navbar.className = " ";
+      // wait until animation end.
+      setTimeout(function() {
+        // prevent frequently toggle
+        if ($navbar.className.indexOf('in') < 0) {
+          $collapse.style.height = "0px"
+        }
+      }, 400)
+    } else {
+      // OPEN
+      $collapse.style.height = "auto"
+      $navbar.className += " in";
+    }
+  }
+</script>
+
+
+		<!-- Post Header (contains intro-header、signature、wordcount、busuanzi、waveoverlay) -->
+		<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+
+  <style type="text/css">
+    .body--light {
+      /* intro-header */
+      --intro-header-background-image-url-home: url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: url('https://s.im5i.com/2021/06/05/et36v.png');
+      --intro-header-background-image-url-page: url('/https://s.im5i.com/2021/06/05/et36v.png');
+    }
+    .body--dark {
+      --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/newhome_bg.jpg');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://s.im5i.com/2021/06/05/et36v.png');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://s.im5i.com/2021/06/05/et36v.png');
+    }
+
+    header.intro-header {
+       /*post*/
+        background-image: var(--intro-header-background-image-url-post);
+        /* background-image: url('https://s.im5i.com/2021/06/05/et36v.png'); */
+      
+    }
+
+    
+  </style>
+
+
+
+
+
+<header class="intro-header">
+  <!-- Signature -->
+  <div id="signature">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+              
+              <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+              
+              <a class="tag" href="/tags/#URP" title="URP">URP</a>
+              
+              <a class="tag" href="/tags/#卡通渲染" title="卡通渲染">卡通渲染</a>
+              
+            </div>
+            <h1>【Unity URP】卡通渲染中的刘海投影·改</h1>
+            <h2 class="subheading"></h2>
+            <span class="meta">
+              Posted by FlowingCrescent on
+              2021-10-03
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">8</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">1.8k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- waveoverlay start -->
+  <div class="preview-overlay">
+    <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="preview-parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--gentle-wave1)></use>
+        <use xlink:href="#gentle-wave" x="48" y="3" fill=var(--gentle-wave2)></use>
+        <use xlink:href="#gentle-wave" x="48" y="5" fill=var(--gentle-wave3)></use>
+        <use xlink:href="#gentle-wave" x="48" y="7" fill=var(--gentle-wave)></use>
+      </g>
+    </svg>
+  </div>
+  <!-- waveoverlay end -->
+  
+
+</header>
+
+
+
+		<!-- Main Content (Post contains
+	Pager、
+	tip、
+	socialshare、
+	gitalk、gitment、disqus-comment、
+	Catalog、
+	Sidebar、
+	Featured-Tags、
+	Friends Blog、
+	anchorjs、
+	) -->
+		<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+
+        <h2 id="前言">前言</h2>
+<p>距离上一篇关于刘海投影的文章也过了一年有余<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/232450616">https://zhuanlan.zhihu.com/p/232450616</a>，笔者也在这期间积累了一些工作经验，于是在实习结束后的某一天灵感迸现，发现刘海投影应有更加简单且高效的做法。<br>
+​</p>
+<h3 id="效果实现原理">效果实现原理</h3>
+<p>以模板测试为核心，原理变得更为简单了：<br>
+在绘制面部时写入特定的模板值X，然后在不透明物体绘制完之后再绘制一次头发，此时根据屏幕空间的光照方向对它的裁剪空间坐标进行偏移，并只在模板值X时通过模板测试。</p>
+<p>不熟悉模板测试的读者可以参考以下文章：<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28506264">https://zhuanlan.zhihu.com/p/28506264</a></p>
+<p>本文目录为：</p>
+<ol>
+<li>使用Render Feature额外绘制头发</li>
+<li>改良-以性能换效果</li>
+<li>结语</li>
+</ol>
+<p>​</p>
+<h3 id="注">注</h3>
+<p>笔者所用Unity版本为2019.4.6f1，URP 7.3.1<br>
+笔者经验甚少，才浅学疏，难以避免文中出现错误，还请大家不吝斧正，只求轻喷。<br>
+​</p>
+<h2 id="使用Render-Feature额外绘制头发">使用Render Feature额外绘制头发</h2>
+<p>我们要先在画脸的时候写入Stencil Buffer，因此角色Shader中需添加：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> Properties</span><br><span class="line">   &#123;</span><br><span class="line">   	<span class="comment">//......</span></span><br><span class="line">       </span><br><span class="line">   	[<span class="built_in">Header</span>(Stencil)]</span><br><span class="line">       _StencilRef (<span class="string">&quot;_StencilRef&quot;</span>, <span class="built_in">Range</span>(<span class="number">0</span>, <span class="number">255</span>)) = <span class="number">0</span></span><br><span class="line">       [<span class="built_in">Enum</span>(UnityEngine.Rendering.CompareFunction)]_StencilComp (<span class="string">&quot;_StencilComp&quot;</span>, Float) = <span class="number">0</span></span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"><span class="comment">//......</span></span><br><span class="line"></span><br><span class="line">	Pass</span><br><span class="line">       &#123;</span><br><span class="line">           Name <span class="string">&quot;BaseCel&quot;</span></span><br><span class="line">           Tags &#123; <span class="string">&quot;LightMode&quot;</span> = <span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line">           Stencil</span><br><span class="line">           &#123;</span><br><span class="line">               Ref [_StencilRef]</span><br><span class="line">               Comp [_StencilComp]</span><br><span class="line">               Pass replace</span><br><span class="line">           &#125;</span><br><span class="line">           </span><br><span class="line">           <span class="comment">//......</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://e.im5i.com/2021/10/03/HMGnX.png" alt="image.png"><br>
+然后面部材质球面板中如此设置，意为面部必然通过模板测试，且会将模板值改为128<br>
+128这数字是笔者随便挑的，没什么特殊含义。<br>
+​</p>
+<p>​</p>
+<p>之后便添加一个RenderFeature，专门用于绘制头发<br>
+关于一些细节的基础内容笔者已在上一篇文章中阐述过，这次就直接贴代码，不过多解释了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Rendering;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Rendering.Universal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CelHairShadow_Stencil</span> :</span> ScriptableRendererFeature</span><br><span class="line">&#123;</span><br><span class="line">    [System.Serializable]</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Setting</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">public</span> Color hairShadowColor;</span><br><span class="line">        [<span class="built_in">Range</span>(<span class="number">0</span>, <span class="number">0.1f</span>)]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> offset = <span class="number">0.02f</span>;</span><br><span class="line">        [<span class="built_in">Range</span>(<span class="number">0</span>, <span class="number">255</span>)]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> stencilReference = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">public</span> CompareFunction stencilComparison;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> RenderPassEvent passEvent = RenderPassEvent.BeforeRenderingTransparents;</span><br><span class="line">        <span class="keyword">public</span> LayerMask hairLayer;</span><br><span class="line">        [<span class="built_in">Range</span>(<span class="number">1000</span>, <span class="number">5000</span>)]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> queueMin = <span class="number">2000</span>;</span><br><span class="line"></span><br><span class="line">        [<span class="built_in">Range</span>(<span class="number">1000</span>, <span class="number">5000</span>)]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> queueMax = <span class="number">3000</span>;</span><br><span class="line">        <span class="keyword">public</span> Material material;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Setting setting = <span class="keyword">new</span> <span class="built_in">Setting</span>();</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CustomRenderPass</span> :</span> ScriptableRenderPass</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> ShaderTagId shaderTag = <span class="keyword">new</span> <span class="built_in">ShaderTagId</span>(<span class="string">&quot;UniversalForward&quot;</span>);</span><br><span class="line">        <span class="keyword">public</span> Setting setting;</span><br><span class="line"></span><br><span class="line">        FilteringSettings filtering;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomRenderPass</span><span class="params">(Setting setting)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.setting = setting;</span><br><span class="line"></span><br><span class="line">            RenderQueueRange queue = <span class="keyword">new</span> <span class="built_in">RenderQueueRange</span>();</span><br><span class="line">            queue.lowerBound = Mathf.<span class="built_in">Min</span>(setting.queueMax, setting.queueMin);</span><br><span class="line">            queue.upperBound = Mathf.<span class="built_in">Max</span>(setting.queueMax, setting.queueMin);</span><br><span class="line">            filtering = <span class="keyword">new</span> <span class="built_in">FilteringSettings</span>(queue, setting.hairLayer);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Configure</span><span class="params">(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            setting.material.<span class="built_in">SetColor</span>(<span class="string">&quot;_Color&quot;</span>, setting.hairShadowColor);</span><br><span class="line">            setting.material.<span class="built_in">SetInt</span>(<span class="string">&quot;_StencilRef&quot;</span>, setting.stencilReference);</span><br><span class="line">            setting.material.<span class="built_in">SetInt</span>(<span class="string">&quot;_StencilComp&quot;</span>, (<span class="keyword">int</span>)setting.stencilComparison);</span><br><span class="line">            setting.material.<span class="built_in">SetFloat</span>(<span class="string">&quot;_Offset&quot;</span>, setting.offset);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span><span class="params">(ScriptableRenderContext context, ref RenderingData renderingData)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            var draw = <span class="built_in">CreateDrawingSettings</span>(shaderTag, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);</span><br><span class="line">            draw.overrideMaterial = setting.material;</span><br><span class="line">            draw.overrideMaterialPassIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//获取主光源方向，并转换到相机空间</span></span><br><span class="line">            var visibleLight = renderingData.cullResults.visibleLights[<span class="number">0</span>];</span><br><span class="line">            Matrix4x4 worldToScreen = renderingData.cameraData.camera.worldToCameraMatrix;</span><br><span class="line">            Vector2 lightDirSS = renderingData.cameraData.camera.worldToCameraMatrix * (visibleLight.localToWorldMatrix.<span class="built_in">GetColumn</span>(<span class="number">2</span>));</span><br><span class="line">            setting.material.<span class="built_in">SetVector</span>(<span class="string">&quot;_LightDirSS&quot;</span>, lightDirSS);</span><br><span class="line"></span><br><span class="line">            CommandBuffer cmd = CommandBufferPool.<span class="built_in">Get</span>(<span class="string">&quot;DrawHairShadow&quot;</span>);</span><br><span class="line">            context.<span class="built_in">ExecuteCommandBuffer</span>(cmd);</span><br><span class="line">            context.<span class="built_in">DrawRenderers</span>(renderingData.cullResults, ref draw, ref filtering);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">FrameCleanup</span><span class="params">(CommandBuffer cmd)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CustomRenderPass m_ScriptablePass;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Create</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        m_ScriptablePass = <span class="keyword">new</span> <span class="built_in">CustomRenderPass</span>(setting);</span><br><span class="line"></span><br><span class="line">        m_ScriptablePass.renderPassEvent = setting.passEvent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AddRenderPasses</span><span class="params">(ScriptableRenderer renderer, ref RenderingData renderingData)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (setting.material != null)</span><br><span class="line">            renderer.<span class="built_in">EnqueuePass</span>(m_ScriptablePass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://e.im5i.com/2021/10/03/HMbGf.png" alt="image.png"><br>
+在外面的面板中如此设置即可，当然头发还是得设置一下Layer为Hair<br>
+​</p>
+<p>之后便是指定Material，使用这个Shader即可，可见内容相当简单</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">&quot;Custom/HairShadow&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    Properties</span><br><span class="line">    &#123;</span><br><span class="line">        _Color (<span class="string">&quot;Color&quot;</span>, Color) = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        _Offset (<span class="string">&quot;Offset&quot;</span>, <span class="keyword">float</span>) = <span class="number">0.02</span></span><br><span class="line">        [<span class="built_in">Header</span>(Stencil)]</span><br><span class="line">        _StencilRef (<span class="string">&quot;_StencilRef&quot;</span>, <span class="built_in">Range</span>(<span class="number">0</span>, <span class="number">255</span>)) = <span class="number">0</span></span><br><span class="line">        [<span class="built_in">Enum</span>(UnityEngine.Rendering.CompareFunction)]_StencilComp (<span class="string">&quot;_StencilComp&quot;</span>, <span class="keyword">float</span>) = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    SubShader</span><br><span class="line">    &#123;</span><br><span class="line">        Tags &#123; <span class="string">&quot;RenderType&quot;</span> = <span class="string">&quot;Opaque&quot;</span> <span class="string">&quot;RenderPipeline&quot;</span> = <span class="string">&quot;UniversalRenderPipeline&quot;</span> &#125;</span><br><span class="line">        </span><br><span class="line">        HLSLINCLUDE</span><br><span class="line">        <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;</span></span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CBUFFER_START</span>(UnityPerMaterial)</span><br><span class="line">        float4 _Color;</span><br><span class="line">        <span class="keyword">float</span> _Offset;</span><br><span class="line">        float4 _LightDirSS;</span><br><span class="line">        CBUFFER_END</span><br><span class="line">        ENDHLSL</span><br><span class="line"></span><br><span class="line">        Pass</span><br><span class="line">        &#123;</span><br><span class="line">            Name <span class="string">&quot;HairShadow&quot;</span></span><br><span class="line">            Tags &#123; <span class="string">&quot;LightMode&quot;</span> = <span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">            </span><br><span class="line">            Stencil</span><br><span class="line">            &#123;</span><br><span class="line">                Ref [_StencilRef]</span><br><span class="line">                Comp [_StencilComp]</span><br><span class="line">                Pass keep</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ZTest LEqual</span><br><span class="line">            ZWrite Off</span><br><span class="line">            </span><br><span class="line">            HLSLPROGRAM</span><br><span class="line"></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            struct a2v</span><br><span class="line">            &#123;</span><br><span class="line">                float4 positionOS: POSITION;</span><br><span class="line">                float4 color: COLOR;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            <span class="class"><span class="keyword">struct</span> <span class="title">v2f</span></span></span><br><span class="line"><span class="class">            &#123;</span></span><br><span class="line">                float4 positionCS: SV_POSITION;</span><br><span class="line">                float4 color: COLOR;</span><br><span class="line">            &#125;;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="function">v2f <span class="title">vert</span><span class="params">(a2v v)</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                v2f o;</span><br><span class="line">                </span><br><span class="line">                VertexPositionInputs positionInputs = <span class="built_in">GetVertexPositionInputs</span>(v.positionOS.xyz);</span><br><span class="line">                o.positionCS = positionInputs.positionCS;</span><br><span class="line"></span><br><span class="line">                float2 lightOffset = <span class="built_in">normalize</span>(_LightDirSS.xy);</span><br><span class="line">                <span class="comment">//乘以_ProjectionParams.x是考虑裁剪空间y轴是否因为DX与OpenGL的差异而被翻转</span></span><br><span class="line">                <span class="comment">//参照https://docs.unity3d.com/Manual/SL-PlatformDifferences.html</span></span><br><span class="line">                <span class="comment">//&quot;Similar to Texture coordinates, the clip space coordinates differ between Direct3D-like and OpenGL-like platforms&quot;</span></span><br><span class="line">                lightOffset.y = lightOffset.y * _ProjectionParams.x;</span><br><span class="line">                o.positionCS.xy += lightOffset * _Offset;</span><br><span class="line"></span><br><span class="line">                o.color = v.color;</span><br><span class="line">                <span class="keyword">return</span> o;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span>: SV_Target</span></span><br><span class="line"><span class="function">            &#123;</span></span><br><span class="line">                <span class="keyword">return</span> _Color;</span><br><span class="line">            &#125;</span><br><span class="line">            ENDHLSL</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>于是我们就可以获得一个面部有刘海投影的效果了<br>
+<img src="https://e.im5i.com/2021/10/03/HM7i3.png" alt="image.png"><br>
+<img src="https://e.im5i.com/2021/10/03/HMzNM.png" alt="image.png"><br>
+<img src="https://e.im5i.com/2021/10/03/HMemv.png" alt="image.png"><br>
+​</p>
+<p>由于自带的深度测试，直接避免了上一篇文章中的许多问题。<br>
+​</p>
+<p>这样做的优缺点也比较显然：<br>
+优点</p>
+<ol>
+<li>规避了额外绘制Buffer，无需切换RT</li>
+<li>精度与使用RT写入深度进行深度判断相比更加高</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>“阴影”的绘制与光照着色及人物贴图完全无关，导致在许多情况下会显得突兀</li>
+</ol>
+<p>那么笔者也截几个图给大家看看这个缺点比较明显的时候<br>
+<img src="https://e.im5i.com/2021/10/03/HMS6p.png" alt="image.png"><br>
+<img src="https://e.im5i.com/2021/10/03/HMJTG.png" alt="image.png"><br>
+说白了就是因为刘海投影只使用了一个暗色，而面部是用面部贴图乘以暗部颜色的，只要面部贴图不是赛璐璐风格的纯色，便无法避免两者在结果上的差异。<br>
+​</p>
+<h2 id="改良-以性能换效果">改良-以性能换效果</h2>
+<p>问题不就是出在咱们没有本来的贴图颜色吗，那大不了再画一次脸，这次直接就是贴图色乘以暗色，总没问题了吧。<br>
+那么我们将头发的Pass修改一下，使用<code>ColorMask 0</code>让它不再画入颜色，且将模板值重置为0</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Stencil</span><br><span class="line">&#123;</span><br><span class="line">    Ref [_StencilRef]</span><br><span class="line">    Comp [_StencilComp]</span><br><span class="line">    Pass Zero</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ZTest LEqual</span><br><span class="line">ZWrite Off</span><br><span class="line">ColorMask <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>于是我们给这个Shader再添加一个Pass，用于重新渲染面部：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">Pass</span><br><span class="line">&#123;</span><br><span class="line">    Name <span class="string">&quot;HairShadow_Face&quot;</span></span><br><span class="line">    Tags &#123; <span class="string">&quot;LightMode&quot;</span> = <span class="string">&quot;UniversalForward&quot;</span> &#125;</span><br><span class="line">    </span><br><span class="line">    Stencil</span><br><span class="line">    &#123;</span><br><span class="line">        Ref <span class="number">0</span></span><br><span class="line">        Comp [_StencilComp]</span><br><span class="line">        Pass keep</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ZTest LEqual</span><br><span class="line">    ZWrite Off</span><br><span class="line">    </span><br><span class="line">    HLSLPROGRAM</span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">    </span><br><span class="line">    struct a2v</span><br><span class="line">    &#123;</span><br><span class="line">        float4 positionOS: POSITION;</span><br><span class="line">        float4 color: COLOR;</span><br><span class="line">        float2 uv: TEXCOORD;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">v2f</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        float4 positionCS: SV_POSITION;</span><br><span class="line">        float4 color: COLOR;</span><br><span class="line">        float2 uv: TEXCOORD0;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function">v2f <span class="title">vert</span><span class="params">(a2v v)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        v2f o;</span><br><span class="line">        </span><br><span class="line">        VertexPositionInputs positionInputs = <span class="built_in">GetVertexPositionInputs</span>(v.positionOS.xyz);</span><br><span class="line">        o.positionCS = positionInputs.positionCS;</span><br><span class="line"></span><br><span class="line">        o.color = v.color;</span><br><span class="line">        o.uv = v.uv;</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">TEXTURE2D</span>(_FaceTex);</span><br><span class="line">    <span class="built_in">SAMPLER</span>(sampler_FaceTex);</span><br><span class="line"></span><br><span class="line">    <span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span>: SV_Target</span></span><br><span class="line"><span class="function">    &#123;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">SAMPLE_TEXTURE2D</span>(_FaceTex, sampler_FaceTex, i.uv) * _Color;</span><br><span class="line">    &#125;</span><br><span class="line">    ENDHLSL</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在RenderFeature中增加面部贴图的指定，以及面部的再绘制：<br>
+​</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Setting</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">	<span class="comment">//......</span></span><br><span class="line">       <span class="keyword">public</span> Texture faceTex;</span><br><span class="line">       <span class="keyword">public</span> LayerMask faceLayer;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//......</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomRenderPass</span> :</span> ScriptableRenderPass</span><br><span class="line">   &#123;</span><br><span class="line">       FilteringSettings filtering2;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="title">CustomRenderPass</span><span class="params">(Setting setting)</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           <span class="comment">//......</span></span><br><span class="line">           filtering2 = <span class="keyword">new</span> <span class="built_in">FilteringSettings</span>(queue, setting.faceLayer);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span><span class="params">(ScriptableRenderContext context, ref RenderingData renderingData)</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">		<span class="comment">//......</span></span><br><span class="line">           setting.material.<span class="built_in">SetTexture</span>(<span class="string">&quot;_FaceTex&quot;</span>, setting.faceTex);</span><br><span class="line">           draw.overrideMaterialPassIndex = <span class="number">1</span>;</span><br><span class="line">           context.<span class="built_in">DrawRenderers</span>(renderingData.cullResults, ref draw, ref filtering2);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>于是现在，我们终于能获得一个相对理想的结果了<br>
+<img src="https://e.im5i.com/2021/10/03/HMaeY.png" alt="image.png"><br>
+当然，这样结果比较理想也只是因为面部的渲染算法比较简单，如果还有边缘光或者其他什么操作，大概就得真的重新用角色材质重新画一次了。</p>
+<p>那么最后放个效果视频<br>
+​<iframe src="//player.bilibili.com/player.html?aid=248472972&bvid=BV1tU4y1c7tw" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%; height: 500px; max-width: 100%；align:center; padding:20px 0;"> </iframe>​</p>
+<p>​</p>
+<h2 id="结语">结语</h2>
+<p>模板测试的存在感比较低，大家似乎都不易想到用它来实现这个Trick，而之前需要额外绘制RT的方法如今优化后应当也相对容易落地了些。<br>
+希望本文能够给在卡通渲染领域耕耘的人们带来些许启发。<br>
+​</p>
+<p>参考资料<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28506264">俊虎：Unity ShaderLab 模板缓存（Stencil Buffer） 基本概念</a><br>
+<a href="https://link.zhihu.com/?target=https%3A//docs.unity3d.com/Manual/SL-PlatformDifferences.html">Writing shaders for different graphics APIs</a></p>
+
+
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/en/NoiseBall系列学习笔记/" data-toggle="tooltip" data-placement="top" title="NoiseBall系列学习笔记">Next Post &rarr;</a>
+          </li>
+          
+        </ul>
+
+        
+        <!-- tip start -->
+        <!-- tip -->
+<!-- tip start -->
+<div class="tip">
+  <p>
+    
+      感谢您阅读完本文，若您认为本文对您有所帮助，可以将其分享给其他人；若您发现文章对您的利益产生侵害，请联系作者进行删除。
+    
+  </p>
+</div>
+<!-- tip end -->
+
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=【Unity URP】卡通渲染中的刘海投影·改&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/【Unity URP】卡通渲染中的刘海投影·改/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 1. gitalk comment -->
+
+
+<!-- 2. gitment comment -->
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
+      </div>
+
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%95%88%E6%9E%9C%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">效果实现原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%B3%A8"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">注</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8Render-Feature%E9%A2%9D%E5%A4%96%E7%BB%98%E5%88%B6%E5%A4%B4%E5%8F%91"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">使用Render Feature额外绘制头发</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%94%B9%E8%89%AF-%E4%BB%A5%E6%80%A7%E8%83%BD%E6%8D%A2%E6%95%88%E6%9E%9C"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">改良-以性能换效果</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">结语</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+
+      <!-- Sidebar Container -->
+      <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+        <!-- Featured Tags -->
+        
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+            
+            <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+            
+            <a class="tag" href="/tags/#URP" title="URP">URP</a>
+            
+            <a class="tag" href="/tags/#卡通渲染" title="卡通渲染">卡通渲染</a>
+            
+          </div>
+        </section>
+        
+
+        <!-- Friends Blog -->
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
+
+
+		<!-- Footer (contains ThemeColor、viewer) -->
+		<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center">
+          
+
+          
+            <li>
+              <a target="_blank" href="https://github.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="https://twitter.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+
+          
+            <li>
+              <a target="_blank" href="https://www.zhihu.com/people/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse">知</i>
+                </span>
+              </a>
+            </li>
+          
+
+          
+            <li>
+              <a target="_blank" href="http://weibo.com/FlowingCrescent">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          
+
+        </ul>
+        <p class="copyright text-muted">
+          Copyright &copy;
+          FlowingCrescent
+          2021
+          <br>
+          Theme by
+          <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
+          <span style="display: inline-block; margin: 0 5px;">
+            <i class="fa fa-heart"></i>
+          </span>
+          re-Ported by
+          <a target="_blank" rel="noopener" href="https://v-vincen.life/">Live My Life</a>
+          |
+          <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=V-Vincen&repo=V-Vincen.github.io&type=star&count=true"></iframe>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a id="rocket" href="#top" class=""></a>
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="/js/hux-blog.min.js"></script>
+  <!-- catalog -->
+  <script async="true" type="text/javascript" src="/js/catalog.js"></script>
+  <!-- totop(rocket) -->
+  <script async="true" type="text/javascript" src="/js/totop.js"></script>
+
+  
+    <!-- Busuanzi JavaScript -->
+    <script async="async" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <!-- Scroll start -->
+    <script async="async" type="text/javascript" src="/js/scroll.js"></script>
+    <!-- Scroll end -->
+  
+
+  
+
+  
+
+  
+    <!-- ribbon -->
+    <script type="text/javascript" src="/js/ribbonDynamic.js"></script>
+  
+
+  
+
+
+
+
+
+
+  <!-- viewer start -->
+  <!-- viewer start (Picture preview) -->
+  
+    <script async="async" type="text/javascript" src="/js/viewer/viewer.min.js"></script>
+    <script async="async" type="text/javascript" src="/js/viewer/pic-viewer.js"></script>
+  
+
+  <!-- viewer end -->
+
+
+<script>
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function (e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  // fastClick.js
+  async ("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function () {
+    var $nav = document.querySelector("nav");
+    if ($nav)
+      FastClick.attach($nav);
+    }
+  )
+</script>
+
+<!-- Because of the native support for backtick-style fenced code blocks right within the Markdown is landed in Github Pages, From V1.6, There is no need for Highlight.js, so Huxblog drops it officially. -
+https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0 - https://help.github.com/articles/creating-and-highlighting-code-blocks/ -->
+<!-- <script> async ("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function () { hljs.initHighlightingOnLoad(); }) </script> <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet"> -->
+
+<!-- jquery.tagcloud.js -->
+<!-- <script> // only load tagcloud.js in tag.html if ($('#tag_cloud').length !== 0) { async ("http://flowingcrescent.github.io/js/jquery.tagcloud.js", function () { $.fn.tagcloud.defaults = { // size: { start: 1, end: 1, unit: 'em' }, color: {
+start: '#bbbbee', end: '#0085a1' } }; $('#tag_cloud a').tagcloud(); }) } </script> -->
+
+
+		<!-- Search -->
+		
+		<div class="popup search-popup local-search-popup">
+  <span class="popup-btn-close">
+    ESC
+  </span>
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-9 col-md-offset-1"> -->
+      <div class="col-lg-9 col-lg-offset-1 col-md-10 col-md-offset-1 local-search-content">
+
+        <div class="local-search-header clearfix">
+
+          <div class="local-search-input-wrapper">
+            <span class="search-icon">
+              <i class="fa fa-search fa-lg" style="margin: 25px 10px 25px 20px;"></i>
+            </span>
+            <input autocomplete="off" placeholder="SEARCH..." type="text" id="local-search-input">
+          </div>
+        </div>
+        <div id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <script src="/js/ziploader.js"></script>
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+    // get search zip version
+    $.get('/searchVersion.json?t=' + (+new Date()), function (res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson() {
+      initLoad(['/search.flv'], {
+        loadOptions: {
+          success: function (obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function (e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions: {
+          'json': 'application/json'
+        }
+      })
+    }
+    // search function;
+    var searchFunc = function (search_id, content_id) {
+      'use strict';
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      // console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function () {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function (data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title
+              ? data.title.trim()
+              : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content
+              ? data.content.trim().replace(/<[^>]+>/g, "")
+              : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+
+            var date = data.date;
+            var dateTime = date.replace(/T/, " ").replace(/.000Z/, "");
+            var imgUrl = data.header_img;
+            
+
+
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function (keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0,
+                  position = [],
+                  index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+            // show search results
+            if (isMatch) {
+              // sort index by position of keyword
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+              // merge hits into slices
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+                  // move to next position of hit
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {hits: hits, start: start, end: end, searchTextCount: searchTextCountInSlice};
+              }
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if (start < 0) {
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if (end > content.length) {
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+              // sort slices in content by search text's count and hits' count
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+              // select top N slices in content
+              var upperBound = parseInt('1');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+              // highlight title and content
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+              var resultItem = '';
+
+              // if (slicesOfTitle.length != 0) {   resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>"; } else {   resultItem += "<li><a target='_blank' href='" +
+              // articleUrl + "' class='search-result-title'>" + title + "</a>"; } slicesOfContent.forEach(function (slice) {   resultItem += "<a target='_blank' href='" + articleUrl + "'><p class=\"search-result\">" + highlightKeyword(content, slice) +
+              // "...</p></a>"; }); resultItem += "</li>";
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              } else {
+                resultItem += "<a target='_blank' href='" + articleUrl + "' class='search-result'><div class='search-result-left'><div class='search-result-title'>" + title + "</div><time class='search-result-date'>" + dateTime + "</time>";
+              }
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<p class=\"search-result-content\">" + highlightKeyword(content, slice) + "...</p>";
+              });
+              resultItem += "</div><div class='search-result-right'><img class='media-image' src='" + imgUrl + "' width='64px' height='48px'></img></div></a>";
+
+              resultItems.push({item: resultItem, searchTextCount: searchTextCount, hitCount: hitCount, id: resultItems.length});
+            }
+          })
+        };
+
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<div class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</div>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+      // remove loading animation
+      $('body').css('overflow', '');
+      proceedsearch();
+    }
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function (e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function (e) {
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 && $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      var _con = document.querySelector(".local-search-content");
+      if (_con) {
+        if (!_con.contains(e.target)) {
+          onPopupClose();
+        }
+      }
+    });
+  </script>
+
+
+		
+	<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
