@@ -134,10 +134,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://flowingcrescent.github.io/en/关于透视插值/">
+  <link rel="canonical" href="http://flowingcrescent.github.io/en/【Unity-URP】Unity Procedural Skybox Shader/">
   <title>
     
-      关于透视插值 Vertex -&gt; Frag - Sand and Foam - FlowingCrescent&#39;s Blog
+      【Unity URP】Unity Procedural Skybox Shader - Sand and Foam - FlowingCrescent&#39;s Blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -333,19 +333,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/newhome_bg.jpg');
-      --intro-header-background-image-url-post: url('https://e.im5i.com/2021/08/11/1vtSD.jpg');
-      --intro-header-background-image-url-page: url('/https://e.im5i.com/2021/08/11/1vtSD.jpg');
+      --intro-header-background-image-url-post: url('https://m1.im5i.com/2021/11/28/UrYnwA.gif');
+      --intro-header-background-image-url-page: url('/https://m1.im5i.com/2021/11/28/UrYnwA.gif');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/newhome_bg.jpg');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://e.im5i.com/2021/08/11/1vtSD.jpg');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://e.im5i.com/2021/08/11/1vtSD.jpg');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://m1.im5i.com/2021/11/28/UrYnwA.gif');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://m1.im5i.com/2021/11/28/UrYnwA.gif');
     }
 
     header.intro-header {
        /*post*/
         background-image: var(--intro-header-background-image-url-post);
-        /* background-image: url('https://e.im5i.com/2021/08/11/1vtSD.jpg'); */
+        /* background-image: url('https://m1.im5i.com/2021/11/28/UrYnwA.gif'); */
       
     }
 
@@ -370,12 +370,14 @@
               
               <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
               
+              <a class="tag" href="/tags/#URP" title="URP">URP</a>
+              
             </div>
-            <h1>关于透视插值 Vertex -&gt; Frag</h1>
+            <h1>【Unity URP】Unity Procedural Skybox Shader</h1>
             <h2 class="subheading"></h2>
             <span class="meta">
               Posted by FlowingCrescent on
-              2021-08-11
+              2021-11-28
             </span>
 
 
@@ -383,11 +385,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">2</span> Minutes
+              Estimated Reading Time <span class="post-count">9</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">628</span> In Total
+              Words <span class="post-count">2k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -449,43 +451,109 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="问题起因">问题起因</h2>
-<p>最近我有一位朋友研究Colin的<a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPUnlitScreenSpaceDecalShader">Screen Space Decal</a>时，对其中的一个部分表示非常不解：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line">o.viewRayOS.w = viewRay.z;</span><br><span class="line">o.viewRayOS.xyz = <span class="built_in">mul</span>((float3x3)ViewToObjectMatrix, viewRay);</span><br><span class="line">.....</span><br><span class="line">    </span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line">i.viewRayOS /= i.viewRayOS.w;</span><br></pre></td></tr></table></figure>
-<p>他很想知道为什么<code>i.viewRayOS /= i.viewRayOS.w</code>这一步不能在vertex shader中做，如果改在vertex中做就会出错。<br>
+        <h2 id="前言">前言</h2>
+<p>虽然我已经写过不少Shader，但程序化Skybox相关的shader至今还未接触，因此这次先从Unity自带的Procedural  Skybox入手研究，打算之后写个自己的风格化Skybox。<br>
 ​</p>
-<p>如果在Vertex Shader中除去w值，则会与期望情况产生误差，在此我将误差可视化</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line"><span class="comment">//错误的做法</span></span><br><span class="line">o.viewRayOSDiv = <span class="built_in">float4</span>(o.viewRayOS.xyz/o.viewRayOS.w, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line"><span class="comment">//正确的做法</span></span><br><span class="line">i.viewRayOS /= i.viewRayOS.w;</span><br><span class="line"><span class="keyword">float</span> errorValue = <span class="built_in">length</span>(i.viewRayOS.xyz - i.viewRayOSDiv.xyz) * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">float4</span>(errorValue, errorValue, errorValue, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>结果如图：<br>
-<img src="https://e.im5i.com/2021/08/11/1v6ws.png" alt="image.png"><br>
-可见当frag在顶点位置时计算结果是一致的，但越远离顶点，误差可能越大。</p>
-<p>诶，那我如果不是除w，而是除以一个定值呢？</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line">o.viewRayOSDiv = <span class="built_in">float4</span>(o.viewRayOS.xyz/<span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line">i.viewRayOS /= <span class="number">10</span>;</span><br><span class="line"><span class="keyword">float</span> errorValue = <span class="built_in">length</span>(i.viewRayOS.xyz - i.viewRayOSDiv.xyz) * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">float4</span>(errorValue, errorValue, errorValue, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="https://e.im5i.com/2021/08/11/1vy5z.png" alt="image.png"><br>
-嗯，没有误差。</p>
-<p>那么，为什么除以w不行，而除以一个定值就没问题呢？</p>
-<h2 id="透视校正插值">透视校正插值</h2>
-<p>一个值从顶点着色器到片元着色器之间经历了什么？没错，就是光栅化，而光栅化会让一个值经过透视校正插值<br>
-具体可参考此文：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144331875">https://zhuanlan.zhihu.com/p/144331875</a><br>
-<img src="https://e.im5i.com/2021/08/11/1vOdo.png" alt="image.png"></p>
-<p align="center">直接使用三角形屏幕空间坐标进行重心坐标插值会出现错误</p>
-​
-<p><img src="https://e.im5i.com/2021/08/11/1vQcW.png" alt="image.png"><br>
-很显然，这个变换是非线性的，那么先做除法还是后做除法会导致结果不一样……但这样解释大概还是有些难懂。<br>
+<h2 id="Unity的自带程序化天空盒">Unity的自带程序化天空盒</h2>
+<p><img src="https://m1.im5i.com/2021/11/28/UrLu93.gif" alt="unity skybox.gif"><br>
+Unity Procedural Skybox</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/TwoTailsGames/Unity-Built-in-Shaders/blob/master/DefaultResourcesExtra/Skybox-Procedural.shader">Unity自带的程序化Skybox Github</a><br>
 ​</p>
-<p>那么我们将计算简化后，自己代入值计算看看：<br>
-假设X，Y是向量值，ZA，ZB为两个顶点的深度，w则与代码中含义相同。<br>
-<img src="https://e.im5i.com/2021/08/11/1vwXQ.png" alt="image.png"><br>
-左边为在frag中进行除法获得的值，而右边则是在vertex中进行除法获得的值，<br>
-很显然两个值并不会相等。</p>
-<p>而为什么接近顶点时误差会小也很好解释，<br>
-当片元相当接近顶点，则α、β、γ中有一个值为极为接近1，其余两个值则接近0，此时不等式两边会长得极为相似（但只有特殊情况是真正相等，其余情况只是相差较小），读者不妨自己算算看。<br>
+<h3 id="如何在天空盒上画一个简单的太阳">如何在天空盒上画一个简单的太阳</h3>
+<p>这个shader非常神奇，绝大部分计算都在vert阶段进行。<br>
+当材质的<strong>Sun设置为Simple时</strong>，天空盒便不会有大气散射效果，太阳就只是一个圆，就先从这最简单的部分开始理解吧。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> SKYBOX_SUNDISK != SKYBOX_SUNDISK_NONE</span></span><br><span class="line">	<span class="keyword">if</span> (y &lt; <span class="number">0.0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		col += IN.sunColor * calcSunAttenuation(_WorldSpaceLightPos0.xyz, -ray);</span><br><span class="line">	&#125;</span><br><span class="line">      <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> half4(col, <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure>
+<p>frag中的这一部分绘制了太阳<br>
 ​</p>
-<p>而除以一个定值为什么无所谓，也相当好理解了：<br>
-<img src="https://e.im5i.com/2021/08/11/1vRyx.png" alt="image.png"><br>
-这怎么想都是相等的。<br>
+<p>若我们将核心的那行代码改成<br>
+<code>col = 10 * calcSunAttenuation(_WorldSpaceLightPos0.xyz, -ray);</code><br>
+效果如图：<br>
+<img src="https://m1.im5i.com/2021/11/28/UrLI5v.png" alt="image.png"><br>
+那么显然，本来的<code>IN.sunColor</code>只是输入了一个颜色值，最重要的太阳绘制就是<br>
+<code>calcSunAttenuation(_WorldSpaceLightPos0.xyz, -ray)</code>负责。<br>
+那么分析一下输入的参数<br>
+<code>_WorldSpaceLightPos0.xyz</code>，如果是直接光，这xyz便是直接光的世界空间光照方向，也就是太阳光线照向我们的方向。<br>
+​</p>
+<p>而ray则是从vertex中传入的值<br>
+in vertex：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the atmosphere)</span></span><br><span class="line">float3 eyeRay = normalize(mul((float3x3)unity_ObjectToWorld, v.vertex.xyz));               </span><br><span class="line"></span><br><span class="line"><span class="comment">//......</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> SKYBOX_SUNDISK == SKYBOX_SUNDISK_SIMPLE</span></span><br><span class="line">OUT.rayDir = half3(-eyeRay);</span><br></pre></td></tr></table></figure>
+<p><code>eyeRay</code>是从世界原点指向天空盒顶点，而<code>rayDir</code>则方向相反。<br>
+​</p>
+<p>那么让我们仔细看看calSunAttenuation这个函数，只看<code>SKYBOX_SUNDISK_SIMPLE</code>的部分</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Calculates the sun shape</span></span><br><span class="line"><span class="function">half <span class="title">calcSunAttenuation</span>(<span class="params">half3 lightPos, half3 ray</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> SKYBOX_SUNDISK == SKYBOX_SUNDISK_SIMPLE</span></span><br><span class="line">	half3 delta = lightPos - ray;</span><br><span class="line">	half dist = length(delta);</span><br><span class="line">	half spot = <span class="number">1.0</span> - smoothstep(<span class="number">0.0</span>, _SunSize, dist);</span><br><span class="line">	<span class="keyword">return</span> spot * spot;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> // SKYBOX_SUNDISK_HQ</span></span><br><span class="line">	half focusedEyeCos = pow(saturate(dot(lightPos, ray)), _SunSizeConvergence);</span><br><span class="line">	<span class="keyword">return</span> getMiePhase(-focusedEyeCos, focusedEyeCos * focusedEyeCos);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实有了这俩向量之后，无非就是看俩向量之间的“距离”相差多少了，还是比较简单的。<br>
 ​</p>
 <p>​</p>
+<h3 id="天空与地面颜色的计算">天空与地面颜色的计算</h3>
+<p>在vertex shader中，使用eyeRay.y的正负来区分是天空还是地面<br>
+天空部分的颜色计算：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (eyeRay.y &gt;= <span class="number">0.0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Sky</span></span><br><span class="line">    <span class="comment">// Calculate the length of the &quot;atmosphere&quot;</span></span><br><span class="line">    <span class="comment">//比较神秘的一个计算，计算结果为地平线开始到某一仰角，计算结果从小到大，而之后随仰角增加而递减</span></span><br><span class="line">    far = sqrt(kOuterRadius2 + kInnerRadius2 * eyeRay.y * eyeRay.y - kInnerRadius2) - kInnerRadius * eyeRay.y;</span><br><span class="line">    float3 pos = cameraPos + far * eyeRay;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Calculate the ray&#x27;s starting position, then calculate its scattering offset</span></span><br><span class="line">    <span class="built_in">float</span> height = kInnerRadius + kCameraHeight;</span><br><span class="line">    <span class="built_in">float</span> depth = exp(kScaleOverScaleDepth * (-kCameraHeight));</span><br><span class="line">    <span class="built_in">float</span> startAngle = dot(eyeRay, cameraPos) / height;</span><br><span class="line">    <span class="built_in">float</span> startOffset = depth * scale(startAngle);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initialize the scattering loop variables</span></span><br><span class="line">    <span class="built_in">float</span> sampleLength = far / kSamples;</span><br><span class="line">    <span class="built_in">float</span> scaledLength = sampleLength * kScale;</span><br><span class="line">    float3 sampleRay = eyeRay * sampleLength;</span><br><span class="line">    float3 samplePoint = cameraPos + sampleRay * <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Now loop through the sample rays</span></span><br><span class="line">    float3 frontColor = float3(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>; i&lt;<span class="built_in">int</span>(kSamples); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">float</span> height = length(samplePoint);</span><br><span class="line">        <span class="built_in">float</span> depth = exp(kScaleOverScaleDepth * (kInnerRadius - height));</span><br><span class="line">        <span class="built_in">float</span> lightAngle = dot(_WorldSpaceLightPos0.xyz, samplePoint) / height;</span><br><span class="line">        <span class="built_in">float</span> cameraAngle = dot(eyeRay, samplePoint) / height;</span><br><span class="line">        <span class="built_in">float</span> scatter = (startOffset +depth * (scale(lightAngle) - scale(cameraAngle)));</span><br><span class="line">        float3 attenuate = exp(-clamp(scatter, <span class="number">0.0</span>, kMAX_SCATTER) * (kInvWavelength * kKr4PI + kKm4PI));</span><br><span class="line"></span><br><span class="line">        frontColor += attenuate * (depth * scaledLength);</span><br><span class="line">        samplePoint += sampleRay;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Finally, scale the Mie and Rayleigh colors and set up the varying variables for the pixel shader</span></span><br><span class="line">    cIn = frontColor * (kInvWavelength * kKrESun);</span><br><span class="line">    cOut = frontColor * kKmESun;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概是因为这些计算比较基于物理，直接看通常看不懂在干什么，我也只能大致看看每个参数的值了，<br>
+<code>far</code>的计算结果如图：<br>
+<img src="https://m1.im5i.com/2021/11/28/UrLXwG.png" alt="image.png"></p>
+<p><code>depth</code>的计算结果如图：<br>
+<img src="https://m1.im5i.com/2021/11/28/UrLAnp.png" alt="image.png"><br>
+​</p>
+<p><code>startOffset</code>的计算结果如图：<br>
+<img src="https://m1.im5i.com/2021/11/28/UrL3B7.png" alt="image.png"><br>
+之后的计算可以说非常看不懂了，也就作罢，已经知道大概的流程了。<br>
+​</p>
+<p>​</p>
+<h2 id="自定义风格化天空盒">自定义风格化天空盒</h2>
+<p>先参考这一篇文章：<a target="_blank" rel="noopener" href="https://jannikboysen.de/reaching-for-the-stars/">Reaching for the stars</a> 试试做个大概。<br>
+​</p>
+<p>这文用的是Shader Graph，而我当然还是要手写Shader，于是第一个小坑就来了<br>
+如果Pass中填了LightMode，如：<br>
+<code>Tags &#123; &quot;LightMode&quot;=&quot;UniversalForward&quot; &#125;</code><br>
+那么天空盒将会没效果，将这行注释掉就正常了。<br>
+也不能填<code>SRPDefaultUnlit</code>，虽然按理来说不填LightMode会默认是这个Mode。<br>
+<a target="_blank" rel="noopener" href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@10.1/manual/urp-shaders/urp-shaderlab-pass-tags.html">关于URP的LightMode官方文档</a><br>
+​</p>
+<h3 id="重建天空盒的UV">重建天空盒的UV</h3>
+<p>如果使用天空盒原本的uv，采样这张uv check图的话，结果会非常悲剧<br>
+<img src="https://m1.im5i.com/2021/11/28/UrLHiY.png" alt="checker-map_tho.png"><br>
+<img src="https://m1.im5i.com/2021/11/28/UrLPcw.png" alt="image.png"><br>
+​</p>
+<p>于是将世界坐标从三维笛卡尔坐标系转换到<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%90%83%E5%9D%90%E6%A0%87%E7%B3%BB/8315363?fr=aladdin">球坐标系</a>来作为uv。<br>
+其中<code>atan2</code>第一次见到，看了下<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Atan2">wiki</a>，原来就是二维笛卡尔坐标系中输入一个点的坐标，它输出对应的弧度值。<br>
+atan的范围在(-π, π]，因此将其除以2π后映射到(-0.5, 0.5].<br>
+而asin(1)的结果为π/2，将返回值除以π/2，最终结果会映射到[-1, 1]，与方位角的映射值不一样是为了之后做渐变时方便一些。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">float3 normalizePosWS = normalize(i.positionWS);</span><br><span class="line">float2 sphereUV = float2(atan2(normalizePosWS.x, normalizePosWS.z)/PI2,asin(normalizePosWS.y)/PI);</span><br></pre></td></tr></table></figure>
+<p><img src="https://m1.im5i.com/2021/11/28/UrYDyF.png" alt="image.png"><br>
+现在用这计算出的uv来采样贴图，效果就还可以了。</p>
+<h3 id="天空颜色渐变">天空颜色渐变</h3>
+<p>直接用之前的uv.y来做文章就可以了</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">half4 skyColor = lerp(_HorizonColor, _SkyColor, smoothstep(<span class="number">-0.1</span>, _GradientLength, sphereUV.y));</span><br></pre></td></tr></table></figure>
+<p><img src="https://m1.im5i.com/2021/11/28/UrYijK.png" alt="image.png"><br>
+只不过现在渐变比较难以调整，还是用代码生成ramp图来取值吧。<br>
+​</p>
+<p>新建了一个<code>SkyController</code>类，打算之后都用这个脚本进行材质的调整和其他相关数据的控制</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line">[<span class="meta">ExecuteInEditMode</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SkyController</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Gradient daytimeSkyGradient;</span><br><span class="line">    <span class="keyword">public</span> Gradient nightSkyGradient;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> resolution = <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">public</span> Material skyboxMat;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">string</span> _DaytimeSkyGradientTex = <span class="string">&quot;_DaytimeSkyGradientTex&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">string</span> _SunDirection = <span class="string">&quot;_SunDirection&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        GenerateSkyGradientColorToShader(daytimeSkyGradient, _DaytimeSkyGradientTex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">GenerateSkyGradientColorToShader</span>(<span class="params">Gradient gradient, <span class="built_in">string</span> texName</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Texture2D tex = <span class="keyword">new</span> Texture2D(resolution, <span class="number">1</span>, TextureFormat.ARGB32, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">        tex.filterMode = FilterMode.Bilinear;</span><br><span class="line">        tex.wrapMode = TextureWrapMode.Clamp;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; resolution; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            tex.SetPixel(i, <span class="number">0</span>, gradient.Evaluate(i * <span class="number">1.0f</span> / resolution).linear);</span><br><span class="line">        &#125;</span><br><span class="line">        tex.Apply(<span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        skyboxMat.SetTexture(texName, tex);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>代码很简单，就是用Unity自带的Gradient生成渐变图传入材质，注意的是这时候没生成贴图资产，也不需要伽马校正，因此传入的是Linear值，其他就不多解释了。<br>
+<img src="https://m1.im5i.com/2021/11/28/UrYUmd.png" alt="image.png"><br>
+​</p>
+<h3 id="绘制太阳">绘制太阳</h3>
+<p>这时候就使用Unity自带的方法绘制太阳，Unity直接取用了LightDirection，但实际上之后做昼夜切换的话晚上也是要有（从上往下照明的）直接光的，但是晚上总不能有太阳吧。<br>
+看了下Azure Sky的实现，发现它是用脚本根据昼夜时间来操作空物体的Transform，比如白天的时候空物体和光的旋转相同，晚上则另行计算，再传入空物体的Transform.forward方向给材质，那确实将太阳与光照方向解耦了。<br>
+​</p>
+<p>直接抄Unity的那个太阳计算就行了，而且既然抄就抄高级版，有米氏散射的：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">        <span class="comment">// Calculates the Mie phase function</span></span><br><span class="line">        <span class="function">half <span class="title">getMiePhase</span>(<span class="params">half eyeCos, half eyeCos2</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            half temp = <span class="number">1.0</span> + MIE_G2 - <span class="number">2.0</span> * MIE_G * eyeCos;</span><br><span class="line">            temp = pow(temp, pow(_SunSize, <span class="number">0.65</span>) * <span class="number">10</span>);</span><br><span class="line">            temp = max(temp, <span class="number">1.0e-4</span>); <span class="comment">// prevent division by zero, esp. in half precision</span></span><br><span class="line">            temp = <span class="number">1.5</span> * ((<span class="number">1.0</span> - MIE_G2) / (<span class="number">2.0</span> + MIE_G2)) * (<span class="number">1.0</span> + eyeCos2) / temp;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> temp;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Calculates the sun shape</span></span><br><span class="line">        <span class="function">half <span class="title">calcSunAttenuation</span>(<span class="params">half3 lightPos, half3 ray</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">// half3 delta = lightPos - ray;</span></span><br><span class="line">            <span class="comment">// half dist = length(delta);</span></span><br><span class="line">            <span class="comment">// half spot = 1.0 - smoothstep(0.0, _SunSize, dist);</span></span><br><span class="line">            <span class="comment">// return spot * spot;</span></span><br><span class="line"></span><br><span class="line">            half focusedEyeCos = pow(saturate(dot(lightPos, ray)), <span class="number">5</span>);</span><br><span class="line">            <span class="keyword">return</span> getMiePhase(-focusedEyeCos, focusedEyeCos * focusedEyeCos);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">half4 <span class="title">frag</span>(<span class="params">v2f i</span>) : SV_Target</span> &#123;</span><br><span class="line"></span><br><span class="line">            float3 normalizePosWS = normalize(i.positionWS);</span><br><span class="line">            float2 sphereUV = float2(atan2(normalizePosWS.x, normalizePosWS.z)/PI2,asin(normalizePosWS.y)/halfPI);</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">            half4 dayTimeSkyCol = SAMPLE_TEXTURE2D(_DaytimeSkyGradientTex, sampler_DaytimeSkyGradientTex, float2(sphereUV.y, <span class="number">0.5</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//抄Unity自带的太阳计算</span></span><br><span class="line">            half4 sun = calcSunAttenuation(normalizePosWS, -_SunDirectionWS) * _SunIntensity * _SunCol;</span><br><span class="line">            <span class="comment">//自定义的一个类似大范围bloom的散射</span></span><br><span class="line">            half scattering = smoothstep(<span class="number">0.5</span>, <span class="number">1.5</span>, dot(normalizePosWS, -_SunDirectionWS)) * <span class="number">0.15</span> * _SunCol;</span><br><span class="line">            </span><br><span class="line">            half4 finCol = dayTimeSkyCol + sun + scattering;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> finCol;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>效果如图：<br>
+<img src="https://m1.im5i.com/2021/11/28/UrYxSC.png" alt="image.png"><br>
+​</p>
+<p>​</p>
+<p>然后先随便做一下根据太阳角度而进行颜色过渡：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span> : SV_Target &#123;</span></span><br><span class="line"></span><br><span class="line">    float3 normalizePosWS = <span class="built_in">normalize</span>(i.positionWS);</span><br><span class="line">    float2 sphereUV = <span class="built_in">float2</span>(<span class="built_in">atan2</span>(normalizePosWS.x, normalizePosWS.z)/PI2,<span class="built_in">asin</span>(normalizePosWS.y)/halfPI);</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    half4 dayTimeSkyCol = <span class="built_in">SAMPLE_TEXTURE2D</span>(_DaytimeSkyGradientTex, sampler_DaytimeSkyGradientTex, <span class="built_in">float2</span>(sphereUV.y, <span class="number">0.5</span>));</span><br><span class="line"></span><br><span class="line">    half4 dawnSkyCol = <span class="built_in">SAMPLE_TEXTURE2D</span>(_DawnSkyGradientTex, sampler_DawnSkyGradientTex, <span class="built_in">float2</span>(sphereUV.y, <span class="number">0.5</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//抄Unity自带的太阳计算</span></span><br><span class="line">    half4 sun = <span class="built_in">calcSunAttenuation</span>(normalizePosWS, -_SunDirectionWS) * _SunIntensity * _SunCol;</span><br><span class="line">    <span class="comment">//自定义的一个类似大范围bloom的散射</span></span><br><span class="line">    half4 scattering = <span class="built_in">smoothstep</span>(<span class="number">0.5</span>, <span class="number">1.5</span>, <span class="built_in">dot</span>(normalizePosWS, -_SunDirectionWS)) * _SunCol;</span><br><span class="line">    <span class="comment">//刚日出时散射强度大</span></span><br><span class="line">    half sactteringIntensity = <span class="built_in">max</span>(<span class="number">0.15</span>, <span class="built_in">smoothstep</span>(<span class="number">0.6</span>, <span class="number">0.0</span>, -_SunDirectionWS.y));</span><br><span class="line">    scattering *= sactteringIntensity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//日出颜色与白天颜色插值</span></span><br><span class="line">    half4 skyColor = <span class="built_in">lerp</span>(dawnSkyCol, dayTimeSkyCol, <span class="built_in">smoothstep</span>(<span class="number">0.0</span>, <span class="number">0.6</span>, -_SunDirectionWS.y));</span><br><span class="line"></span><br><span class="line">    half4 finCol = skyColor + sun + scattering;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> finCol;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但发现Unity不支持实时Bake GI……之后大概只能使用自带的Gradient Amibient Light了。<br>
+<img src="https://m1.im5i.com/2021/11/28/UrYnwA.gif" alt="mySkybox_1127.gif"><br>
+<img src="https://m1.im5i.com/2021/11/28/UrYgna.png" alt="QQ图片20211127183129.png"><br>
+<img src="https://m1.im5i.com/2021/11/28/UrYsGT.png" alt="QQ图片20211127183135.png"><br>
+<img src="https://m1.im5i.com/2021/11/28/UrYLBH.png" alt="QQ图片20211127183138.png"><br>
+​</p>
+<blockquote>
+<p>to be continued</p>
+</blockquote>
 <p>​</p>
 
 
@@ -493,13 +561,9 @@
         <!-- Pager -->
         <ul class="pager">
           
-          <li class="previous">
-            <a href="/en/NoiseBall系列学习笔记/" data-toggle="tooltip" data-placement="top" title="NoiseBall系列学习笔记">&larr; Previous Post</a>
-          </li>
-          
           
           <li class="next">
-            <a href="/en/【URP Shader】Depth of Field - 景深/" data-toggle="tooltip" data-placement="top" title="【URP Shader】Depth of Field - 景深">Next Post &rarr;</a>
+            <a href="/en/【Unity】关于Unity Particle System/" data-toggle="tooltip" data-placement="top" title="【Unity】关于Unity的Particle System">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -548,7 +612,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=关于透视插值 Vertex -&gt; Frag&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/关于透视插值/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=【Unity URP】Unity Procedural Skybox Shader&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/【Unity-URP】Unity Procedural Skybox Shader/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -586,7 +650,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%97%AE%E9%A2%98%E8%B5%B7%E5%9B%A0"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">问题起因</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%8F%E8%A7%86%E6%A0%A1%E6%AD%A3%E6%8F%92%E5%80%BC"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">透视校正插值</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Unity%E7%9A%84%E8%87%AA%E5%B8%A6%E7%A8%8B%E5%BA%8F%E5%8C%96%E5%A4%A9%E7%A9%BA%E7%9B%92"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Unity的自带程序化天空盒</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%A4%A9%E7%A9%BA%E7%9B%92%E4%B8%8A%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%A4%AA%E9%98%B3"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">如何在天空盒上画一个简单的太阳</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%A4%A9%E7%A9%BA%E4%B8%8E%E5%9C%B0%E9%9D%A2%E9%A2%9C%E8%89%B2%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">天空与地面颜色的计算</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A3%8E%E6%A0%BC%E5%8C%96%E5%A4%A9%E7%A9%BA%E7%9B%92"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">自定义风格化天空盒</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%87%8D%E5%BB%BA%E5%A4%A9%E7%A9%BA%E7%9B%92%E7%9A%84UV"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">重建天空盒的UV</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%A4%A9%E7%A9%BA%E9%A2%9C%E8%89%B2%E6%B8%90%E5%8F%98"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">天空颜色渐变</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%BB%98%E5%88%B6%E5%A4%AA%E9%98%B3"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">绘制太阳</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -612,6 +676,8 @@
             <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
             
             <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+            
+            <a class="tag" href="/tags/#URP" title="URP">URP</a>
             
           </div>
         </section>
