@@ -243,6 +243,17 @@
           
           
           <li>
+            <a href="/tags/">
+              
+              TAGS
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
             <a href="/categories/">
               
               CATEGORIES
@@ -257,17 +268,6 @@
             <a href="/archive/">
               
               ARCHIVES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/tags/">
-              
-              TAGS
               
               
             </a>
@@ -387,7 +387,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">794</span> In Total
+              Words <span class="post-count">795</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -450,11 +450,34 @@
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
         <p>最近做了个有关Particle System的需求，发现Unity这Particle System实在奇葩，遂写篇简单的笔记记录一下。</p>
-<h2 id="根本不存在的“模型空间”"><a href="#根本不存在的“模型空间”" class="headerlink" title="根本不存在的“模型空间”"></a>根本不存在的“模型空间”</h2><p>由于需求比较特殊，shader中设计一些模型空间的转换，但是我发现本来在普通物体上生效的shader，放在Particle System的Material中就失效了，查找了许久原因，才发现这Partcicle System根本不存在所谓的“模型空间”这一概念，因为它<strong>模型空间坐标值与世界空间坐标完全相等</strong>。<br>比如我们做以下实验，在vertex shader中如此写：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VertexPositionInputs positionInputs = GetVertexPositionInputs(v.positionOS.xyz)<span class="comment">;</span></span><br><span class="line">o.positionCS = positionInputs.positionCS<span class="comment">;</span></span><br><span class="line">o.positionOS.xyz = v.positionOS.xyz<span class="comment">;</span></span><br><span class="line">o.positionWS = positionInputs.positionWS<span class="comment">;</span></span><br></pre></td></tr></table></figure><br>然后在frag中直接输出positionOS与positionWS的差值的绝对值，并且乘以1000以增强效果。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span>: SV_Target</span></span><br><span class="line"><span class="function">&#123;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float4</span>(<span class="built_in">abs</span>(i.positionOS.rgb - i.positionWS.xyz)*<span class="number">1000</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>然后这是输出结果：<br><img src="https://e.im5i.com/2021/11/14/UsRsja.png" alt="image.png"><br>显然positionOS与positionWS完全相等，或者说相差极小。<br>在renderdoc中也可发现POSITION与TEXCOORD5（即我设置的PositionWS）完全相等。<br><img src="https://e.im5i.com/2021/11/14/UsR0nS.png" alt="image.png"><br>那么很显然了，Particle System根本不存在所谓“模型空间”的概念，甚至MVP变换中的Model变换都是装饰用……</p>
-<h2 id="CustomData"><a href="#CustomData" class="headerlink" title="CustomData"></a>CustomData</h2><p>没有模型空间，那我们就需要自己构造模型空间，但我们还缺少一些数据，比如每个粒子的中心坐标以及粒子的旋转值。<br>Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法，即<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/ParticleSystem-customData.html">Custom Data</a><br><img src="https://e.im5i.com/2021/11/14/UsRpBA.png" alt="image.png"><br>在Particle System的面板上也可以看到，确实存在这个功能，只是最大也只能传两个矢量，也就是8个浮点数。<br>如果要直接传Model变换矩阵，那就需要4x4，即16个浮点数，显然是不够的。那就只能自己传一些关键数值，再导shader里边计算矩阵了。<br>传入数据的脚本可以这样写：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ParticleSystem particleSystem;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particlePositions</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particleRotations</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    particleSystem = GetComponent&lt;ParticleSystem&gt;();</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom1, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom2, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ParticleSystem.Particle[] particles = <span class="keyword">new</span> ParticleSystem.Particle[particleSystem.particleCount];</span><br><span class="line">    particleSystem.GetParticles(particles);</span><br><span class="line">    particleSystem.GetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.GetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; particleSystem.particleCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        particlePositions[i] = particles[i].position;</span><br><span class="line">        particleRotations[i] = <span class="keyword">new</span> Vector4(particles[i].rotation3D.x * Mathf.Deg2Rad, particles[i].rotation3D.y * Mathf.Deg2Rad, particles[i].rotation3D.z * Mathf.Deg2Rad, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">            Debug.Log(particleRotations[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    particleSystem.SetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.SetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>遍历每个粒子，然后传入数据，总的来说逻辑还是很简单的。<br>注意这传入的position是粒子的中心位置（如果粒子的Simulation Space选择local，则这中心位置还是相对于粒子发射器的，选择world则输出世界空间的值），rotation3D则是欧拉角。</p>
-<p><img src="https://e.im5i.com/2021/11/14/UsRYXH.png" alt="image.png"><br>还需要设置一下传入的Custom Data在Vertex的哪个位置，如图我设置在了TEXCOORD0与TEXCOORD1，在顶点着色器中取用即可。</p>
-<p>之后就是在shader中还原model（逆）矩阵了，这直接抄别人的文章就可以了，要注意每个轴的旋转先后顺序：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93022039">Unity中常用矩阵的推导</a></p>
-<p><img src="https://e.im5i.com/2021/11/14/UsRnST.png" alt="image.png"><br>最终还原后直接输出模型空间坐标结果</p>
+<h2 id="根本不存在的“模型空间”">根本不存在的“模型空间”</h2>
+<p>由于需求比较特殊，shader中设计一些模型空间的转换，但是我发现本来在普通物体上生效的shader，放在Particle System的Material中就失效了，查找了许久原因，才发现这Partcicle System根本不存在所谓的“模型空间”这一概念，因为它<strong>模型空间坐标值与世界空间坐标完全相等</strong>。<br>
+比如我们做以下实验，在vertex shader中如此写：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VertexPositionInputs positionInputs = GetVertexPositionInputs(v.positionOS.xyz)<span class="comment">;</span></span><br><span class="line">o.positionCS = positionInputs.positionCS<span class="comment">;</span></span><br><span class="line">o.positionOS.xyz = v.positionOS.xyz<span class="comment">;</span></span><br><span class="line">o.positionWS = positionInputs.positionWS<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>然后在frag中直接输出positionOS与positionWS的差值的绝对值，并且乘以1000以增强效果。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span>: SV_Target</span></span><br><span class="line"><span class="function">&#123;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float4</span>(<span class="built_in">abs</span>(i.positionOS.rgb - i.positionWS.xyz)*<span class="number">1000</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后这是输出结果：<br>
+<img src="https://e.im5i.com/2021/11/14/UsRsja.png" alt="image.png"><br>
+显然positionOS与positionWS完全相等，或者说相差极小。<br>
+在renderdoc中也可发现POSITION与TEXCOORD5（即我设置的PositionWS）完全相等。<br>
+<img src="https://e.im5i.com/2021/11/14/UsR0nS.png" alt="image.png"><br>
+那么很显然了，Particle System根本不存在所谓“模型空间”的概念，甚至MVP变换中的Model变换都是装饰用……</p>
+<h2 id="CustomData">CustomData</h2>
+<p>没有模型空间，那我们就需要自己构造模型空间，但我们还缺少一些数据，比如每个粒子的中心坐标以及粒子的旋转值。<br>
+Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法，即<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/ParticleSystem-customData.html">Custom Data</a><br>
+<img src="https://e.im5i.com/2021/11/14/UsRpBA.png" alt="image.png"><br>
+在Particle System的面板上也可以看到，确实存在这个功能，只是最大也只能传两个矢量，也就是8个浮点数。<br>
+如果要直接传Model变换矩阵，那就需要4x4，即16个浮点数，显然是不够的。那就只能自己传一些关键数值，再导shader里边计算矩阵了。<br>
+传入数据的脚本可以这样写：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ParticleSystem particleSystem;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particlePositions</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particleRotations</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    particleSystem = GetComponent&lt;ParticleSystem&gt;();</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom1, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom2, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ParticleSystem.Particle[] particles = <span class="keyword">new</span> ParticleSystem.Particle[particleSystem.particleCount];</span><br><span class="line">    particleSystem.GetParticles(particles);</span><br><span class="line">    particleSystem.GetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.GetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; particleSystem.particleCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        particlePositions[i] = particles[i].position;</span><br><span class="line">        particleRotations[i] = <span class="keyword">new</span> Vector4(particles[i].rotation3D.x * Mathf.Deg2Rad, particles[i].rotation3D.y * Mathf.Deg2Rad, particles[i].rotation3D.z * Mathf.Deg2Rad, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">            Debug.Log(particleRotations[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    particleSystem.SetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.SetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遍历每个粒子，然后传入数据，总的来说逻辑还是很简单的。<br>
+注意这传入的position是粒子的中心位置（如果粒子的Simulation Space选择local，则这中心位置还是相对于粒子发射器的，选择world则输出世界空间的值），rotation3D则是欧拉角。</p>
+<p><img src="https://e.im5i.com/2021/11/14/UsRYXH.png" alt="image.png"><br>
+还需要设置一下传入的Custom Data在Vertex的哪个位置，如图我设置在了TEXCOORD0与TEXCOORD1，在顶点着色器中取用即可。</p>
+<p>之后就是在shader中还原model（逆）矩阵了，这直接抄别人的文章就可以了，要注意每个轴的旋转先后顺序：<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93022039">Unity中常用矩阵的推导</a></p>
+<p><img src="https://e.im5i.com/2021/11/14/UsRnST.png" alt="image.png"><br>
+最终还原后直接输出模型空间坐标结果</p>
 
 
         <hr>
