@@ -232,17 +232,6 @@
           
           
           <li>
-            <a href="/categories/">
-              
-              CATEGORIES
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
             <a href="/archive/">
               
               ARCHIVES
@@ -254,9 +243,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/about/">
               
-              TAGS
+              ABOUT
               
               
             </a>
@@ -265,9 +254,20 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              ABOUT
+              CATEGORIES
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags/">
+              
+              TAGS
               
               
             </a>
@@ -387,7 +387,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">994</span> In Total
+              Words <span class="post-count">986</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -449,47 +449,21 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p>卡通渲染中有不少trick，个人认为其中最涉及对管线整体了解的一个trick，便是“让眉毛显示在头发前”，看似简单的一个小trick，其实潜藏着许多坑。<br>
-<img src="https://imgur.com/jpxHCLG.jpg" alt="image.png"></p>
-<h2 id="方法一-模板测试">方法一 模板测试</h2>
-<p>通常这种反直觉的Trick，第一反应便是模板测试，给头发一个模板值A，然后眉毛画两次，一次是正常绘制，一次是开启ZTest Always后，只使用模板测试，当模板值为A时才通过。<br>
-这样确实能够实现让眉毛显示在头发上的目标，但是这也会导致一个比较诡异的bug，<br>
-——<strong>其他人的头发能够显示在另一个人的头发上</strong>。</p>
-<p>因此此方法只能在只有一个角色的时候使用。<br>
-说白了GPU就没法判断，哪个片元是谁的头发，应当显示在哪个片元之上。除非我们又给不同角色设定不同的模板值……那又极其蛋疼了。<br>
-因此应当还是要借助深度测试。</p>
-<h2 id="方法二-Shader-API中的Offset">方法二 Shader API中的Offset</h2>
-<p>对应openGL中的glPolygonOffset，<br>
-在shader中大概写成这样：Offset -100, -200，前一个数字为&quot;Factor&quot;，后一个为&quot;Units&quot;，根据官方文档，Factor将创建一个偏移的基础值，而Units将会乘以某个特定值后结合Factor进行偏移。<br>
-其实就是调整渲染的片元的深度值，但是这个API的实现是&quot;implementation-specific&quot;的，也就是不同GPU会有不同的实现，因此<strong>最终结果是难以预测的</strong>。<br>
-同时它还会<strong>破坏Early-Z</strong>，因为这是对片元做处理，那么没进行处理前谁都不知道它会不会通过ZTest。通常而言这个API只能用来处理Z-Fighting。<br>
-因此这个方法也不推荐。</p>
-<h2 id="方法三-用算法实现Offset">方法三 用算法实现Offset</h2>
-<p>最后选择用算法去修改深度值，但此时仍然还有两个选择：在片元做处理还是在顶点做处理？<br>
-在片元做：<br>
-使用SV_DEPTH的语义绑定，我们可以获得并直接修改该片元的output深度值。<br>
-但这同样会破坏earlyZ。</p>
+        <p>卡通渲染中有不少trick，个人认为其中最涉及对管线整体了解的一个trick，便是“让眉毛显示在头发前”，看似简单的一个小trick，其实潜藏着许多坑。<br><img src="https://imgur.com/jpxHCLG.jpg" alt="image.png"></p>
+<h2 id="方法一-模板测试"><a href="#方法一-模板测试" class="headerlink" title="方法一 模板测试"></a>方法一 模板测试</h2><p>通常这种反直觉的Trick，第一反应便是模板测试，给头发一个模板值A，然后眉毛画两次，一次是正常绘制，一次是开启ZTest Always后，只使用模板测试，当模板值为A时才通过。<br>这样确实能够实现让眉毛显示在头发上的目标，但是这也会导致一个比较诡异的bug，<br>——<strong>其他人的头发能够显示在另一个人的头发上</strong>。</p>
+<p>因此此方法只能在只有一个角色的时候使用。<br>说白了GPU就没法判断，哪个片元是谁的头发，应当显示在哪个片元之上。除非我们又给不同角色设定不同的模板值……那又极其蛋疼了。<br>因此应当还是要借助深度测试。</p>
+<h2 id="方法二-Shader-API中的Offset"><a href="#方法二-Shader-API中的Offset" class="headerlink" title="方法二 Shader API中的Offset"></a>方法二 Shader API中的Offset</h2><p>对应openGL中的glPolygonOffset，<br>在shader中大概写成这样：Offset -100, -200，前一个数字为”Factor”，后一个为”Units”，根据官方文档，Factor将创建一个偏移的基础值，而Units将会乘以某个特定值后结合Factor进行偏移。<br>其实就是调整渲染的片元的深度值，但是这个API的实现是”implementation-specific”的，也就是不同GPU会有不同的实现，因此<strong>最终结果是难以预测的</strong>。<br>同时它还会<strong>破坏Early-Z</strong>，因为这是对片元做处理，那么没进行处理前谁都不知道它会不会通过ZTest。通常而言这个API只能用来处理Z-Fighting。<br>因此这个方法也不推荐。</p>
+<h2 id="方法三-用算法实现Offset"><a href="#方法三-用算法实现Offset" class="headerlink" title="方法三 用算法实现Offset"></a>方法三 用算法实现Offset</h2><p>最后选择用算法去修改深度值，但此时仍然还有两个选择：在片元做处理还是在顶点做处理？<br>在片元做：<br>使用SV_DEPTH的语义绑定，我们可以获得并直接修改该片元的output深度值。<br>但这同样会破坏earlyZ。</p>
 <blockquote>
 <p>The cost incurred by SV_Depth varies depending on the GPU architecture, but overall it’s fairly similar to the cost of alpha testing (using the built-in clip() function in HLSL). Render shaders that modify depth after all regular opaque shaders.</p>
 </blockquote>
-<p>因此最终就是需要在顶点阶段便实现深度偏移。<br>
-我们的目标是给出某个精确值，比如0.05，那么片元的线性深度就是减少0.05。<br>
-那么其实我们就是要修改顶点所输出的裁剪空间坐标，也就是PosCS。</p>
-<p>以下是摘自《Shader入门精要》的顶点投影变换。<br>
-<img src="https://imgur.com/SFUDP1w.jpg" alt=""><br>
-输出之后还没有进行透视除法，也就是还未转换至NDC空间，而由于最终显示在屏幕上的位置将由PosCS.x/PosCS.w以及PosCS.y/PosCS.w所决定，因此我们并不能动最终输出的xyw三个值，只能修改z。<br>
-我们在Vertex Shader中可以获取投影矩阵，便取得了所有需要的信息。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">float4 <span class="title">NiloGetNewClipPosWithZOffset</span><span class="params">(float4 originalPositionCS, <span class="keyword">float</span> viewSpaceZOffsetAmount)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(unity_OrthoParams.w == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        <span class="comment">//Perspective camera case</span></span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        float2 ProjM_ZRow_ZW = UNITY_MATRIX_P[<span class="number">2</span>].zw;</span><br><span class="line">        <span class="keyword">float</span> modifiedPositionVS_Z = -originalPositionCS.w + -viewSpaceZOffsetAmount; <span class="comment">// push imaginary vertex</span></span><br><span class="line">        <span class="keyword">float</span> modifiedPositionCS_Z = modifiedPositionVS_Z * ProjM_ZRow_ZW[<span class="number">0</span>] + ProjM_ZRow_ZW[<span class="number">1</span>];</span><br><span class="line">        originalPositionCS.z = modifiedPositionCS_Z * originalPositionCS.w / (-modifiedPositionVS_Z); <span class="comment">// overwrite positionCS.z</span></span><br><span class="line">        <span class="keyword">return</span> originalPositionCS;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        <span class="comment">//Orthographic camera case</span></span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        originalPositionCS.z += -viewSpaceZOffsetAmount / _ProjectionParams.z; <span class="comment">// push imaginary vertex and overwrite positionCS.z</span></span><br><span class="line">        <span class="keyword">return</span> originalPositionCS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此最终就是需要在顶点阶段便实现深度偏移。<br>我们的目标是给出某个精确值，比如0.05，那么片元的线性深度就是减少0.05。<br>那么其实我们就是要修改顶点所输出的裁剪空间坐标，也就是PosCS。</p>
+<p>以下是摘自《Shader入门精要》的顶点投影变换。<br><img src="https://imgur.com/SFUDP1w.jpg" alt=""><br>输出之后还没有进行透视除法，也就是还未转换至NDC空间，而由于最终显示在屏幕上的位置将由PosCS.x/PosCS.w以及PosCS.y/PosCS.w所决定，因此我们并不能动最终输出的xyw三个值，只能修改z。<br>我们在Vertex Shader中可以获取投影矩阵，便取得了所有需要的信息。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">float4 <span class="title">NiloGetNewClipPosWithZOffset</span><span class="params">(float4 originalPositionCS, <span class="keyword">float</span> viewSpaceZOffsetAmount)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(unity_OrthoParams.w == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        <span class="comment">//Perspective camera case</span></span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        float2 ProjM_ZRow_ZW = UNITY_MATRIX_P[<span class="number">2</span>].zw;</span><br><span class="line">        <span class="keyword">float</span> modifiedPositionVS_Z = -originalPositionCS.w + -viewSpaceZOffsetAmount; <span class="comment">// push imaginary vertex</span></span><br><span class="line">        <span class="keyword">float</span> modifiedPositionCS_Z = modifiedPositionVS_Z * ProjM_ZRow_ZW[<span class="number">0</span>] + ProjM_ZRow_ZW[<span class="number">1</span>];</span><br><span class="line">        originalPositionCS.z = modifiedPositionCS_Z * originalPositionCS.w / (-modifiedPositionVS_Z); <span class="comment">// overwrite positionCS.z</span></span><br><span class="line">        <span class="keyword">return</span> originalPositionCS;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        <span class="comment">//Orthographic camera case</span></span><br><span class="line">        <span class="comment">////////////////////////////////</span></span><br><span class="line">        originalPositionCS.z += -viewSpaceZOffsetAmount / _ProjectionParams.z; <span class="comment">// push imaginary vertex and overwrite positionCS.z</span></span><br><span class="line">        <span class="keyword">return</span> originalPositionCS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>出自：<a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl">https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl</a></p>
 </blockquote>
-<p>也就是取用PosCS.w当PosVS.z，然后用投影矩阵的值强行算个修改后的PosCS.z，并抵消掉透视除法。<br>
-这种深度Offset方法也可以用于消除脸上某些角度不想要的描边，其实是在卡通渲染中很泛用的一个算法，在卡渲始祖级游戏罪恶装备中已经有应用了：<br>
-<img src="https://imgur.com/oDyigUE.jpg" alt="image.png"></p>
-<p>参考资料：<br>
-<a target="_blank" rel="noopener" href="https://forum.unity.com/threads/offset-parameters.23281/">https://forum.unity.com/threads/offset-parameters.23281/</a><br>
-<a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl">https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl</a><br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/TracePlus/p/4205834.html">https://www.cnblogs.com/TracePlus/p/4205834.html</a></p>
+<p>也就是取用PosCS.w当PosVS.z，然后用投影矩阵的值强行算个修改后的PosCS.z，并抵消掉透视除法。<br>这种深度Offset方法也可以用于消除脸上某些角度不想要的描边，其实是在卡通渲染中很泛用的一个算法，在卡渲始祖级游戏罪恶装备中已经有应用了：<br><img src="https://imgur.com/oDyigUE.jpg" alt="image.png"></p>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="https://forum.unity.com/threads/offset-parameters.23281/">https://forum.unity.com/threads/offset-parameters.23281/</a><br><a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl">https://github.com/ColinLeung-NiloCat/UnityURPToonLitShaderExample/blob/master/NiloZOffset.hlsl</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/TracePlus/p/4205834.html">https://www.cnblogs.com/TracePlus/p/4205834.html</a></p>
 
 
         <hr>
