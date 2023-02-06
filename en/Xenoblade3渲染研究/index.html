@@ -389,7 +389,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">3.9k</span> In Total
+              Words <span class="post-count">4k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -452,112 +452,386 @@
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
         <blockquote>
-<p>本文初发布于zhihu<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553209338">https://zhuanlan.zhihu.com/p/553209338</a></p>
+<p>本文初发布于zhihu<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553209338">https://zhuanlan.zhihu.com/p/553209338</a></p>
 </blockquote>
-<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>自两年前通关XBDE与XB2以来，笔者就对这个游戏系列非常着迷，不久前发售的XB3更是系列集大成之作，而它相比前两作也有长足进步，不禁让人感叹“这竟然是NS游戏？”；而笔者作为一名游戏开发者，当然也想更加深入了解其使用的技术方案，在研究之时觉得其内容还挺值得分享，因此便有了这篇粗浅之文。</p>
-<h3 id="本文大致目录"><a href="#本文大致目录" class="headerlink" title="本文大致目录"></a>本文大致目录</h3><ol>
+<h2 id="0-前言">0. 前言</h2>
+<p>自两年前通关XBDE与XB2以来，笔者就对这个游戏系列非常着迷，不久前发售的XB3更是系列集大成之作，而它相比前两作也有长足进步，不禁让人感叹“这竟然是NS游戏？”；而笔者作为一名游戏开发者，当然也想更加深入了解其使用的技术方案，在研究之时觉得其内容还挺值得分享，因此便有了这篇粗浅之文。</p>
+<h3 id="本文大致目录">本文大致目录</h3>
+<ol>
 <li>渲染管线总览</li>
 <li>角色渲染相关</li>
 <li>结语与其他</li>
 </ol>
 <hr>
-<h2 id="渲染管线总览"><a href="#渲染管线总览" class="headerlink" title="渲染管线总览"></a>渲染管线总览</h2><p><img src="https://imgur.com/gOLexTt.jpg" alt="image.png"></p>
+<h2 id="渲染管线总览">渲染管线总览</h2>
+<p><img src="https://imgur.com/gOLexTt.jpg" alt="image.png"></p>
 <p>最终渲染图（1920x1080）</p>
-<h3 id="PreZ"><a href="#PreZ" class="headerlink" title="PreZ"></a>PreZ</h3><p>平常只包括地形、石头与草，无角色<br><img src="https://imgur.com/1b4AvC0.jpg" alt="image.png"><br>但特写镜头会有角色<br><img src="https://imgur.com/VoJu5gD.jpg" alt="image.png"><br>大概是因为平常角色占屏幕比例较小，PreZ收益低，但人物特写的时候开启收益较大。<br>通常而言草与各种植物需要有PreZ以防止其Alpha Test破坏硬件EarlyZ机制，而石头与人物依情况开启。</p>
+<h3 id="PreZ">PreZ</h3>
+<p>平常只包括地形、石头与草，无角色<br>
+<img src="https://imgur.com/1b4AvC0.jpg" alt="image.png"><br>
+但特写镜头会有角色<br>
+<img src="https://imgur.com/VoJu5gD.jpg" alt="image.png"><br>
+大概是因为平常角色占屏幕比例较小，PreZ收益低，但人物特写的时候开启收益较大。<br>
+通常而言草与各种植物需要有PreZ以防止其Alpha Test破坏硬件EarlyZ机制，而石头与人物依情况开启。</p>
 <hr>
-<h3 id="GBuffer-Pass"><a href="#GBuffer-Pass" class="headerlink" title="GBuffer Pass"></a>GBuffer Pass</h3><h4 id="GBuffer-0（R8G8B8A8）"><a href="#GBuffer-0（R8G8B8A8）" class="headerlink" title="GBuffer 0（R8G8B8A8）"></a>GBuffer 0（R8G8B8A8）</h4><p><img src="https://imgur.com/A4nPvOW.jpg" alt="image.png"><br>Albedo（RGB）960x544<br><img src="https://imgur.com/5R7QtFQ.jpg" alt="image.png"><br>笔触感（A）</p>
-<p><img src="https://imgur.com/u7BrNzn.jpg" alt="image.png"><br>Albedo（RGB） 1280x720</p>
-<p><img src="https://imgur.com/tNkdXe5.jpg" alt="image.png"><br>笔触感（A）<br>画脸的时候还特意加了一个类似笔触感的贴图<br>![[5[@J4PJ{EO6Z%X7NUIEZ<a target="_blank" rel="noopener" href="https://imgur.com/Mr58cPH.jpg">H.png</a></p>
-<p><img src="https://imgur.com/VRA6LoP.jpg" alt="image.png"><br><img src="https://imgur.com/LzEAj2f.jpg" alt="image.png"><br>脸部延迟Pass结果<br>效果确实是有……但高桥似乎忘了自己是在开发NS游戏<br><img src="https://imgur.com/fzn2EGL.jpg" alt="image.png"><br>该值为1<br><img src="https://imgur.com/4tk6YAS.jpg" alt="image.png"><br>该值为0<br>总之看上去大概是个Ramp Offset或者扰动法线的什么东西。</p>
-<p><img src="https://imgur.com/qaon87E.jpg" alt="image.png"><br>在SD里验证了下这笔触图甚至不是四方连续的，高桥，你到底想不想好好做啊！？</p>
+<h3 id="GBuffer-Pass">GBuffer Pass</h3>
+<h4 id="GBuffer-0（R8G8B8A8）">GBuffer 0（R8G8B8A8）</h4>
+<p><img src="https://imgur.com/A4nPvOW.jpg" alt="image.png"><br>
+Albedo（RGB）960x544<br>
+<img src="https://imgur.com/5R7QtFQ.jpg" alt="image.png"><br>
+笔触感（A）</p>
+<p><img src="https://imgur.com/u7BrNzn.jpg" alt="image.png"><br>
+Albedo（RGB） 1280x720</p>
+<p><img src="https://imgur.com/tNkdXe5.jpg" alt="image.png"><br>
+笔触感（A）<br>
+画脸的时候还特意加了一个类似笔触感的贴图<br>
+![[5[@J4PJ{EO6Z%X7NUIEZ<a target="_blank" rel="noopener" href="https://imgur.com/Mr58cPH.jpg">H.png</a></p>
+<p><img src="https://imgur.com/VRA6LoP.jpg" alt="image.png"><br>
+<img src="https://imgur.com/LzEAj2f.jpg" alt="image.png"><br>
+脸部延迟Pass结果<br>
+效果确实是有……但高桥似乎忘了自己是在开发NS游戏<br>
+<img src="https://imgur.com/fzn2EGL.jpg" alt="image.png"><br>
+该值为1<br>
+<img src="https://imgur.com/4tk6YAS.jpg" alt="image.png"><br>
+该值为0<br>
+总之看上去大概是个Ramp Offset或者扰动法线的什么东西。</p>
+<p><img src="https://imgur.com/qaon87E.jpg" alt="image.png"><br>
+在SD里验证了下这笔触图甚至不是四方连续的，高桥，你到底想不想好好做啊！？</p>
 <hr>
-<h4 id="GBuffer-1（R8G8B8A8）"><a href="#GBuffer-1（R8G8B8A8）" class="headerlink" title="GBuffer 1（R8G8B8A8）"></a>GBuffer 1（R8G8B8A8）</h4><p><img src="https://imgur.com/knKusBB.jpg" alt="image.png"><br>960x544</p>
-<p><img src="https://imgur.com/1kcECFu.jpg" alt="image.png"><br>R 猜测为金属度</p>
-<p><img src="https://imgur.com/JyBB6A2.jpg" alt="image.png"><br>G 猜测为光滑度</p>
-<p><img src="https://imgur.com/bIEoOpb.jpg" alt="image.png"><br>B<br>对草而言大概是“某值的相加/乘程度”，总之增大之后显得像自发光一样。<br><img src="https://imgur.com/8hZiPHv.jpg" alt="image.png"><br>原值<br><img src="https://imgur.com/9m6Ea9E.jpg" alt="image.png"><br>原值*100</p>
-<p>对角色而言应当是用于决定Ramp图中Y轴取值，可能也趁此区分了不同部位：<br><img src="https://imgur.com/7ylO2b3.jpg" alt="image.png"><br>B<br><img src="https://imgur.com/nmULgPn.jpg" alt="image.jpg"><br>原值渲染结果<br><img src="https://imgur.com/yXL2ZJi.jpg" alt="image.jpg"><br>原值*2渲染结果</p>
-<p><img src="https://imgur.com/zXZfoHl.jpg" alt="image.png"><br>A 不明确，只能猜测<br>草的延迟Pass根本没有取A通道，还画个值上去干啥呢，可能又在哪个角落里用到了吧。<br><img src="https://imgur.com/iq22eIi.jpg" alt="image.png"><br>A<br><img src="https://imgur.com/uCvI1sy.jpg" alt="image.png"><br>原值渲染结果<br><img src="https://imgur.com/LhdAtIF.jpg" alt="image.png"><br>原值x10<br><img src="https://imgur.com/UdWXrIh.jpg" alt="image.png"><br>原值x100<br><img src="https://imgur.com/QEhi40A.jpg" alt="image.png"><br>原值x1000<br>有些类似“值越大则越倾向于原Albedo值”，但似乎也不完全如此。</p>
-<p>对头发而言似乎是高光强度。<br><img src="https://imgur.com/zaUQezW.jpg" alt="image.png"><br>原值<br><img src="https://imgur.com/ue7YCKR.jpg" alt="image.png"><br>Gbuffer1 A通道为0</p>
+<h4 id="GBuffer-1（R8G8B8A8）">GBuffer 1（R8G8B8A8）</h4>
+<p><img src="https://imgur.com/knKusBB.jpg" alt="image.png"><br>
+960x544</p>
+<p><img src="https://imgur.com/1kcECFu.jpg" alt="image.png"><br>
+R 猜测为金属度</p>
+<p><img src="https://imgur.com/JyBB6A2.jpg" alt="image.png"><br>
+G 猜测为光滑度</p>
+<p><img src="https://imgur.com/bIEoOpb.jpg" alt="image.png"><br>
+B<br>
+对草而言大概是“某值的相加/乘程度”，总之增大之后显得像自发光一样。<br>
+<img src="https://imgur.com/8hZiPHv.jpg" alt="image.png"><br>
+原值<br>
+<img src="https://imgur.com/9m6Ea9E.jpg" alt="image.png"><br>
+原值*100</p>
+<p>对角色而言应当是用于决定Ramp图中Y轴取值，可能也趁此区分了不同部位：<br>
+<img src="https://imgur.com/7ylO2b3.jpg" alt="image.png"><br>
+B<br>
+<img src="https://imgur.com/nmULgPn.jpg" alt="image.jpg"><br>
+原值渲染结果<br>
+<img src="https://imgur.com/yXL2ZJi.jpg" alt="image.jpg"><br>
+原值*2渲染结果</p>
+<p><img src="https://imgur.com/zXZfoHl.jpg" alt="image.png"><br>
+A 不明确，只能猜测<br>
+草的延迟Pass根本没有取A通道，还画个值上去干啥呢，可能又在哪个角落里用到了吧。<br>
+<img src="https://imgur.com/iq22eIi.jpg" alt="image.png"><br>
+A<br>
+<img src="https://imgur.com/uCvI1sy.jpg" alt="image.png"><br>
+原值渲染结果<br>
+<img src="https://imgur.com/LhdAtIF.jpg" alt="image.png"><br>
+原值x10<br>
+<img src="https://imgur.com/UdWXrIh.jpg" alt="image.png"><br>
+原值x100<br>
+<img src="https://imgur.com/QEhi40A.jpg" alt="image.png"><br>
+原值x1000<br>
+有些类似“值越大则越倾向于原Albedo值”，但似乎也不完全如此。</p>
+<p>对头发而言似乎是高光强度。<br>
+<img src="https://imgur.com/zaUQezW.jpg" alt="image.png"><br>
+原值<br>
+<img src="https://imgur.com/ue7YCKR.jpg" alt="image.png"><br>
+Gbuffer1 A通道为0</p>
 <hr>
-<h4 id="GBuffer-2（R10G10B10A2）"><a href="#GBuffer-2（R10G10B10A2）" class="headerlink" title="GBuffer 2（R10G10B10A2）"></a>GBuffer 2（R10G10B10A2）</h4><p><img src="https://imgur.com/mWu9amI.jpg" alt="image.png"><br>乍一看好像是个比较普通的屏幕空间法线Gbuffer，其实不然。<br>它B通道存的是AO<br><img src="https://imgur.com/xukNDBG.jpg" alt="image.png"></p>
-<p>而A通道内容较不明确。<br>由于法线是一个三维单位向量，有其三维中其中两个值以及另一个值的符号值（正或负）即可还原出法线值；但譬如Spheremap Transform之类的法线编码算法其实是不需要额外存符号位的，xb3这算法可能是将半个球面进行投影，而剩下半球用符号位表示，提升一点精度？笔者对这方面内容实在算不上熟悉。<br><img src="https://imgur.com/odkvl5t.jpg" alt="image.png"><br>A作为一个符号位存储<br><img src="https://imgur.com/pnUOZdW.jpg" alt="image.png"><br>A为原值</p>
-<p><img src="https://imgur.com/uv8u7cx.jpg" alt="image.png"><br>A为1 - 原值<br><img src="https://imgur.com/LEmThsD.jpg" alt="image.png"><br>A为原值<br><img src="https://imgur.com/Kshk6JS.jpg" alt="image.png"><br>A为1 - 原值（这一张效果还是比较明显的）</p>
+<h4 id="GBuffer-2（R10G10B10A2）">GBuffer 2（R10G10B10A2）</h4>
+<p><img src="https://imgur.com/mWu9amI.jpg" alt="image.png"><br>
+乍一看好像是个比较普通的屏幕空间法线Gbuffer，其实不然。<br>
+它B通道存的是AO<br>
+<img src="https://imgur.com/xukNDBG.jpg" alt="image.png"></p>
+<p>而A通道内容较不明确。<br>
+由于法线是一个三维单位向量，有其三维中其中两个值以及另一个值的符号值（正或负）即可还原出法线值；但譬如Spheremap Transform之类的法线编码算法其实是不需要额外存符号位的，xb3这算法可能是将半个球面进行投影，而剩下半球用符号位表示，提升一点精度？笔者对这方面内容实在算不上熟悉。<br>
+<img src="https://imgur.com/odkvl5t.jpg" alt="image.png"><br>
+A作为一个符号位存储<br>
+<img src="https://imgur.com/pnUOZdW.jpg" alt="image.png"><br>
+A为原值</p>
+<p><img src="https://imgur.com/uv8u7cx.jpg" alt="image.png"><br>
+A为1 - 原值<br>
+<img src="https://imgur.com/LEmThsD.jpg" alt="image.png"><br>
+A为原值<br>
+<img src="https://imgur.com/Kshk6JS.jpg" alt="image.png"><br>
+A为1 - 原值（这一张效果还是比较明显的）</p>
 <hr>
-<h4 id="GBuffer-3（R8G8B8A8）"><a href="#GBuffer-3（R8G8B8A8）" class="headerlink" title="GBuffer 3（R8G8B8A8）"></a>GBuffer 3（R8G8B8A8）</h4><p><img src="https://imgur.com/YcHNt2S.jpg" alt="image.png"><br>RGB 960x544<br>乍看可说是极其诡异的一个GBuffer。<br><img src="https://imgur.com/hiKCGEZ.jpg" alt="image.png"><br>R<br><img src="https://imgur.com/BuVEj9X.jpg" alt="image.png"><br>G<br><img src="https://imgur.com/UQYiz6A.jpg" alt="image.png"><br>B<br>这张GBuffer的RGB通道单独看都不知道是什么，笔者一位不愿透露姓名的友人调试后发现这rgb三个通道为编码后的线性深度，也就是-PosVS.z，还原后如下图：<br><img src="https://imgur.com/0nInC6s.jpg" alt="_H}NPV55I[]N7@P18%R1M5M.png"><br>或许是被映射到0-1的非线性深度无法满足雾、后处理等算法的精度要求，才需要出此下策……这就是超远视距的后果吗？<br>float和rgb24转换的类似算法可参考这篇ShaderToy：<br><a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/WsVGzm">https://www.shadertoy.com/view/WsVGzm</a></p>
-<p>那么接下来是A通道：<br><img src="https://imgur.com/d3AlYY9.jpg" alt="image.png"><br>A<br><img src="https://imgur.com/ZqTaMPc.jpg" alt="image.png"><br>人身上大多数区域的值为0.5<br><img src="https://imgur.com/IpogPXl.jpg" alt="image.png"><br>A为0（还有部分亮部应当是边缘光）延迟Pass输出结果<br><img src="https://imgur.com/iKXx0HC.jpg" alt="image.png"><br>A为1时延迟Pass输出结果<br>基本可敲定对角色而言便是影响Ramp的取值，可以理解为类似AO，为0就必为暗部，而为1就更容易为亮部（但不一定为亮部，大概只是把halfLamber的值给乘2了而已）。</p>
-<p>于草而言，似乎也是相加了某值，<br><img src="https://imgur.com/XerzkBG.jpg" alt="image.png"><br>原值<br><img src="https://imgur.com/7cOG2gI.jpg" alt=""><br>值为0<br><img src="https://imgur.com/3G6u0kd.jpg" alt=""><br>值为1<br>感觉变化实在不明显，或许草也就是顺便蹭一下这个通道而已，不用白不用；比较重要的还是角色那个类似AO的用法。</p>
+<h4 id="GBuffer-3（R8G8B8A8）">GBuffer 3（R8G8B8A8）</h4>
+<p><img src="https://imgur.com/YcHNt2S.jpg" alt="image.png"><br>
+RGB 960x544<br>
+乍看可说是极其诡异的一个GBuffer。<br>
+<img src="https://imgur.com/hiKCGEZ.jpg" alt="image.png"><br>
+R<br>
+<img src="https://imgur.com/BuVEj9X.jpg" alt="image.png"><br>
+G<br>
+<img src="https://imgur.com/UQYiz6A.jpg" alt="image.png"><br>
+B<br>
+这张GBuffer的RGB通道单独看都不知道是什么，笔者一位不愿透露姓名的友人调试后发现这rgb三个通道为编码后的线性深度，也就是-PosVS.z，还原后如下图：<br>
+<img src="https://imgur.com/0nInC6s.jpg" alt="_H}NPV55I[]N7@P18%R1M5M.png"><br>
+或许是被映射到0-1的非线性深度无法满足雾、后处理等算法的精度要求，才需要出此下策……这就是超远视距的后果吗？<br>
+float和rgb24转换的类似算法可参考这篇ShaderToy：<br>
+<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/WsVGzm">https://www.shadertoy.com/view/WsVGzm</a></p>
+<p>那么接下来是A通道：<br>
+<img src="https://imgur.com/d3AlYY9.jpg" alt="image.png"><br>
+A<br>
+<img src="https://imgur.com/ZqTaMPc.jpg" alt="image.png"><br>
+人身上大多数区域的值为0.5<br>
+<img src="https://imgur.com/IpogPXl.jpg" alt="image.png"><br>
+A为0（还有部分亮部应当是边缘光）延迟Pass输出结果<br>
+<img src="https://imgur.com/iKXx0HC.jpg" alt="image.png"><br>
+A为1时延迟Pass输出结果<br>
+基本可敲定对角色而言便是影响Ramp的取值，可以理解为类似AO，为0就必为暗部，而为1就更容易为亮部（但不一定为亮部，大概只是把halfLamber的值给乘2了而已）。</p>
+<p>于草而言，似乎也是相加了某值，<br>
+<img src="https://imgur.com/XerzkBG.jpg" alt="image.png"><br>
+原值<br>
+<img src="https://imgur.com/7cOG2gI.jpg" alt=""><br>
+值为0<br>
+<img src="https://imgur.com/3G6u0kd.jpg" alt=""><br>
+值为1<br>
+感觉变化实在不明显，或许草也就是顺便蹭一下这个通道而已，不用白不用；比较重要的还是角色那个类似AO的用法。</p>
 <hr>
-<h4 id="GBuffer-4-（R11G11B10）"><a href="#GBuffer-4-（R11G11B10）" class="headerlink" title="GBuffer 4 （R11G11B10）"></a>GBuffer 4 （R11G11B10）</h4><p><img src="https://imgur.com/mGsrhgF.jpg" alt="image.png"><br>Emissive 960x544</p>
+<h4 id="GBuffer-4-（R11G11B10）">GBuffer 4 （R11G11B10）</h4>
+<p><img src="https://imgur.com/mGsrhgF.jpg" alt="image.png"><br>
+Emissive 960x544</p>
 <hr>
-<h4 id="Velocity-Buffer（R10G10B10A2）"><a href="#Velocity-Buffer（R10G10B10A2）" class="headerlink" title="Velocity Buffer（R10G10B10A2）"></a>Velocity Buffer（R10G10B10A2）</h4><p>之后用于TAA的Velocity Buffer。<br><img src="https://imgur.com/ioNa3ND.jpg" alt="image.png"><br>RGB 960x544<br><img src="https://imgur.com/WVvZ2eH.jpg" alt="image.png"><br>RG调整映射范围后</p>
-<p><img src="https://imgur.com/5lpRnuA.jpg" alt="image.png"><br>B<br>又在标记头发和脸，或许是让脸和头发受TAA影响小些？但为何不同人的值不一样呢，姑且懒得计较了。</p>
-<p><img src="https://imgur.com/ssSQriZ.jpg" alt="image.png"><br>A<br>应当与法线类似同样是记录正负符号位，用两个通道分别给R与G通道记录了符号。<br>虽说算上这个符号位，每个通道也就11位……作为Velocity Buffer勉强能用。</p>
+<h4 id="Velocity-Buffer（R10G10B10A2）">Velocity Buffer（R10G10B10A2）</h4>
+<p>之后用于TAA的Velocity Buffer。<br>
+<img src="https://imgur.com/ioNa3ND.jpg" alt="image.png"><br>
+RGB 960x544<br>
+<img src="https://imgur.com/WVvZ2eH.jpg" alt="image.png"><br>
+RG调整映射范围后</p>
+<p><img src="https://imgur.com/5lpRnuA.jpg" alt="image.png"><br>
+B<br>
+又在标记头发和脸，或许是让脸和头发受TAA影响小些？但为何不同人的值不一样呢，姑且懒得计较了。</p>
+<p><img src="https://imgur.com/ssSQriZ.jpg" alt="image.png"><br>
+A<br>
+应当与法线类似同样是记录正负符号位，用两个通道分别给R与G通道记录了符号。<br>
+虽说算上这个符号位，每个通道也就11位……作为Velocity Buffer勉强能用。</p>
 <hr>
-<h4 id="Specular-Mask（R8G8B8A8）"><a href="#Specular-Mask（R8G8B8A8）" class="headerlink" title="Specular Mask（R8G8B8A8）"></a>Specular Mask（R8G8B8A8）</h4><p>在头发的GBuffer Pass时直接输出到一张RT上<br><img src="https://imgur.com/tRo7kaE.jpg" alt="image.png"><br>960x544<br><img src="https://imgur.com/JKxkRlv.jpg" alt="image.png"><br>1280x720<br>似乎对于卡通渲染中角色的风格化高光必不可少，在蓝色协议的技术分享中也有见到类似的GBuffer：<br><img src="https://imgur.com/afcGTu9.jpg" alt="image.png"><br>大伙真是拼了老命也要让角色走延迟。<br>540p也确实是有理由的。</p>
+<h4 id="Specular-Mask（R8G8B8A8）">Specular Mask（R8G8B8A8）</h4>
+<p>在头发的GBuffer Pass时直接输出到一张RT上<br>
+<img src="https://imgur.com/tRo7kaE.jpg" alt="image.png"><br>
+960x544<br>
+<img src="https://imgur.com/JKxkRlv.jpg" alt="image.png"><br>
+1280x720<br>
+似乎对于卡通渲染中角色的风格化高光必不可少，在蓝色协议的技术分享中也有见到类似的GBuffer：<br>
+<img src="https://imgur.com/afcGTu9.jpg" alt="image.png"><br>
+大伙真是拼了老命也要让角色走延迟。<br>
+540p也确实是有理由的。</p>
 <hr>
-<h4 id="Depth-Stencil（D24-S8）"><a href="#Depth-Stencil（D24-S8）" class="headerlink" title="Depth/Stencil（D24/S8）"></a>Depth/Stencil（D24/S8）</h4><p><img src="https://imgur.com/yCFP8uN.jpg" alt="image.png"><br>经过重新映射后的深度值<br><img src="https://imgur.com/adgoVVt.jpg" alt="image.png"><br>同时也用模板值区分各个不同的部位，如普通PBR场景物件、角色身体、头发等。</p>
+<h4 id="Depth-Stencil（D24-S8）">Depth/Stencil（D24/S8）</h4>
+<p><img src="https://imgur.com/yCFP8uN.jpg" alt="image.png"><br>
+经过重新映射后的深度值<br>
+<img src="https://imgur.com/adgoVVt.jpg" alt="image.png"><br>
+同时也用模板值区分各个不同的部位，如普通PBR场景物件、角色身体、头发等。</p>
 <hr>
-<h3 id="GI-Pass"><a href="#GI-Pass" class="headerlink" title="GI Pass"></a>GI Pass</h3><p>根据之前的GBuffer以及反射探针计算GI<br><img src="https://imgur.com/5oaaypy.jpg" alt="image.png"><br>其中tex3即为反射探针集，共192面，而根据一个反射探针有6面计算可得一共用了32个反射探针……不过每个的分辨率都极小，单面64x64而已。</p>
-<p>会输出两张RT，看上去一个是Diffuse GI，一个是Specular GI<br><img src="https://imgur.com/slRfeiR.jpg" alt="image.png"><br>Diffuse GI<br><img src="https://imgur.com/ylfCQmx.jpg" alt="image.png"><br>Specular GI</p>
+<h3 id="GI-Pass">GI Pass</h3>
+<p>根据之前的GBuffer以及反射探针计算GI<br>
+<img src="https://imgur.com/5oaaypy.jpg" alt="image.png"><br>
+其中tex3即为反射探针集，共192面，而根据一个反射探针有6面计算可得一共用了32个反射探针……不过每个的分辨率都极小，单面64x64而已。</p>
+<p>会输出两张RT，看上去一个是Diffuse GI，一个是Specular GI<br>
+<img src="https://imgur.com/slRfeiR.jpg" alt="image.png"><br>
+Diffuse GI<br>
+<img src="https://imgur.com/ylfCQmx.jpg" alt="image.png"><br>
+Specular GI</p>
 <hr>
-<h3 id="Shadow-Caster-Pass"><a href="#Shadow-Caster-Pass" class="headerlink" title="Shadow Caster Pass"></a>Shadow Caster Pass</h3><p>执行近处动态物体（角色和怪物）的Shadow Caster Pass<br><img src="https://imgur.com/4Un8Oxg.jpg" alt="image.png"><br>1024x1024<br>没错，只有近处动态物体（人物）执行了Shadow Caster。</p>
+<h3 id="Shadow-Caster-Pass">Shadow Caster Pass</h3>
+<p>执行近处动态物体（角色和怪物）的Shadow Caster Pass<br>
+<img src="https://imgur.com/4Un8Oxg.jpg" alt="image.png"><br>
+1024x1024<br>
+没错，只有近处动态物体（人物）执行了Shadow Caster。</p>
 <hr>
-<h3 id="Screen-Space-Shadow-Pass"><a href="#Screen-Space-Shadow-Pass" class="headerlink" title="Screen Space Shadow Pass"></a>Screen Space Shadow Pass</h3><p>经 @GuardHei 点拨，XB3的阴影方案应当与XBX所使用的相差无几，Monolith将其称之为“Shadowmap Cache化”。<br>用简单而不太准确的话概括，就是将Shadowmap每级联都划分为3x3的9份，当触发shadow更新时才会更新其中一小块。<br>当然其中实现起来有许多的细节要考虑，看上去也是很吃显存。<br>在此只展示XBX在cedec2015的其中部分分享：<br><img src="https://imgur.com/YVWirnu.jpg" alt="image.png"><br>Shadowmap Cache化<br><img src="https://imgur.com/dgtkBQI.jpg" alt="image.png"><br>以当前位置为中心渲染Cache Buffer<br><img src="https://imgur.com/Tg91Jht.jpg" alt="image.png"><br>划分为9块<br><img src="https://imgur.com/N9IBapU.jpg" alt="image.png"><br>生成另外两个级联<br><img src="https://imgur.com/al6PRfm.jpg" alt="image.png"><br>每个CacheBuffer使用的相机高度（Y）相同，仅移动XZ<br><img src="https://imgur.com/vTqEytc.jpg" alt="image.png"><br>从cache中取用部分作为Shadowmap</p>
+<h3 id="Screen-Space-Shadow-Pass">Screen Space Shadow Pass</h3>
+<p>经 @GuardHei 点拨，XB3的阴影方案应当与XBX所使用的相差无几，Monolith将其称之为“Shadowmap Cache化”。<br>
+用简单而不太准确的话概括，就是将Shadowmap每级联都划分为3x3的9份，当触发shadow更新时才会更新其中一小块。<br>
+当然其中实现起来有许多的细节要考虑，看上去也是很吃显存。<br>
+在此只展示XBX在cedec2015的其中部分分享：<br>
+<img src="https://imgur.com/YVWirnu.jpg" alt="image.png"><br>
+Shadowmap Cache化<br>
+<img src="https://imgur.com/dgtkBQI.jpg" alt="image.png"><br>
+以当前位置为中心渲染Cache Buffer<br>
+<img src="https://imgur.com/Tg91Jht.jpg" alt="image.png"><br>
+划分为9块<br>
+<img src="https://imgur.com/N9IBapU.jpg" alt="image.png"><br>
+生成另外两个级联<br>
+<img src="https://imgur.com/al6PRfm.jpg" alt="image.png"><br>
+每个CacheBuffer使用的相机高度（Y）相同，仅移动XZ<br>
+<img src="https://imgur.com/vTqEytc.jpg" alt="image.png"><br>
+从cache中取用部分作为Shadowmap</p>
 <p>那么xbx的阴影内容先告一段落，我们回到xb3</p>
 <p><img src="https://imgur.com/qScGVYC.jpg" alt="image.png"></p>
-<p>输入了3张场景级联ShadowMap，然后再结合上一步角色的ShadowMap进行阴影判断。<br><img src="https://imgur.com/2ICri2S.jpg" alt="image.png"><br><img src="https://imgur.com/7BNZRTl.jpg" alt="image.png"><br><img src="https://imgur.com/rHpBnKV.jpg" alt="image.png"><br>三张预烘焙的Shadowmap<br>三张Shadowmap均为1024x1024，格式为D16</p>
-<p><img src="https://imgur.com/WtKazYx.jpg" alt="image.png"><br>阴影的RT格式是R8G8B8A8，但A通道没有内容.<br>R通道放的是角色以及场景的阴影结果，G通道放的是只有角色而无场景的阴影结果，B放的是只有场景无角色的阴影结果，大概之后也会对不同的阴影做什么操作吧，不过感觉也无关紧要就是了。<br>这也解释了为什么场景阴影不会随着时间变化而变化，因为NS的机能无法支持高桥给场景搞实时ShadowCaster，说到底这种超大场景还实时级联阴影的话开销极其爆炸。<br>而各个大时间段之间不切阴影方向大概也是为了不卡顿而考虑。</p>
+<p>输入了3张场景级联ShadowMap，然后再结合上一步角色的ShadowMap进行阴影判断。<br>
+<img src="https://imgur.com/2ICri2S.jpg" alt="image.png"><br>
+<img src="https://imgur.com/7BNZRTl.jpg" alt="image.png"><br>
+<img src="https://imgur.com/rHpBnKV.jpg" alt="image.png"><br>
+三张预烘焙的Shadowmap<br>
+三张Shadowmap均为1024x1024，格式为D16</p>
+<p><img src="https://imgur.com/WtKazYx.jpg" alt="image.png"><br>
+阴影的RT格式是R8G8B8A8，但A通道没有内容.<br>
+R通道放的是角色以及场景的阴影结果，G通道放的是只有角色而无场景的阴影结果，B放的是只有场景无角色的阴影结果，大概之后也会对不同的阴影做什么操作吧，不过感觉也无关紧要就是了。<br>
+这也解释了为什么场景阴影不会随着时间变化而变化，因为NS的机能无法支持高桥给场景搞实时ShadowCaster，说到底这种超大场景还实时级联阴影的话开销极其爆炸。<br>
+而各个大时间段之间不切阴影方向大概也是为了不卡顿而考虑。</p>
 <hr>
-<h3 id="AO-Pass"><a href="#AO-Pass" class="headerlink" title="AO Pass"></a>AO Pass</h3><p>下一个Pass应当是AO Pass，在此之前似乎根据ddx以及ddy算了个未平滑的的屏幕空间法线，但这RT也并没有出现在后续的AO Pass Input中，不知是不是截帧有问题。<br><img src="https://imgur.com/TO0j6Aa.jpg" alt="image.png"><br>于是它Input只有深度图，而输出如下图<br><img src="https://imgur.com/r5pl05y.jpg" alt="image.png"><br>240x136<br>看Shader中只采样了5次深度图，第一反应是这采样数也太少了，还有这四分之一分辨率输出也太糊了。<br>具体是HBAO抑或GTAO，因为真不想看汇编shader，不得而知 。</p>
-<p><img src="https://imgur.com/fdgIhQE.jpg" alt="image.png"><br>之后会做模糊后再与前一帧的AO进行混合去噪，最后输出480x272。</p>
+<h3 id="AO-Pass">AO Pass</h3>
+<p>下一个Pass应当是AO Pass，在此之前似乎根据ddx以及ddy算了个未平滑的的屏幕空间法线，但这RT也并没有出现在后续的AO Pass Input中，不知是不是截帧有问题。<br>
+<img src="https://imgur.com/TO0j6Aa.jpg" alt="image.png"><br>
+于是它Input只有深度图，而输出如下图<br>
+<img src="https://imgur.com/r5pl05y.jpg" alt="image.png"><br>
+240x136<br>
+看Shader中只采样了5次深度图，第一反应是这采样数也太少了，还有这四分之一分辨率输出也太糊了。<br>
+具体是HBAO抑或GTAO，因为真不想看汇编shader，不得而知 。</p>
+<p><img src="https://imgur.com/fdgIhQE.jpg" alt="image.png"><br>
+之后会做模糊后再与前一帧的AO进行混合去噪，最后输出480x272。</p>
 <hr>
-<h3 id="Deferred-Lighting-Pass"><a href="#Deferred-Lighting-Pass" class="headerlink" title="Deferred Lighting Pass"></a>Deferred Lighting Pass</h3><p>于是终于来到了延迟Pass，把之前计算所得的各个GBuffer、阴影RT、AO RT、GI RT等全部输入。<br>带宽芜湖起飞。<br><img src="https://imgur.com/r0ucIup.jpg" alt="image.png"><br><img src="https://imgur.com/rQ7KfAl.jpg" alt="image.png"><br>PBR Pass</p>
-<p><img src="https://imgur.com/U1mDMcV.jpg" alt="image.png"><br><img src="https://imgur.com/5qybQ0g.jpg" alt="image.png"><br>人物Pass（不包括头发）</p>
-<p><img src="https://imgur.com/f7iMSkf.jpg" alt="image.png"><br><img src="https://imgur.com/0TDNvAG.jpg" alt="image.png"><br>植被Pass</p>
-<p><img src="https://imgur.com/TxFwQbL.jpg" alt="image.png"><br><img src="https://imgur.com/jMO93DY.jpg" alt="image.png"><br>头发Pass<br>于是头发刚画完，又抠出来加个后处理：<br><img src="https://imgur.com/2FEVH2F.jpg" alt="image.png"><br><img src="https://imgur.com/CWoywkz.jpg" alt="image.png"><br>应该是用了类似SNN的算法以模拟“水彩”效果，xb3中还有兰兹大衣的绒毛也经过了该处理，在破晓传说中类似这种后处理更是被推广至整个游戏场景，被宣传为“Atmos Shader”，或许也值得其他游戏借鉴学习。<br>SNN算法可参考：<br>www.shadertoy.com/view/MlyfWd</p>
+<h3 id="Deferred-Lighting-Pass">Deferred Lighting Pass</h3>
+<p>于是终于来到了延迟Pass，把之前计算所得的各个GBuffer、阴影RT、AO RT、GI RT等全部输入。<br>
+带宽芜湖起飞。<br>
+<img src="https://imgur.com/r0ucIup.jpg" alt="image.png"><br>
+<img src="https://imgur.com/rQ7KfAl.jpg" alt="image.png"><br>
+PBR Pass</p>
+<p><img src="https://imgur.com/U1mDMcV.jpg" alt="image.png"><br>
+<img src="https://imgur.com/5qybQ0g.jpg" alt="image.png"><br>
+人物Pass（不包括头发）</p>
+<p><img src="https://imgur.com/f7iMSkf.jpg" alt="image.png"><br>
+<img src="https://imgur.com/0TDNvAG.jpg" alt="image.png"><br>
+植被Pass</p>
+<p><img src="https://imgur.com/TxFwQbL.jpg" alt="image.png"><br>
+<img src="https://imgur.com/jMO93DY.jpg" alt="image.png"><br>
+头发Pass<br>
+于是头发刚画完，又抠出来加个后处理：<br>
+<img src="https://imgur.com/2FEVH2F.jpg" alt="image.png"><br>
+<img src="https://imgur.com/CWoywkz.jpg" alt="image.png"><br>
+应该是用了类似SNN的算法以模拟“水彩”效果，xb3中还有兰兹大衣的绒毛也经过了该处理，在破晓传说中类似这种后处理更是被推广至整个游戏场景，被宣传为“Atmos Shader”，或许也值得其他游戏借鉴学习。<br>
+SNN算法可参考：<br>
+<a target="_blank" rel="noopener" href="http://www.shadertoy.com/view/MlyfWd">www.shadertoy.com/view/MlyfWd</a></p>
 <hr>
-<h3 id="Skybox-Cloud-Pass"><a href="#Skybox-Cloud-Pass" class="headerlink" title="Skybox/Cloud Pass"></a>Skybox/Cloud Pass</h3><p>于是之后开始绘制天空盒、体积云等<br><img src="https://imgur.com/veXP88c.jpg" alt="image.png"><br>普通的面片云</p>
-<p><img src="https://imgur.com/KyUwsBk.jpg" alt="image.png"><br>1/4分辨率体积云RT（240x136），似乎是作为最远景<br><img src="https://imgur.com/NOZkaLZ.jpg" alt="image.png"><br>并入Frame Buffer后</p>
-<p><img src="https://imgur.com/lorNeRs.jpg" alt="image.png"><br>另一张体积云RT（240x136）<br><img src="https://imgur.com/67qUxoj.jpg" alt="image.png"><br>并入Frame Buffer后</p>
+<h3 id="Skybox-Cloud-Pass">Skybox/Cloud Pass</h3>
+<p>于是之后开始绘制天空盒、体积云等<br>
+<img src="https://imgur.com/veXP88c.jpg" alt="image.png"><br>
+普通的面片云</p>
+<p><img src="https://imgur.com/KyUwsBk.jpg" alt="image.png"><br>
+1/4分辨率体积云RT（240x136），似乎是作为最远景<br>
+<img src="https://imgur.com/NOZkaLZ.jpg" alt="image.png"><br>
+并入Frame Buffer后</p>
+<p><img src="https://imgur.com/lorNeRs.jpg" alt="image.png"><br>
+另一张体积云RT（240x136）<br>
+<img src="https://imgur.com/67qUxoj.jpg" alt="image.png"><br>
+并入Frame Buffer后</p>
 <hr>
-<h3 id="Transparent-Forward-Pass"><a href="#Transparent-Forward-Pass" class="headerlink" title="Transparent/Forward Pass"></a>Transparent/Forward Pass</h3><p>这个队列不仅渲染半透明物体，甚至远景的不透明物体也在这时候绘制，如远景的天涯巨剑，大概跟Additional Light无关的玩意都可以扔这里。<br><img src="https://imgur.com/UJEKIFa.jpg" alt=""><br>Instance的半透明发光面片</p>
-<p><img src="https://imgur.com/sW4Sz1I.jpg" alt="image.png"><br>天涯大剑，输入Albedo、法线后直接前向绘制到FrameBuffer上<br><img src="https://imgur.com/aEmurSh.jpg" alt="image.png"><br>顺便看了下这个大剑的PosCS输出，其中w便是深度.<br>我们仍未知道那天xb3所使用的相机视距数值。<br>当然，这种独特的远景物体，大概也可以重新设置相机视距后再提交渲染。</p>
-<p>在另一个截帧中可发现半透明粒子在半分辨率的另一张RT上渲染，倒也是个比较常见的优化overdraw的手段。<br><img src="https://imgur.com/QkGZ04O.jpg" alt="image.png"></p>
+<h3 id="Transparent-Forward-Pass">Transparent/Forward Pass</h3>
+<p>这个队列不仅渲染半透明物体，甚至远景的不透明物体也在这时候绘制，如远景的天涯巨剑，大概跟Additional Light无关的玩意都可以扔这里。<br>
+<img src="https://imgur.com/UJEKIFa.jpg" alt=""><br>
+Instance的半透明发光面片</p>
+<p><img src="https://imgur.com/sW4Sz1I.jpg" alt="image.png"><br>
+天涯大剑，输入Albedo、法线后直接前向绘制到FrameBuffer上<br>
+<img src="https://imgur.com/aEmurSh.jpg" alt="image.png"><br>
+顺便看了下这个大剑的PosCS输出，其中w便是深度.<br>
+我们仍未知道那天xb3所使用的相机视距数值。<br>
+当然，这种独特的远景物体，大概也可以重新设置相机视距后再提交渲染。</p>
+<p>在另一个截帧中可发现半透明粒子在半分辨率的另一张RT上渲染，倒也是个比较常见的优化overdraw的手段。<br>
+<img src="https://imgur.com/QkGZ04O.jpg" alt="image.png"></p>
 <hr>
-<h3 id="TAA-Post-Process"><a href="#TAA-Post-Process" class="headerlink" title="TAA/Post Process"></a>TAA/Post Process</h3><p>之后便是TAA以及各种后处理，其中涉及多个RT的创建与Blit等，截帧的内容也开始愈发混乱起来，比如其中某个看似是LUT调色的Input与Output：<br><img src="https://imgur.com/undefined.jpg" alt=""><br>总之，笔者难以保证之后的内容的准确度，只能尽量从正常的截帧中选取内容。</p>
-<h4 id="TAA"><a href="#TAA" class="headerlink" title="TAA"></a>TAA</h4><p><img src="https://imgur.com/VMKWDFX.jpg" alt="image.png"><br>当前帧<br><img src="https://imgur.com/Xr3kMBv.jpg" alt="image.png"><br>历史帧<br><img src="https://imgur.com/ViMCzBV.jpg" alt="image.png"><br>混合帧<br>当前帧清晰但是锯齿也清晰，而混合帧整体显模糊但也切实消去了锯齿……</p>
-<h4 id="DOF-景深"><a href="#DOF-景深" class="headerlink" title="DOF 景深"></a>DOF 景深</h4><p><img src="https://imgur.com/Ayj7aov.jpg" alt="image.png"><br>一个半分辨率且模糊后的RT</p>
-<p><img src="https://imgur.com/yPGaXYs.jpg" alt="image.png"><br>CoC Buffer，但是其中黑色区域没有存负值，也就是没有区分“前后景”。不知是截帧问题还是本就没做区分？</p>
-<p><img src="https://imgur.com/PveHPw0.jpg" alt=""><br>DOF结果</p>
-<h4 id="Bloom"><a href="#Bloom" class="headerlink" title="Bloom"></a>Bloom</h4><p><img src="https://imgur.com/z4FO5a3.jpg" alt="image.png"><br><img src="https://imgur.com/Jpdgqcn.jpg" alt="image.png"><br>提取亮部后进行数次Downsample</p>
+<h3 id="TAA-Post-Process">TAA/Post Process</h3>
+<p>之后便是TAA以及各种后处理，其中涉及多个RT的创建与Blit等，截帧的内容也开始愈发混乱起来，比如其中某个看似是LUT调色的Input与Output：<br>
+<img src="https://imgur.com/undefined.jpg" alt=""><br>
+总之，笔者难以保证之后的内容的准确度，只能尽量从正常的截帧中选取内容。</p>
+<h4 id="TAA">TAA</h4>
+<p><img src="https://imgur.com/VMKWDFX.jpg" alt="image.png"><br>
+当前帧<br>
+<img src="https://imgur.com/Xr3kMBv.jpg" alt="image.png"><br>
+历史帧<br>
+<img src="https://imgur.com/ViMCzBV.jpg" alt="image.png"><br>
+混合帧<br>
+当前帧清晰但是锯齿也清晰，而混合帧整体显模糊但也切实消去了锯齿……</p>
+<h4 id="DOF-景深">DOF 景深</h4>
+<p><img src="https://imgur.com/Ayj7aov.jpg" alt="image.png"><br>
+一个半分辨率且模糊后的RT</p>
+<p><img src="https://imgur.com/yPGaXYs.jpg" alt="image.png"><br>
+CoC Buffer，但是其中黑色区域没有存负值，也就是没有区分“前后景”。不知是截帧问题还是本就没做区分？</p>
+<p><img src="https://imgur.com/PveHPw0.jpg" alt=""><br>
+DOF结果</p>
+<h4 id="Bloom">Bloom</h4>
+<p><img src="https://imgur.com/z4FO5a3.jpg" alt="image.png"><br>
+<img src="https://imgur.com/Jpdgqcn.jpg" alt="image.png"><br>
+提取亮部后进行数次Downsample</p>
 <p>之后截帧的内容极其混乱，几乎只能看出做了个LUT。</p>
-<p>总之最终本帧输出如下：<br><img src="https://imgur.com/OrfBFHm.jpg" alt="image.png"></p>
-<p><img src="https://imgur.com/SQhBZvy.jpg" alt="image.png"><br>TAA及后处理前<br><img src="https://imgur.com/Uy3LEa7.jpg" alt="image.png"><br>后处理后，绘制UI前<br>同时这个草原的TAA会将本帧进行升采样，也就是TAAU，而播片时的mio截帧中TAA似乎并没有做升采样这一步，因此草原帧输出为1080p，mio那一帧为720p。也是笔者感到非常迷惑的一处，也无法排除是截帧问题……<br>总之，渲染管线至此终于是大致过了一遍。<br>其实有些内容此次并没有看出来，如笔者在游玩时发现似乎存在自动曝光以及体积光。</p>
+<p>总之最终本帧输出如下：<br>
+<img src="https://imgur.com/OrfBFHm.jpg" alt="image.png"></p>
+<p><img src="https://imgur.com/SQhBZvy.jpg" alt="image.png"><br>
+TAA及后处理前<br>
+<img src="https://imgur.com/Uy3LEa7.jpg" alt="image.png"><br>
+后处理后，绘制UI前<br>
+同时这个草原的TAA会将本帧进行升采样，也就是TAAU，而播片时的mio截帧中TAA似乎并没有做升采样这一步，因此草原帧输出为1080p，mio那一帧为720p。也是笔者感到非常迷惑的一处，也无法排除是截帧问题……<br>
+总之，渲染管线至此终于是大致过了一遍。<br>
+其实有些内容此次并没有看出来，如笔者在游玩时发现似乎存在自动曝光以及体积光。</p>
 <hr>
-<h2 id="角色渲染相关"><a href="#角色渲染相关" class="headerlink" title="角色渲染相关"></a>角色渲染相关</h2><p>相信各位玩家都看得出来，此次xb3相比xb2与xbde，进步最为明显的就是它的角色渲染。</p>
-<h3 id="示例图"><a href="#示例图" class="headerlink" title="示例图"></a>示例图</h3><p><img src="https://imgur.com/9zeVW42.jpg" alt="image.png"><br><img src="https://imgur.com/SW5joij.jpg" alt="image.png"><br><img src="https://imgur.com/G6QdcFB.jpg" alt="image.png"><br><img src="https://imgur.com/Emrj0D4.jpg" alt="image.png"><br><img src="https://imgur.com/gqLT1cQ.jpg" alt="image.png"><br><img src="https://imgur.com/mYELZpM.jpg" alt="image.png"><br><img src="https://imgur.com/DxbNwaa.jpg" alt=""></p>
-<h3 id="较有趣的部分"><a href="#较有趣的部分" class="headerlink" title="较有趣的部分"></a>较有趣的部分</h3><p>就个人而言，截帧前最关心的几个细节是脸部的明暗计算方法、“厚涂”风的头发、脸上的高光点、刘海阴影。<br>关于头发的独特风格实现在前文已有提及，是做了类似SNN的后处理，当然实际上是不是SNN并不清楚。</p>
-<p>一开始以为脸部的明暗是类似sdf或者赛马娘的那种trick方法，但想了想这是延迟渲染，想太trick也有点难，一截帧发现它硬是整了张法线贴图……<br><img src="https://imgur.com/OSNt9nL.jpg" alt="image.png"><br>脸部使用的法线贴图<br><img src="https://imgur.com/QMA0Brw.jpg" alt="image.png"><br>法线输出结果<br>倒也能理解为什么感觉游戏中角色很容易就“阴阳脸”了，毕竟法线图能力有限，做不了很平滑的过渡。至于是烘的还是画的，反正国内应该没人用这种方案，姑且不关心了。</p>
-<p><img src="https://imgur.com/EnU26VP.jpg" alt="image.png"><br>角色渲染使用的ramp图（256x256），可以说是相当复杂<br>应当是为了兼容各种身体部件、不同角色、各个场景的早、午、暮、夜四个时间段，甚至不同天气，最终导致ramp图如此复杂，也算是延迟渲染卡渲之痛吧。<br>而国内目前流行的角色走前向渲染就避免了这一点。</p>
-<p><img src="https://imgur.com/qrMWqNq.jpg" alt="image.png"><br>xb2时的ramp图就已经趋向复杂，没想到xb3更是夸张（图出自CGWORLD2018年8月号）</p>
+<h2 id="角色渲染相关">角色渲染相关</h2>
+<p>相信各位玩家都看得出来，此次xb3相比xb2与xbde，进步最为明显的就是它的角色渲染。</p>
+<h3 id="示例图">示例图</h3>
+<p><img src="https://imgur.com/9zeVW42.jpg" alt="image.png"><br>
+<img src="https://imgur.com/SW5joij.jpg" alt="image.png"><br>
+<img src="https://imgur.com/G6QdcFB.jpg" alt="image.png"><br>
+<img src="https://imgur.com/Emrj0D4.jpg" alt="image.png"><br>
+<img src="https://imgur.com/gqLT1cQ.jpg" alt="image.png"><br>
+<img src="https://imgur.com/mYELZpM.jpg" alt="image.png"><br>
+<img src="https://imgur.com/DxbNwaa.jpg" alt=""></p>
+<h3 id="较有趣的部分">较有趣的部分</h3>
+<p>就个人而言，截帧前最关心的几个细节是脸部的明暗计算方法、“厚涂”风的头发、脸上的高光点、刘海阴影。<br>
+关于头发的独特风格实现在前文已有提及，是做了类似SNN的后处理，当然实际上是不是SNN并不清楚。</p>
+<p>一开始以为脸部的明暗是类似sdf或者赛马娘的那种trick方法，但想了想这是延迟渲染，想太trick也有点难，一截帧发现它硬是整了张法线贴图……<br>
+<img src="https://imgur.com/OSNt9nL.jpg" alt="image.png"><br>
+脸部使用的法线贴图<br>
+<img src="https://imgur.com/QMA0Brw.jpg" alt="image.png"><br>
+法线输出结果<br>
+倒也能理解为什么感觉游戏中角色很容易就“阴阳脸”了，毕竟法线图能力有限，做不了很平滑的过渡。至于是烘的还是画的，反正国内应该没人用这种方案，姑且不关心了。</p>
+<p><img src="https://imgur.com/EnU26VP.jpg" alt="image.png"><br>
+角色渲染使用的ramp图（256x256），可以说是相当复杂<br>
+应当是为了兼容各种身体部件、不同角色、各个场景的早、午、暮、夜四个时间段，甚至不同天气，最终导致ramp图如此复杂，也算是延迟渲染卡渲之痛吧。<br>
+而国内目前流行的角色走前向渲染就避免了这一点。</p>
+<p><img src="https://imgur.com/qrMWqNq.jpg" alt="image.png"><br>
+xb2时的ramp图就已经趋向复杂，没想到xb3更是夸张（图出自CGWORLD2018年8月号）</p>
 <p>角色的衣服、首饰等应当是魔改PBR，让漫反射经过了Ramp图映射，其他大概与标准PBR相差不多，不过这也只是没看代码的纯猜测，可信度不高。</p>
 <hr>
-<p>刘海阴影是用面片做的，在GBufferPass之后作为半透明物体前向绘制：<br><img src="https://imgur.com/hwAGZ3k.jpg" alt="image.png"><br><img src="https://imgur.com/oRu6FMo.jpg" alt="image.png"><br>上一次看到这种做法好像还是在MMD的模型里，果然还是工匠克算法。</p>
+<p>刘海阴影是用面片做的，在GBufferPass之后作为半透明物体前向绘制：<br>
+<img src="https://imgur.com/hwAGZ3k.jpg" alt="image.png"><br>
+<img src="https://imgur.com/oRu6FMo.jpg" alt="image.png"><br>
+上一次看到这种做法好像还是在MMD的模型里，果然还是工匠克算法。</p>
 <hr>
-<p>而在人物延迟光照Pass之后，又加了一些半透明物体以“画龙点睛”<br><img src="https://imgur.com/Im3G7wr.jpg" alt="image.png"><br>延迟光照结束时的人物效果</p>
-<p><img src="https://imgur.com/ykgFHcr.jpg" alt="image.png"><img src="https://imgur.com/CzIaixZ.jpg" alt="image.png"><br>增添脸部高光点<br>直接用半透明面片点了几个高光点，个人感觉它还会根据视角做一点偏移：<br><img src="https://imgur.com/7jpkg4U.jpg" alt="image.png"><img src="https://imgur.com/9Lv2LOM.jpg" alt="image.png"><br>比如从左看脸时高光也会偏左，下嘴唇高光位置变化尤其明显。<br><img src="https://imgur.com/b2YX8di.jpg" alt="image.png"><br>这一张侧脸特写中，鼻尖高光的偏移与“浮空”十分明显</p>
-<p><img src="https://imgur.com/9eB74xE.jpg" alt="image.png"><br><img src="https://imgur.com/J11lkWS.jpg" alt="image.png"><br>增添虹膜细节</p>
-<p><img src="https://imgur.com/1QcHomp.jpg" alt="image.png"><br><img src="https://imgur.com/SzvAVyG.jpg" alt="image.png"><br>增加反射<br><img src="https://imgur.com/Ml5NCtH.jpg" alt="image.png"><br>而这个反射真的使用了反射探针，虽然笔者在游玩期间根本没看出这个反射的变化……</p>
-<p><img src="https://imgur.com/rJgukqs.jpg" alt="image.png"><img src="https://imgur.com/KvsXwQ5.jpg" alt="image.png"><br>最后点上眼睛高光</p>
+<p>而在人物延迟光照Pass之后，又加了一些半透明物体以“画龙点睛”<br>
+<img src="https://imgur.com/Im3G7wr.jpg" alt="image.png"><br>
+延迟光照结束时的人物效果</p>
+<p><img src="https://imgur.com/ykgFHcr.jpg" alt="image.png"><img src="https://imgur.com/CzIaixZ.jpg" alt="image.png"><br>
+增添脸部高光点<br>
+直接用半透明面片点了几个高光点，个人感觉它还会根据视角做一点偏移：<br>
+<img src="https://imgur.com/7jpkg4U.jpg" alt="image.png"><img src="https://imgur.com/9Lv2LOM.jpg" alt="image.png"><br>
+比如从左看脸时高光也会偏左，下嘴唇高光位置变化尤其明显。<br>
+<img src="https://imgur.com/b2YX8di.jpg" alt="image.png"><br>
+这一张侧脸特写中，鼻尖高光的偏移与“浮空”十分明显</p>
+<p><img src="https://imgur.com/9eB74xE.jpg" alt="image.png"><br>
+<img src="https://imgur.com/J11lkWS.jpg" alt="image.png"><br>
+增添虹膜细节</p>
+<p><img src="https://imgur.com/1QcHomp.jpg" alt="image.png"><br>
+<img src="https://imgur.com/SzvAVyG.jpg" alt="image.png"><br>
+增加反射<br>
+<img src="https://imgur.com/Ml5NCtH.jpg" alt="image.png"><br>
+而这个反射真的使用了反射探针，虽然笔者在游玩期间根本没看出这个反射的变化……</p>
+<p><img src="https://imgur.com/rJgukqs.jpg" alt="image.png"><img src="https://imgur.com/KvsXwQ5.jpg" alt="image.png"><br>
+最后点上眼睛高光</p>
 <p>那么至此也大致将本作角色渲染中比较独特有趣的部分聊过了。</p>
-<h2 id="结语与其他"><a href="#结语与其他" class="headerlink" title="结语与其他"></a>结语与其他</h2><p>客观而言，这些技术方案实在不像一款NS游戏应该拥有的：超远视距、完整的延迟渲染管线、常增加管线负担的风格化角色渲染，xb3这实在是戴着脚镣跳舞；同样作为一名游戏开发者，我不禁心生敬意。</p>
-<p>一开始本是单纯想研究一下角色渲染才截帧，结果因为其他玩家朋友强烈要求让笔者分析一下整个游戏的渲染（顺便问问到底为什么画质这么糊），索性就趁此机会学习一下这个最不像NS游戏的NS游戏所使用的渲染方案，但笔者既非图形程序也非引擎开发，只是一个写写破shader的初出茅庐TA罢了，个人能力所限，能分析的技术只是这个游戏的冰山一角，而文中许多基于猜测的内容很可能错误甚至牛头不对马嘴，还请多包涵。<br>也希望各位不会被笔者误导，可以亲自看看xb3的渲染流程，因此将截帧分享出来（使用yuzu模拟器OpenGL模式，Xenoblade3 1.00 ver）：<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/18dbrPCAXGrg_fsZF9FiF8g">https://pan.baidu.com/s/18dbrPCAXGrg_fsZF9FiF8g</a><br>提取码：xbnb</p>
+<h2 id="结语与其他">结语与其他</h2>
+<p>客观而言，这些技术方案实在不像一款NS游戏应该拥有的：超远视距、完整的延迟渲染管线、常增加管线负担的风格化角色渲染，xb3这实在是戴着脚镣跳舞；同样作为一名游戏开发者，我不禁心生敬意。</p>
+<p>一开始本是单纯想研究一下角色渲染才截帧，结果因为其他玩家朋友强烈要求让笔者分析一下整个游戏的渲染（顺便问问到底为什么画质这么糊），索性就趁此机会学习一下这个最不像NS游戏的NS游戏所使用的渲染方案，但笔者既非图形程序也非引擎开发，只是一个写写破shader的初出茅庐TA罢了，个人能力所限，能分析的技术只是这个游戏的冰山一角，而文中许多基于猜测的内容很可能错误甚至牛头不对马嘴，还请多包涵。<br>
+也希望各位不会被笔者误导，可以亲自看看xb3的渲染流程，因此将截帧分享出来（使用yuzu模拟器OpenGL模式，Xenoblade3 1.00 ver）：<br>
+链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/18dbrPCAXGrg_fsZF9FiF8g">https://pan.baidu.com/s/18dbrPCAXGrg_fsZF9FiF8g</a><br>
+提取码：xbnb</p>
 <p>参考资料：</p>
 <ol>
 <li>Hallucinations re: the rendering of Cyberpunk 2077：<a target="_blank" rel="noopener" href="http://c0de517e.blogspot.com/2020/12/hallucinations-re-rendering-of.html">http://c0de517e.blogspot.com/2020/12/hallucinations-re-rendering-of.html</a></li>
 <li>CGWORLD (シージーワールド) 2018年 08月号</li>
 <li>float to RGB to float ：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/WsVGzm">https://www.shadertoy.com/view/WsVGzm</a></li>
-<li>SNN/Kuwahara Filter ：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/MlyfWd">https://www.shadertoy.com/view/MlyfWd</a> </li>
+<li>SNN/Kuwahara Filter ：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/MlyfWd">https://www.shadertoy.com/view/MlyfWd</a></li>
 </ol>
 
 
@@ -810,7 +1084,7 @@
         <p class="copyright text-muted">
           Copyright &copy;
           FlowingCrescent
-          2022
+          2023
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
