@@ -134,10 +134,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://flowingcrescent.github.io/en/【Unity】关于Unity Particle System/">
+  <link rel="canonical" href="http://flowingcrescent.github.io/en/关于Texture采样的种种/">
   <title>
     
-      【Unity】关于Unity的Particle System - Sand and Foam - FlowingCrescent&#39;s Blog
+      关于贴图采样的种种 - Sand and Foam - FlowingCrescent&#39;s Blog
     
   </title>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -333,19 +333,19 @@
     .body--light {
       /* intro-header */
       --intro-header-background-image-url-home: url('/img/header_img/newhome_bg.jpg');
-      --intro-header-background-image-url-post: url('https://e.im5i.com/2021/11/14/UsRnST.png');
-      --intro-header-background-image-url-page: url('/https://e.im5i.com/2021/11/14/UsRnST.png');
+      --intro-header-background-image-url-post: url('https://imgur.com/qpPlvI6.jpg');
+      --intro-header-background-image-url-page: url('/https://imgur.com/qpPlvI6.jpg');
     }
     .body--dark {
       --intro-header-background-image-url-home: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/img/header_img/newhome_bg.jpg');
-      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://e.im5i.com/2021/11/14/UsRnST.png');
-      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://e.im5i.com/2021/11/14/UsRnST.png');
+      --intro-header-background-image-url-post: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://imgur.com/qpPlvI6.jpg');
+      --intro-header-background-image-url-page: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/https://imgur.com/qpPlvI6.jpg');
     }
 
     header.intro-header {
        /*post*/
         background-image: var(--intro-header-background-image-url-post);
-        /* background-image: url('https://e.im5i.com/2021/11/14/UsRnST.png'); */
+        /* background-image: url('https://imgur.com/qpPlvI6.jpg'); */
       
     }
 
@@ -368,14 +368,14 @@
               
               <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
               
-              <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+              <a class="tag" href="/tags/#Texture" title="Texture">Texture</a>
               
             </div>
-            <h1>【Unity】关于Unity的Particle System</h1>
+            <h1>关于贴图采样的种种</h1>
             <h2 class="subheading"></h2>
             <span class="meta">
               Posted by FlowingCrescent on
-              2021-11-14
+              2023-06-23
             </span>
 
 
@@ -383,11 +383,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">3</span> Minutes
+              Estimated Reading Time <span class="post-count">5</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">795</span> In Total
+              Words <span class="post-count">1.4k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -449,48 +449,75 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p>最近做了个有关Particle System的需求，发现Unity这Particle System实在奇葩，遂写篇简单的笔记记录一下。</p>
-<h2 id="根本不存在的“模型空间”">根本不存在的“模型空间”</h2>
-<p>由于需求比较特殊，shader中设计一些模型空间的转换，但是我发现本来在普通物体上生效的shader，放在Particle System的Material中就失效了，查找了许久原因，才发现这Partcicle System根本不存在所谓的“模型空间”这一概念，因为它<strong>模型空间坐标值与世界空间坐标完全相等</strong>。<br>
-比如我们做以下实验，在vertex shader中如此写：</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VertexPositionInputs positionInputs = GetVertexPositionInputs(v.positionOS.xyz)<span class="comment">;</span></span><br><span class="line">o.positionCS = positionInputs.positionCS<span class="comment">;</span></span><br><span class="line">o.positionOS.xyz = v.positionOS.xyz<span class="comment">;</span></span><br><span class="line">o.positionWS = positionInputs.positionWS<span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>然后在frag中直接输出positionOS与positionWS的差值的绝对值，并且乘以1000以增强效果。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">half4 <span class="title">frag</span><span class="params">(v2f i)</span>: SV_Target</span></span><br><span class="line"><span class="function">&#123;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float4</span>(<span class="built_in">abs</span>(i.positionOS.rgb - i.positionWS.xyz)*<span class="number">1000</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后这是输出结果：<br>
-<img src="https://e.im5i.com/2021/11/14/UsRsja.png" alt="image.png"><br>
-显然positionOS与positionWS完全相等，或者说相差极小。<br>
-在renderdoc中也可发现POSITION与TEXCOORD5（即我设置的PositionWS）完全相等。<br>
-<img src="https://e.im5i.com/2021/11/14/UsR0nS.png" alt="image.png"><br>
-那么很显然了，Particle System根本不存在所谓“模型空间”的概念，甚至MVP变换中的Model变换都是装饰用……</p>
-<h2 id="CustomData">CustomData</h2>
-<p>没有模型空间，那我们就需要自己构造模型空间，但我们还缺少一些数据，比如每个粒子的中心坐标以及粒子的旋转值。<br>
-Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法，即<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/ParticleSystem-customData.html">Custom Data</a><br>
-<img src="https://e.im5i.com/2021/11/14/UsRpBA.png" alt="image.png"><br>
-在Particle System的面板上也可以看到，确实存在这个功能，只是最大也只能传两个矢量，也就是8个浮点数。<br>
-如果要直接传Model变换矩阵，那就需要4x4，即16个浮点数，显然是不够的。那就只能自己传一些关键数值，再导shader里边计算矩阵了。<br>
-传入数据的脚本可以这样写：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ParticleSystem particleSystem;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particlePositions</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">List</span>&lt;<span class="title">Vector4</span>&gt; particleRotations</span>= <span class="keyword">new</span> List&lt;Vector4&gt;();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    particleSystem = GetComponent&lt;ParticleSystem&gt;();</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom1, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">    particleSystem.customData.SetMode(ParticleSystemCustomData.Custom2, ParticleSystemCustomDataMode.Vector);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ParticleSystem.Particle[] particles = <span class="keyword">new</span> ParticleSystem.Particle[particleSystem.particleCount];</span><br><span class="line">    particleSystem.GetParticles(particles);</span><br><span class="line">    particleSystem.GetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.GetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; particleSystem.particleCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        particlePositions[i] = particles[i].position;</span><br><span class="line">        particleRotations[i] = <span class="keyword">new</span> Vector4(particles[i].rotation3D.x * Mathf.Deg2Rad, particles[i].rotation3D.y * Mathf.Deg2Rad, particles[i].rotation3D.z * Mathf.Deg2Rad, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">            Debug.Log(particleRotations[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    particleSystem.SetCustomParticleData(particlePositions, ParticleSystemCustomData.Custom1);</span><br><span class="line">    particleSystem.SetCustomParticleData(particleRotations, ParticleSystemCustomData.Custom2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>遍历每个粒子，然后传入数据，总的来说逻辑还是很简单的。<br>
-注意这传入的position是粒子的中心位置（如果粒子的Simulation Space选择local，则这中心位置还是相对于粒子发射器的，选择world则输出世界空间的值），rotation3D则是欧拉角。</p>
-<p><img src="https://e.im5i.com/2021/11/14/UsRYXH.png" alt="image.png"><br>
-还需要设置一下传入的Custom Data在Vertex的哪个位置，如图我设置在了TEXCOORD0与TEXCOORD1，在顶点着色器中取用即可。</p>
-<p>之后就是在shader中还原model（逆）矩阵了，这直接抄别人的文章就可以了，要注意每个轴的旋转先后顺序：<br>
-<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93022039">Unity中常用矩阵的推导</a></p>
-<p><img src="https://e.im5i.com/2021/11/14/UsRnST.png" alt="image.png"><br>
-最终还原后直接输出模型空间坐标结果</p>
+        <p>近期项目在跨平台开发时遇到了一些关于Texture Sample的bug，解决之余趁此机会进一步学习了关于这方面的知识，干脆记为本文。</p>
+<h2 id="关于texture-Load">关于texture.Load</h2>
+<p>那么也就从笔者遇到的bug入手作为引子吧。<br>
+简单介绍一下，DX中有texture.Load(int3(unCoord2, 0)),该api可输入具体的Texel Coord以读取该位置的纹素值，与常用的Sample在使用上区别为Load需使用绝对的坐标值（如int2(540, 960)），而Sample使用一个已被映射的uv（float2(0.5, 0.5)）,且Sample将进行Filtering。</p>
+<p>bug为某功能在手机上LOAD_TEXTURE2D采样不到深度图，查了半天发现是因为深度图的宽高被其他人改为1/2了，于是原本用CameraColorTexture算的宽高就不准，Load坐标出界，最终返回的值为0。<br>
+解决方法很简单，改成用基于uv的SAMPLE_TEXTURE，就可以无视宽高大小正常采样了。<br>
+这样修改能解决掉是不错，但还是想再深究一下，然后查了下开销差别，Arm官方在<a target="_blank" rel="noopener" href="https://developer.arm.com/documentation/101897/latest/">Arm® GPU Best Practices Developer Guide</a>)（9.3 Texture sampling performance）中写到：</p>
+<blockquote>
+<p>Use texelFetch() or texture() instead of the slower imageLoad() wherever possible.</p>
+</blockquote>
+<p>其中<a target="_blank" rel="noopener" href="https://www.khronos.org/opengl/wiki/Image_Load_Store">imageLoad</a>便对应DX的texture.Load，因此可以得知至少在使用OpenGL的移动端，建议还是使用普通的Sample。</p>
+<p>而此API似乎在华为上还会有bug，参照：<a target="_blank" rel="noopener" href="https://baddogzz.github.io/2020/10/19/HW-LoadX-Bug/">https://baddogzz.github.io/2020/10/19/HW-LoadX-Bug/</a></p>
+<h2 id="各种采样的性能评估">各种采样的性能评估</h2>
+<p>查些资料的过程中也了解到了不少其他知识，干脆也一起记下。<br>
+在上文提到的Arm GPU Best Practices Developer Guide中，记载了移动端对于贴图采样的性能大致分析，如果将使用“nearest sample and bilinear filtered”的采样方法作为标准采样单位，那么其他特殊的采样开销如下：</p>
+<blockquote>
+<p>· Trilinear, LINEAR_MIPMAP_LINEAR, filtering has a 2x cost.<br>
+· 3D formats have a 2x cost.<br>
+· FP32 formats have a 2x cost.<br>
+· Depth formats have a 2x cost for Midgard GPUs, but only a 1x cost on Bifrost GPUs. For Valhall GPUs, Depth is generally a 1x cost. But, if there is a reference or comparison depth, then it is a 2x cost, for example Shadow Maps.<br>
+· Cubemap formats have a 1x cost per cube face that is accessed.</p>
+</blockquote>
+<p>如上所述，Trilinear Filtering和3D Texture的采样开销是两倍，也很好理解，Trilinear要采样两个mip等级，最多关系到8个Texel数据，而3D则是要采3个维度，同样最多是8个Texel数据。<br>
+float32格式的采样开销是两倍，这个其实个人觉得比较反直觉，毕竟RGBA格式也是32位，单通道float也是32位，为什么后者开销就大？这方面暂时没查到更多资料，姑且作为一个知识记下吧。根据下面跟Depth formats的对比，猜测大概是因为普通的fp32格式存储大于1的值，gpu在某些方面开销更大？而depth通常只存[0, 1]的值。<br>
+depth格式的开销感觉写得有些笼统，毕竟depth格式有的可能就给16位或者24位，这里的描述是不是基于32位float也不清楚。不过有趣的是为何在Valhall架构上SampleCmp的会导致开销变成两倍，难道不是只比普通的sample多了步大小比较而已吗？<br>
+Cubemap的开销与此次采样涉及的cube面数有关，因此最极限的情况会是3倍（想象一个立方体的角落），不过大部分情况还是1x cost。</p>
+<h2 id="关于采样的建议">关于采样的建议</h2>
+<blockquote>
+<p>To improve both texture caching and image quality, always use mipmaps for textures that are in<br>
+3D scenes.</p>
+</blockquote>
+<p>可见mipmap的开启的确不只是提升采样质量，也能够提升缓冲命中率，优化带宽。<br>
+更进一步的内容可以阅读这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/550818548">Unity中纹理与Mipmap的进一步研究</a></p>
+<hr>
+<blockquote>
+<p>Do not use textureGrad() unless absolutely necessary. It is much slower that texture() and<br>
+textureLod(). Replace with trilinear or bilinear filtering where possible. textureGrad() can be<br>
+improved by ensuring the derivatives specified are the same for all threads in an aligned 2x2<br>
+pixel-quad.</p>
+</blockquote>
+<p>这个建议很有意思，按这个说法来看，textureGrad()的性能甚至比2x cost的trilinear还高，但这里并没有深入解释原因，笔者也没能查到更多的资料。从使用来看，textureGrad()只是多了两个用户主动输入的参数作为ddx/ddy来间接指定所采样的贴图lod层级，为什么只是这样就会让性能大跌呢？<br>
+在另一篇文章<a target="_blank" rel="noopener" href="https://solidpixel.github.io/2022/03/27/texture_sampling_tips.html">Texture sampling tips</a>中也写到</p>
+<blockquote>
+<p>On current Mali textureGrad() performance is slow, so it is best avoided.</p>
+</blockquote>
+<p>不知道是Mali的问题还是怎么回事。</p>
+<hr>
+<blockquote>
+<p>Use textureGather for 1 channel lookups</p>
+</blockquote>
+<p>这条则是在上边刚提到的Texture sampling tips中记载的，其中写到</p>
+<blockquote>
+<p>If you are downsampling a single channel texture use textureGather() to return 4 samples in a single cycle, rather than 4 separate texture() calls.</p>
+</blockquote>
+<p>比起为了获取四个值而sample()4次，不如直接用sampleGather()一次，本身还是好理解的，但奇妙的是它将这个条件限定在单通道的贴图，估计也是跟硬件架构有关。</p>
+<h2 id="结语">结语</h2>
+<p>结果记了不少，但还是有很多内容是“原因不明”的，实在遗憾。</p>
+<p>一晃就从上篇技术文章的过年前后到了年中的端午假期，恰如白驹过隙……<br>
+TA该干的比较天马行空的活早就干完，之后就是接地气的优化与各平台兼容了，希望能在接下来的阶段里学到更多。</p>
+<p>PS. 因为感觉没什么合适的头图，于是放了张个人很喜欢的画师的作品，<a target="_blank" rel="noopener" href="https://www.pixiv.net/artworks/109271323">解らない</a>，作者fjsmu。</p>
 
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
-          <li class="previous">
-            <a href="/en/【Unity-URP】Unity Procedural Skybox Shader/" data-toggle="tooltip" data-placement="top" title="【Unity URP】Unity Procedural Skybox Shader">&larr; Previous Post</a>
-          </li>
-          
           
           <li class="next">
-            <a href="/en/【Unity URP】卡通渲染中的刘海投影·改/" data-toggle="tooltip" data-placement="top" title="【Unity URP】卡通渲染中的刘海投影·改">Next Post &rarr;</a>
+            <a href="/en/Houdini Ocean To Unity/" data-toggle="tooltip" data-placement="top" title="Houdini Ocean To Unity">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -539,7 +566,7 @@ Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=【Unity】关于Unity的Particle System&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/【Unity】关于Unity Particle System/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=关于贴图采样的种种&body=Hi,I found this website and thought you might like it http://flowingcrescent.github.io/en/关于Texture采样的种种/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -577,7 +604,7 @@ Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E6%A0%B9%E6%9C%AC%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E2%80%9C%E6%A8%A1%E5%9E%8B%E7%A9%BA%E9%97%B4%E2%80%9D"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">根本不存在的“模型空间”</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#CustomData"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">CustomData</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%85%B3%E4%BA%8Etexture-Load"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">关于texture.Load</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%90%84%E7%A7%8D%E9%87%87%E6%A0%B7%E7%9A%84%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">各种采样的性能评估</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E5%85%B3%E4%BA%8E%E9%87%87%E6%A0%B7%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">关于采样的建议</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">结语</span></a></li></ol>
         
         </div>
       </aside>
@@ -602,7 +629,7 @@ Unity确实给我们提供了使用脚本给粒子传入数据到GPU端的方法
             
             <a class="tag" href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
             
-            <a class="tag" href="/tags/#Unity" title="Unity">Unity</a>
+            <a class="tag" href="/tags/#Texture" title="Texture">Texture</a>
             
           </div>
         </section>

@@ -254,9 +254,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/archive/">
               
-              TAGS
+              ARCHIVES
               
               
             </a>
@@ -265,9 +265,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/tags/">
               
-              ARCHIVES
+              TAGS
               
               
             </a>
@@ -425,6 +425,44 @@
       <!-- Main Content -->
 
 
+
+<div class="post-preview">
+  
+  <!-- top start (article top hot config) -->
+  
+  <!-- top end -->
+  
+
+  <a href="/en/关于Texture采样的种种/">
+    <h2 class="post-title">
+      关于贴图采样的种种
+    </h2>
+    <h3 class="post-subtitle">
+      
+    </h3>
+    <div class="post-content-preview">
+      近期项目在跨平台开发时遇到了一些关于Texture Sample的bug，解决之余趁此机会进一步学习了关于这方面的知识，干脆记为本文。
+关于texture.Load
+那么也就从笔者遇到的bug入手作为引子吧。
+简单介绍一下，DX中有texture.Load(int3(unCoord2, 0)),该api可输入具体的Texel Coord以读取该位置的纹素值，与常用的Sample在使用上区别为......
+    </div>
+  </a>
+  
+  <p class="post-meta" style="margin: 10px 0;">
+    Posted by FlowingCrescent on
+    2023-06-23
+  </p>
+  <div class="tags">
+    
+    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
+    
+    <a href="/tags/#Texture" title="Texture">Texture</a>
+    
+  </div>
+  
+
+</div>
+<hr>
 
 <div class="post-preview">
   
@@ -790,45 +828,6 @@ Unity Pr......
 </div>
 <hr>
 
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/NoiseBall系列学习笔记/">
-    <h2 class="post-title">
-      NoiseBall系列学习笔记
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      工作相关的内容不太能发，就发点跟项目完全无关的东西……这次选中的是Kejiro大神的NoiseBall系列，2是使用Compute Shader和DrawMeshInstanceIndirect的例子，3是使用DrawProcedural的例子，而5结合了Job System，可以作为这一些API的入门教程学习。
-NoiseBall2
-Github
-
-原理比较清晰明了:使用Compute S......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-08-31
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
 
   <!-- Pager -->
   <ul class="pager">
@@ -877,7 +876,7 @@ Github
   <div class="tags">
     
     
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="17">Real Time Rendering</a>
+    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="18">Real Time Rendering</a>
     
     
     
@@ -886,10 +885,6 @@ Github
     
     
     <a href="/tags/#SRP" title="SRP" rel="1">SRP</a>
-    
-    
-    
-    <a href="/tags/#ACG相关" title="ACG相关" rel="4">ACG相关</a>
     
     
     
@@ -905,7 +900,7 @@ Github
     
     
     
-    <a href="/tags/#Blog相关" title="Blog相关" rel="1">Blog相关</a>
+    <a href="/tags/#ACG相关" title="ACG相关" rel="4">ACG相关</a>
     
     
     
@@ -917,11 +912,15 @@ Github
     
     
     
+    <a href="/tags/#Blog相关" title="Blog相关" rel="1">Blog相关</a>
+    
+    
+    
     <a href="/tags/#URP" title="URP" rel="7">URP</a>
     
     
     
-    <a href="/tags/#后处理" title="后处理" rel="2">后处理</a>
+    <a href="/tags/#卡通渲染" title="卡通渲染" rel="5">卡通渲染</a>
     
     
     
@@ -933,11 +932,11 @@ Github
     
     
     
-    <a href="/tags/#卡通渲染" title="卡通渲染" rel="5">卡通渲染</a>
-    
-    
-    
     <a href="/tags/#HDRP" title="HDRP" rel="1">HDRP</a>
+    
+    
+    
+    <a href="/tags/#后处理" title="后处理" rel="2">后处理</a>
     
     
     
@@ -945,11 +944,15 @@ Github
     
     
     
-    <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
-    
-    
-    
     <a href="/tags/#风格化" title="风格化" rel="1">风格化</a>
+    
+    
+    
+    <a href="/tags/#Texture" title="Texture" rel="1">Texture</a>
+    
+    
+    
+    <a href="/tags/#读书笔记" title="读书笔记" rel="1">读书笔记</a>
     
     
   </div>
@@ -1021,6 +1024,10 @@ Github
 <div class="widget">
   <ul>
     
+    <a href="%E5%85%B3%E4%BA%8ETexture%E9%87%87%E6%A0%B7%E7%9A%84%E7%A7%8D%E7%A7%8D/">
+      <li>关于贴图采样的种种</li>
+    </a>
+    
     <a href="Houdini%20Ocean%20To%20Unity/">
       <li>Houdini Ocean To Unity</li>
     </a>
@@ -1035,10 +1042,6 @@ Github
     
     <a href="%E5%85%B3%E4%BA%8E%E2%80%9CZ%20Offset%E2%80%9D/">
       <li>关于“Z Offset”</li>
-    </a>
-    
-    <a href="Xenoblade3%E6%B8%B2%E6%9F%93%E7%A0%94%E7%A9%B6/">
-      <li>Xenoblade3 渲染研究</li>
     </a>
     
   </ul>
@@ -1056,7 +1059,7 @@ Github
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/07/">July 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/08/">August 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/07/">July 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/06/">June 2021</a><span class="archive-list-count">10</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/06/">June 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/07/">July 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/08/">August 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/07/">July 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/06/">June 2021</a><span class="archive-list-count">10</span></li></ul>
 </div>
 
 
