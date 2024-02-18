@@ -134,7 +134,7 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://flowingcrescent.github.io/en/archives/3/">
+  <link rel="canonical" href="http://flowingcrescent.github.io/archives/2024/02/">
   <title>
     
       Sand and Foam - FlowingCrescent&#39;s Blog
@@ -343,9 +343,9 @@
     }
 
     header.intro-header {
-       /*config*/
-        background-image: var(--intro-header-background-image-url-home);
-        /* background-image: url('/img/header_img/newhome_bg.jpg'); */
+       /*page*/
+        background-image: var(--intro-header-background-image-url-page);
+        /* background-image: url('/img/header_img/archive_bg2.jpg'); */
       
     }
 
@@ -423,397 +423,362 @@
             ">
 
       <!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
+      <!-- 归档列表 -->
 
-
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/【Unity-URP】模拟破晓传说-Atmos-Shader/">
-    <h2 class="post-title">
-      【Unity URP】模拟破晓传说"Atmos Shader"
-    </h2>
-    <h3 class="post-subtitle">
       
-    </h3>
-    <div class="post-content-preview">
-      Tales of系列最新作Tale of Arise终于要在今年发售，而其大幅进化的画面是最让玩家所期待的部分之一。
-官方也非常懂人心地特地拿出一个噱头来宣传，即Atmos Shader。
 
-在这种商业宣传中，我们技术人员根本无法了解“Atmos Shader”到底是什么，是一种特殊的光照算法还是后处理？总之意味不明。
-原理
-不过我们可以在万代南梦宫于CEDEC2019的技术分享上略窥一二，......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-12
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-    <a href="/tags/#URP" title="URP">URP</a>
-    
-    <a href="/tags/#后处理" title="后处理">后处理</a>
-    
-    <a href="/tags/#风格化" title="风格化">风格化</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/2020所读资料整理/">
-    <h2 class="post-title">
-      2020年所读资料整理
-    </h2>
-    <h3 class="post-subtitle">
+      <!-- 归档列表 -->
       
-    </h3>
-    <div class="post-content-preview">
-      起点
-管线向
-游戏引擎中的渲染管线：相关文档
-齐次裁剪：相关文档
-stencil buffer相关：相关文档
-deferred render和forward+ render：相关文档
-command buffer基础：相关文档
-constant buffer（常量缓存）：相关文档
-Amplify Impostors，一种特殊的LOD方法：相关文档
-关于Deferred Shading能否使用......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-10
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/【Unity-URP】卡通风格水晶Shader/">
-    <h2 class="post-title">
-      【Unity URP】卡通风格水晶Shader
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2024">
+          <span class="tag-text">2024</span>
+        </span>
+        <ul>
+          
+          <li>
+            02-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/读书记录/" style="color: #0085a1">
+              <span>
+                读书记录
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            02-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/ACGN补完记录/" style="color: #0085a1">
+              <span>
+                ACGN补完记录
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            02-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/读书摘录/" style="color: #0085a1">
+              <span>
+                读书笔记
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview">
-      最近看到一个比较有趣的水晶效果：
-
-出自：https://github.com/CJT-Jackton/URP-Anime-Crystal-Shader
-​
-感觉效果非常不错便下载过来看了下原理，作者用的是Shader Graph，我也顺便改写成了代码版本
-​
-原理
-最核心的内容，便是表面那种三角形纹理如何生成以及移动
-​
-三角形的生成
-三角形的生成，用的是鼎鼎大名的德劳内三角化
-可参考以下......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-09
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-    <a href="/tags/#URP" title="URP">URP</a>
-    
-    <a href="/tags/#卡通渲染" title="卡通渲染">卡通渲染</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/Dedicated to Every Fighter/">
-    <h2 class="post-title">
-      Dedicated to Every Fighter
-    </h2>
-    <h3 class="post-subtitle">
-      《3月的狮子》动画部分剧集感想
-    </h3>
-    <div class="post-content-preview">
-      本文是个人于2021年年初在微博发布的《3月的狮子》动画部分剧集感想的整合，
-常以“今昔对比”（指自己在2016-2018年时写的感想与2021年时的感想对比）的形式表述。
-会进行少量修改以使句子表意通顺或方便排版阅读。
-​
-
-
-
-
-
-
-
-1~2
-
-2021-02-04 00:48发布
-
-于是复习了两集三狮，也回顾了下我当年对这部分的感想。
-当时我应该刚考完浙江新高考改革后的学考，大规模考试......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-06
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#ACG相关" title="ACG相关">ACG相关</a>
-    
-    <a href="/tags/#个人杂记" title="个人杂记">个人杂记</a>
-    
-    <a href="/tags/#作品感想" title="作品感想">作品感想</a>
-    
-    <a href="/tags/#演出分析" title="演出分析">演出分析</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/【Unity-URP】一次对卡通渲染仿动画摄影的探索/">
-    <h2 class="post-title">
-      【Unity URP】一次对卡通渲染仿动画摄影的探索
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2023">
+          <span class="tag-text">2023</span>
+        </span>
+        <ul>
+          
+          <li>
+            10-07
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Boids集群模拟/" style="color: #0085a1">
+              <span>
+                Boids集群模拟
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-23
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/关于Texture采样的种种/" style="color: #0085a1">
+              <span>
+                关于贴图采样的种种
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            02-06
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Houdini Ocean To Unity/" style="color: #0085a1">
+              <span>
+                Houdini Ocean To Unity
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2022">
+          <span class="tag-text">2022</span>
+        </span>
+        <ul>
+          
+          <li>
+            09-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/上海游逛记录/" style="color: #0085a1">
+              <span>
+                上海游逛记录
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-15
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/关于“Z Offset”/" style="color: #0085a1">
+              <span>
+                关于“Z Offset”
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-14
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Xenoblade3渲染研究/" style="color: #0085a1">
+              <span>
+                Xenoblade3 渲染研究
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            07-17
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/二次元脸部光照阈值图生成/" style="color: #0085a1">
+              <span>
+                二次元脸部光照阈值图生成
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            01-20
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-URP】Unity Procedural Skybox Shader/" style="color: #0085a1">
+              <span>
+                【Unity URP】Unity Procedural Skybox Shader
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-本文初发布于zhihu
-https://zhuanlan.zhihu.com/p/363790714
-
-前言
-本篇文章是笔者个人对卡通渲染中运用动画摄影的一次探索与实践，对于文章内容笔者并不能保证其实用性，读者完全可以将它当做笔者的个人笔记看待，但笔者个人希望本篇文章能够成为后人对此方面研究时的垫脚石，为大家引出思考与灵感，若此抛砖引玉的奢望能够实现，便再好不过。
-本文目录为：
-
-对动画摄......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-06
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-    <a href="/tags/#URP" title="URP">URP</a>
-    
-    <a href="/tags/#卡通渲染" title="卡通渲染">卡通渲染</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/【Unity-URP】以Render-Feature实现卡通渲染中的刘海投影/">
-    <h2 class="post-title">
-      【Unity URP】以Render Feature实现卡通渲染中的刘海投影
-    </h2>
-    <h3 class="post-subtitle">
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
+          <span class="tag-text">2021</span>
+        </span>
+        <ul>
+          
+          <li>
+            11-14
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity】关于Unity Particle System/" style="color: #0085a1">
+              <span>
+                【Unity】关于Unity的Particle System
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            10-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity URP】卡通渲染中的刘海投影·改/" style="color: #0085a1">
+              <span>
+                【Unity URP】卡通渲染中的刘海投影·改
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-31
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/NoiseBall系列学习笔记/" style="color: #0085a1">
+              <span>
+                NoiseBall系列学习笔记
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-11
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/关于透视插值/" style="color: #0085a1">
+              <span>
+                关于透视插值 Vertex -> Frag
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            08-07
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【URP Shader】Depth of Field - 景深/" style="color: #0085a1">
+              <span>
+                【URP Shader】Depth of Field - 景深
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            07-31
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/深爱世人的恶鬼/" style="color: #0085a1">
+              <span>
+                深爱世人的恶鬼
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            07-27
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Beyond the Bottom - 超越深限/" style="color: #0085a1">
+              <span>
+                Beyond the Bottom - 超越深限
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-19
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Custom SRP笔记/" style="color: #0085a1">
+              <span>
+                Custom SRP笔记
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-14
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/GDC-SIGGRAPH中的有趣内容/" style="color: #0085a1">
+              <span>
+                GDC/SIGGRAPH中的有趣内容
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-12
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-URP】模拟破晓传说-Atmos-Shader/" style="color: #0085a1">
+              <span>
+                【Unity URP】模拟破晓传说"Atmos Shader"
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-10
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/2020所读资料整理/" style="color: #0085a1">
+              <span>
+                2020年所读资料整理
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-09
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-URP】卡通风格水晶Shader/" style="color: #0085a1">
+              <span>
+                【Unity URP】卡通风格水晶Shader
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-06
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Dedicated to Every Fighter/" style="color: #0085a1">
+              <span>
+                Dedicated to Every Fighter
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-06
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-URP】一次对卡通渲染仿动画摄影的探索/" style="color: #0085a1">
+              <span>
+                【Unity URP】一次对卡通渲染仿动画摄影的探索
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-05
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-URP】以Render-Feature实现卡通渲染中的刘海投影/" style="color: #0085a1">
+              <span>
+                【Unity URP】以Render Feature实现卡通渲染中的刘海投影
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/【Unity-HDRP】Custom-Pass-遮挡显示及描边效果/" style="color: #0085a1">
+              <span>
+                【Unity HDRP】Custom Pass 遮挡显示及描边效果
+                
+              </span>
+            </a>
+          </li>
+          
+          <li>
+            06-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/en/Origin of Blog/" style="color: #0085a1">
+              <span>
+                本站之伊始
+                
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
       
-    </h3>
-    <div class="post-content-preview">
-      前言
-
-本文初发布于zhihu
-https://zhuanlan.zhihu.com/p/232450616
-
-众所周知，在卡通渲染领域有着许许多多的Trick，而角色的脸部作为阿宅们关注的重点，Trick自然也少不了。
-在各种插画、动画中，角色头发常常在角色脸上投下与头发形状相似的阴影，但这个效果如果使用ShadowMap来实现的话，对ShadowMap的精度要求大到有些不现实。
-一些例图......
     </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-05
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-    <a href="/tags/#URP" title="URP">URP</a>
-    
-    <a href="/tags/#卡通渲染" title="卡通渲染">卡通渲染</a>
-    
   </div>
-  
-
 </div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/【Unity-HDRP】Custom-Pass-遮挡显示及描边效果/">
-    <h2 class="post-title">
-      【Unity HDRP】Custom Pass 遮挡显示及描边效果
-    </h2>
-    <h3 class="post-subtitle">
-      
-    </h3>
-    <div class="post-content-preview">
-      前言
-
-本文初发布于zhihu
-https://zhuanlan.zhihu.com/p/170241589
-
-近日，笔者在进行项目开发时，美术提出了一个需求，要让主角Player有个描边，而且被建筑遮挡的时候能有斜线使其显示出来。
-听到这个需求，笔者首先想到的是用后处理把两个效果都做掉，然后便想起了URP的Render Feature，因为笔者曾经看过以Render Feature实现遮挡......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-04
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering">Real Time Rendering</a>
-    
-    <a href="/tags/#Unity" title="Unity">Unity</a>
-    
-    <a href="/tags/#HDRP" title="HDRP">HDRP</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-<div class="post-preview">
-  
-  <!-- top start (article top hot config) -->
-  
-  <!-- top end -->
-  
-
-  <a href="/en/Origin of Blog/">
-    <h2 class="post-title">
-      本站之伊始
-    </h2>
-    <h3 class="post-subtitle">
-      在沙与沫之中寻觅价值
-    </h3>
-    <div class="post-content-preview">
-      ​
-
-
-
-
-
-
-其实早在今年（2021）年初就有建立一个Blog的想法，但因为实习求职还有其他一些因素而拖延至了六月，总之，Blog如今终于被搭建了起来。
-
-初衷
-建立本Blog的初衷，其实就是希望有个地方能够整理、记录个人平常的一些学习经历，还有生活体会之类，
-知乎或许也能够达成“记录学习内容”的目标，但比较琐碎的内容发在知乎个人觉得有些杀鸡用牛刀之嫌，发在Blog记录一下则恰好适宜。
-而......
-    </div>
-  </a>
-  
-  <p class="post-meta" style="margin: 10px 0;">
-    Posted by FlowingCrescent on
-    2021-06-04
-  </p>
-  <div class="tags">
-    
-    <a href="/tags/#个人杂记" title="个人杂记">个人杂记</a>
-    
-    <a href="/tags/#Blog相关" title="Blog相关">Blog相关</a>
-    
-  </div>
-  
-
-</div>
-<hr>
-
-
-  <!-- Pager -->
-  <ul class="pager">
-    
-    <li class="previous">
-      <a href="/en/archives/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
-  </ul>
 
 
       <!-- 如果开启评论功能 -->
@@ -1004,23 +969,23 @@ https://zhuanlan.zhihu.com/p/170241589
 <div class="widget">
   <ul>
     
-    <a href="../../%E8%AF%BB%E4%B9%A6%E8%AE%B0%E5%BD%95/">
+    <a href="../../../en/%E8%AF%BB%E4%B9%A6%E8%AE%B0%E5%BD%95/">
       <li>读书记录</li>
     </a>
     
-    <a href="../../ACGN%E8%A1%A5%E5%AE%8C%E8%AE%B0%E5%BD%95/">
+    <a href="../../../en/ACGN%E8%A1%A5%E5%AE%8C%E8%AE%B0%E5%BD%95/">
       <li>ACGN补完记录</li>
     </a>
     
-    <a href="../../%E8%AF%BB%E4%B9%A6%E6%91%98%E5%BD%95/">
+    <a href="../../../en/%E8%AF%BB%E4%B9%A6%E6%91%98%E5%BD%95/">
       <li>读书笔记</li>
     </a>
     
-    <a href="../../Boids%E9%9B%86%E7%BE%A4%E6%A8%A1%E6%8B%9F/">
+    <a href="../../../en/Boids%E9%9B%86%E7%BE%A4%E6%A8%A1%E6%8B%9F/">
       <li>Boids集群模拟</li>
     </a>
     
-    <a href="../../%E5%85%B3%E4%BA%8ETexture%E9%87%87%E6%A0%B7%E7%9A%84%E7%A7%8D%E7%A7%8D/">
+    <a href="../../../en/%E5%85%B3%E4%BA%8ETexture%E9%87%87%E6%A0%B7%E7%9A%84%E7%A7%8D%E7%A7%8D/">
       <li>关于贴图采样的种种</li>
     </a>
     
@@ -1039,7 +1004,7 @@ https://zhuanlan.zhihu.com/p/170241589
 
 <h5><a href="/archives/">archives</a></h5>
 <div class="widget">
-  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2024/02/">February 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/06/">June 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/07/">July 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/08/">August 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../archives/2021/06/">June 2021</a><span class="archive-list-count">10</span></li></ul>
+  <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="">February 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2023/06/">June 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/08/">August 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/07/">July 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2022/01/">January 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2021/11/">November 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2021/08/">August 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2021/07/">July 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../2021/06/">June 2021</a><span class="archive-list-count">10</span></li></ul>
 </div>
 
 
