@@ -254,9 +254,9 @@
           
           
           <li>
-            <a href="/tags/">
+            <a href="/categories/">
               
-              TAGS
+              CATEGORIES
               
               
             </a>
@@ -265,9 +265,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/tags/">
               
-              CATEGORIES
+              TAGS
               
               
             </a>
@@ -450,47 +450,27 @@
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
         <p>近期项目在跨平台开发时遇到了一些关于Texture Sample的bug，解决之余趁此机会进一步学习了关于这方面的知识，干脆记为本文。</p>
-<h2 id="关于texture-Load">关于texture.Load</h2>
-<p>那么也就从笔者遇到的bug入手作为引子吧。<br>
-简单介绍一下，DX中有texture.Load(int3(unCoord2, 0)),该api可输入具体的Texel Coord以读取该位置的纹素值，与常用的Sample在使用上区别为Load需使用绝对的坐标值（如int2(540, 960)），而Sample使用一个已被映射的uv（float2(0.5, 0.5)）,且Sample将进行Filtering。</p>
-<p>bug为某功能在手机上LOAD_TEXTURE2D采样不到深度图，查了半天发现是因为深度图的宽高被其他人改为1/2了，于是原本用CameraColorTexture算的宽高就不准，Load坐标出界，最终返回的值为0。<br>
-解决方法很简单，改成用基于uv的SAMPLE_TEXTURE，就可以无视宽高大小正常采样了。<br>
-这样修改能解决掉是不错，但还是想再深究一下，然后查了下开销差别，Arm官方在<a target="_blank" rel="noopener" href="https://developer.arm.com/documentation/101897/latest/">Arm® GPU Best Practices Developer Guide</a>)（9.3 Texture sampling performance）中写到：</p>
+<h2 id="关于texture-Load"><a href="#关于texture-Load" class="headerlink" title="关于texture.Load"></a>关于texture.Load</h2><p>那么也就从笔者遇到的bug入手作为引子吧。<br>简单介绍一下，DX中有texture.Load(int3(unCoord2, 0)),该api可输入具体的Texel Coord以读取该位置的纹素值，与常用的Sample在使用上区别为Load需使用绝对的坐标值（如int2(540, 960)），而Sample使用一个已被映射的uv（float2(0.5, 0.5)）,且Sample将进行Filtering。</p>
+<p>bug为某功能在手机上LOAD_TEXTURE2D采样不到深度图，查了半天发现是因为深度图的宽高被其他人改为1/2了，于是原本用CameraColorTexture算的宽高就不准，Load坐标出界，最终返回的值为0。<br>解决方法很简单，改成用基于uv的SAMPLE_TEXTURE，就可以无视宽高大小正常采样了。<br>这样修改能解决掉是不错，但还是想再深究一下，然后查了下开销差别，Arm官方在<a target="_blank" rel="noopener" href="https://developer.arm.com/documentation/101897/latest/">Arm® GPU Best Practices Developer Guide</a>)（9.3 Texture sampling performance）中写到：</p>
 <blockquote>
 <p>Use texelFetch() or texture() instead of the slower imageLoad() wherever possible.</p>
 </blockquote>
 <p>其中<a target="_blank" rel="noopener" href="https://www.khronos.org/opengl/wiki/Image_Load_Store">imageLoad</a>便对应DX的texture.Load，因此可以得知至少在使用OpenGL的移动端，建议还是使用普通的Sample。</p>
 <p>而此API似乎在华为上还会有bug，参照：<a target="_blank" rel="noopener" href="https://baddogzz.github.io/2020/10/19/HW-LoadX-Bug/">https://baddogzz.github.io/2020/10/19/HW-LoadX-Bug/</a></p>
-<h2 id="各种采样的性能评估">各种采样的性能评估</h2>
-<p>查些资料的过程中也了解到了不少其他知识，干脆也一起记下。<br>
-在上文提到的Arm GPU Best Practices Developer Guide中，记载了移动端对于贴图采样的性能大致分析，如果将使用“nearest sample and bilinear filtered”的采样方法作为标准采样单位，那么其他特殊的采样开销如下：</p>
+<h2 id="各种采样的性能评估"><a href="#各种采样的性能评估" class="headerlink" title="各种采样的性能评估"></a>各种采样的性能评估</h2><p>查些资料的过程中也了解到了不少其他知识，干脆也一起记下。<br>在上文提到的Arm GPU Best Practices Developer Guide中，记载了移动端对于贴图采样的性能大致分析，如果将使用“nearest sample and bilinear filtered”的采样方法作为标准采样单位，那么其他特殊的采样开销如下：</p>
 <blockquote>
-<p>· Trilinear, LINEAR_MIPMAP_LINEAR, filtering has a 2x cost.<br>
-· 3D formats have a 2x cost.<br>
-· FP32 formats have a 2x cost.<br>
-· Depth formats have a 2x cost for Midgard GPUs, but only a 1x cost on Bifrost GPUs. For Valhall GPUs, Depth is generally a 1x cost. But, if there is a reference or comparison depth, then it is a 2x cost, for example Shadow Maps.<br>
-· Cubemap formats have a 1x cost per cube face that is accessed.</p>
+<p>· Trilinear, LINEAR_MIPMAP_LINEAR, filtering has a 2x cost.<br>· 3D formats have a 2x cost.<br>· FP32 formats have a 2x cost.<br>· Depth formats have a 2x cost for Midgard GPUs, but only a 1x cost on Bifrost GPUs. For Valhall GPUs, Depth is generally a 1x cost. But, if there is a reference or comparison depth, then it is a 2x cost, for example Shadow Maps.<br>· Cubemap formats have a 1x cost per cube face that is accessed.</p>
 </blockquote>
-<p>如上所述，Trilinear Filtering和3D Texture的采样开销是两倍，也很好理解，Trilinear要采样两个mip等级，最多关系到8个Texel数据，而3D则是要采3个维度，同样最多是8个Texel数据。<br>
-float32格式的采样开销是两倍，这个其实个人觉得比较反直觉，毕竟RGBA格式也是32位，单通道float也是32位，为什么后者开销就大？这方面暂时没查到更多资料，姑且作为一个知识记下吧。根据下面跟Depth formats的对比，猜测大概是因为普通的fp32格式存储大于1的值，gpu在某些方面开销更大？而depth通常只存[0, 1]的值。<br>
-depth格式的开销感觉写得有些笼统，毕竟depth格式有的可能就给16位或者24位，这里的描述是不是基于32位float也不清楚。不过有趣的是为何在Valhall架构上SampleCmp的会导致开销变成两倍，难道不是只比普通的sample多了步大小比较而已吗？<br>
-Cubemap的开销与此次采样涉及的cube面数有关，因此最极限的情况会是3倍（想象一个立方体的角落），不过大部分情况还是1x cost。</p>
-<h2 id="关于采样的建议">关于采样的建议</h2>
-<blockquote>
-<p>To improve both texture caching and image quality, always use mipmaps for textures that are in<br>
-3D scenes.</p>
+<p>如上所述，Trilinear Filtering和3D Texture的采样开销是两倍，也很好理解，Trilinear要采样两个mip等级，最多关系到8个Texel数据，而3D则是要采3个维度，同样最多是8个Texel数据。<br>float32格式的采样开销是两倍，这个其实个人觉得比较反直觉，毕竟RGBA格式也是32位，单通道float也是32位，为什么后者开销就大？这方面暂时没查到更多资料，姑且作为一个知识记下吧。根据下面跟Depth formats的对比，猜测大概是因为普通的fp32格式存储大于1的值，gpu在某些方面开销更大？而depth通常只存[0, 1]的值。<br>depth格式的开销感觉写得有些笼统，毕竟depth格式有的可能就给16位或者24位，这里的描述是不是基于32位float也不清楚。不过有趣的是为何在Valhall架构上SampleCmp的会导致开销变成两倍，难道不是只比普通的sample多了步大小比较而已吗？<br>Cubemap的开销与此次采样涉及的cube面数有关，因此最极限的情况会是3倍（想象一个立方体的角落），不过大部分情况还是1x cost。</p>
+<h2 id="关于采样的建议"><a href="#关于采样的建议" class="headerlink" title="关于采样的建议"></a>关于采样的建议</h2><blockquote>
+<p>To improve both texture caching and image quality, always use mipmaps for textures that are in<br>3D scenes.</p>
 </blockquote>
-<p>可见mipmap的开启的确不只是提升采样质量，也能够提升缓冲命中率，优化带宽。<br>
-更进一步的内容可以阅读这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/550818548">Unity中纹理与Mipmap的进一步研究</a></p>
+<p>可见mipmap的开启的确不只是提升采样质量，也能够提升缓冲命中率，优化带宽。<br>更进一步的内容可以阅读这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/550818548">Unity中纹理与Mipmap的进一步研究</a></p>
 <hr>
 <blockquote>
-<p>Do not use textureGrad() unless absolutely necessary. It is much slower that texture() and<br>
-textureLod(). Replace with trilinear or bilinear filtering where possible. textureGrad() can be<br>
-improved by ensuring the derivatives specified are the same for all threads in an aligned 2x2<br>
-pixel-quad.</p>
+<p>Do not use textureGrad() unless absolutely necessary. It is much slower that texture() and<br>textureLod(). Replace with trilinear or bilinear filtering where possible. textureGrad() can be<br>improved by ensuring the derivatives specified are the same for all threads in an aligned 2x2<br>pixel-quad.</p>
 </blockquote>
-<p>这个建议很有意思，按这个说法来看，textureGrad()的性能甚至比2x cost的trilinear还高，但这里并没有深入解释原因，笔者也没能查到更多的资料。从使用来看，textureGrad()只是多了两个用户主动输入的参数作为ddx/ddy来间接指定所采样的贴图lod层级，为什么只是这样就会让性能大跌呢？<br>
-在另一篇文章<a target="_blank" rel="noopener" href="https://solidpixel.github.io/2022/03/27/texture_sampling_tips.html">Texture sampling tips</a>中也写到</p>
+<p>这个建议很有意思，按这个说法来看，textureGrad()的性能甚至比2x cost的trilinear还高，但这里并没有深入解释原因，笔者也没能查到更多的资料。从使用来看，textureGrad()只是多了两个用户主动输入的参数作为ddx/ddy来间接指定所采样的贴图lod层级，为什么只是这样就会让性能大跌呢？<br>在另一篇文章<a target="_blank" rel="noopener" href="https://solidpixel.github.io/2022/03/27/texture_sampling_tips.html">Texture sampling tips</a>中也写到</p>
 <blockquote>
 <p>On current Mali textureGrad() performance is slow, so it is best avoided.</p>
 </blockquote>
@@ -504,10 +484,8 @@ pixel-quad.</p>
 <p>If you are downsampling a single channel texture use textureGather() to return 4 samples in a single cycle, rather than 4 separate texture() calls.</p>
 </blockquote>
 <p>比起为了获取四个值而sample()4次，不如直接用sampleGather()一次，本身还是好理解的，但奇妙的是它将这个条件限定在单通道的贴图，估计也是跟硬件架构有关。</p>
-<h2 id="结语">结语</h2>
-<p>结果记了不少，但还是有很多内容是“原因不明”的，实在遗憾。</p>
-<p>一晃就从上篇技术文章的过年前后到了年中的端午假期，恰如白驹过隙……<br>
-TA该干的比较天马行空的活早就干完，之后就是接地气的优化与各平台兼容了，希望能在接下来的阶段里学到更多。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>结果记了不少，但还是有很多内容是“原因不明”的，实在遗憾。</p>
+<p>一晃就从上篇技术文章的过年前后到了年中的端午假期，恰如白驹过隙……<br>TA该干的比较天马行空的活早就干完，之后就是接地气的优化与各平台兼容了，希望能在接下来的阶段里学到更多。</p>
 <p>PS. 因为感觉没什么合适的头图，于是放了张个人很喜欢的画师的作品，<a target="_blank" rel="noopener" href="https://www.pixiv.net/artworks/109271323">解らない</a>，作者fjsmu。</p>
 
 
@@ -740,7 +718,7 @@ TA该干的比较天马行空的活早就干完，之后就是接地气的优化
         <p class="copyright text-muted">
           Copyright &copy;
           FlowingCrescent
-          2024
+          2025
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
