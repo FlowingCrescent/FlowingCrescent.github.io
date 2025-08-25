@@ -232,9 +232,9 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/about/">
               
-              CATEGORIES
+              ABOUT
               
               
             </a>
@@ -243,9 +243,9 @@
           
           
           <li>
-            <a href="/archive/">
+            <a href="/categories/">
               
-              ARCHIVES
+              CATEGORIES
               
               
             </a>
@@ -265,9 +265,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/archive/">
               
-              ABOUT
+              ARCHIVES
               
               
             </a>
@@ -449,42 +449,20 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="问题起因">问题起因</h2>
-<p>最近我有一位朋友研究Colin的<a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPUnlitScreenSpaceDecalShader">Screen Space Decal</a>时，对其中的一个部分表示非常不解：</p>
+        <h2 id="问题起因"><a href="#问题起因" class="headerlink" title="问题起因"></a>问题起因</h2><p>最近我有一位朋友研究Colin的<a target="_blank" rel="noopener" href="https://github.com/ColinLeung-NiloCat/UnityURPUnlitScreenSpaceDecalShader">Screen Space Decal</a>时，对其中的一个部分表示非常不解：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line">o.viewRayOS.w = viewRay.z;</span><br><span class="line">o.viewRayOS.xyz = <span class="built_in">mul</span>((float3x3)ViewToObjectMatrix, viewRay);</span><br><span class="line">.....</span><br><span class="line">    </span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line">i.viewRayOS /= i.viewRayOS.w;</span><br></pre></td></tr></table></figure>
-<p>他很想知道为什么<code>i.viewRayOS /= i.viewRayOS.w</code>这一步不能在vertex shader中做，如果改在vertex中做就会出错。<br>
-​</p>
+<p>他很想知道为什么<code>i.viewRayOS /= i.viewRayOS.w</code>这一步不能在vertex shader中做，如果改在vertex中做就会出错。<br>​</p>
 <p>如果在Vertex Shader中除去w值，则会与期望情况产生误差，在此我将误差可视化</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line"><span class="comment">//错误的做法</span></span><br><span class="line">o.viewRayOSDiv = <span class="built_in">float4</span>(o.viewRayOS.xyz/o.viewRayOS.w, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line"><span class="comment">//正确的做法</span></span><br><span class="line">i.viewRayOS /= i.viewRayOS.w;</span><br><span class="line"><span class="keyword">float</span> errorValue = <span class="built_in">length</span>(i.viewRayOS.xyz - i.viewRayOSDiv.xyz) * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">float4</span>(errorValue, errorValue, errorValue, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>结果如图：<br>
-<img src="https://e.im5i.com/2021/08/11/1v6ws.png" alt="image.png"><br>
-可见当frag在顶点位置时计算结果是一致的，但越远离顶点，误差可能越大。</p>
-<p>诶，那我如果不是除w，而是除以一个定值呢？</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line">o.viewRayOSDiv = <span class="built_in">float4</span>(o.viewRayOS.xyz/<span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line">i.viewRayOS /= <span class="number">10</span>;</span><br><span class="line"><span class="keyword">float</span> errorValue = <span class="built_in">length</span>(i.viewRayOS.xyz - i.viewRayOSDiv.xyz) * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">float4</span>(errorValue, errorValue, errorValue, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="https://e.im5i.com/2021/08/11/1vy5z.png" alt="image.png"><br>
-嗯，没有误差。</p>
+<p>结果如图：<br><img src="https://e.im5i.com/2021/08/11/1v6ws.png" alt="image.png"><br>可见当frag在顶点位置时计算结果是一致的，但越远离顶点，误差可能越大。</p>
+<p>诶，那我如果不是除w，而是除以一个定值呢？<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//in vertex shader :</span></span><br><span class="line">o.viewRayOSDiv = <span class="built_in">float4</span>(o.viewRayOS.xyz/<span class="number">10</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//in fragment shader : </span></span><br><span class="line">i.viewRayOS /= <span class="number">10</span>;</span><br><span class="line"><span class="keyword">float</span> errorValue = <span class="built_in">length</span>(i.viewRayOS.xyz - i.viewRayOSDiv.xyz) * <span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">float4</span>(errorValue, errorValue, errorValue, <span class="number">1</span>);</span><br></pre></td></tr></table></figure><br><img src="https://e.im5i.com/2021/08/11/1vy5z.png" alt="image.png"><br>嗯，没有误差。</p>
 <p>那么，为什么除以w不行，而除以一个定值就没问题呢？</p>
-<h2 id="透视校正插值">透视校正插值</h2>
-<p>一个值从顶点着色器到片元着色器之间经历了什么？没错，就是光栅化，而光栅化会让一个值经过透视校正插值<br>
-具体可参考此文：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144331875">https://zhuanlan.zhihu.com/p/144331875</a><br>
-<img src="https://e.im5i.com/2021/08/11/1vOdo.png" alt="image.png"></p>
-<p align="center">直接使用三角形屏幕空间坐标进行重心坐标插值会出现错误</p>
-​
-<p><img src="https://e.im5i.com/2021/08/11/1vQcW.png" alt="image.png"><br>
-很显然，这个变换是非线性的，那么先做除法还是后做除法会导致结果不一样……但这样解释大概还是有些难懂。<br>
-​</p>
-<p>那么我们将计算简化后，自己代入值计算看看：<br>
-假设X，Y是向量值，ZA，ZB为两个顶点的深度，w则与代码中含义相同。<br>
-<img src="https://e.im5i.com/2021/08/11/1vwXQ.png" alt="image.png"><br>
-左边为在frag中进行除法获得的值，而右边则是在vertex中进行除法获得的值，<br>
-很显然两个值并不会相等。</p>
-<p>而为什么接近顶点时误差会小也很好解释，<br>
-当片元相当接近顶点，则α、β、γ中有一个值为极为接近1，其余两个值则接近0，此时不等式两边会长得极为相似（但只有特殊情况是真正相等，其余情况只是相差较小），读者不妨自己算算看。<br>
-​</p>
-<p>而除以一个定值为什么无所谓，也相当好理解了：<br>
-<img src="https://e.im5i.com/2021/08/11/1vRyx.png" alt="image.png"><br>
-这怎么想都是相等的。<br>
-​</p>
+<h2 id="透视校正插值"><a href="#透视校正插值" class="headerlink" title="透视校正插值"></a>透视校正插值</h2><p>一个值从顶点着色器到片元着色器之间经历了什么？没错，就是光栅化，而光栅化会让一个值经过透视校正插值<br>具体可参考此文：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144331875">https://zhuanlan.zhihu.com/p/144331875</a><br><img src="https://e.im5i.com/2021/08/11/1vOdo.png" alt="image.png"></p>
+<p><p align="center">直接使用三角形屏幕空间坐标进行重心坐标插值会出现错误</p><br>​</p>
+<p><img src="https://e.im5i.com/2021/08/11/1vQcW.png" alt="image.png"><br>很显然，这个变换是非线性的，那么先做除法还是后做除法会导致结果不一样……但这样解释大概还是有些难懂。<br>​</p>
+<p>那么我们将计算简化后，自己代入值计算看看：<br>假设X，Y是向量值，ZA，ZB为两个顶点的深度，w则与代码中含义相同。<br><img src="https://e.im5i.com/2021/08/11/1vwXQ.png" alt="image.png"><br>左边为在frag中进行除法获得的值，而右边则是在vertex中进行除法获得的值，<br>很显然两个值并不会相等。</p>
+<p>而为什么接近顶点时误差会小也很好解释，<br>当片元相当接近顶点，则α、β、γ中有一个值为极为接近1，其余两个值则接近0，此时不等式两边会长得极为相似（但只有特殊情况是真正相等，其余情况只是相差较小），读者不妨自己算算看。<br>​</p>
+<p>而除以一个定值为什么无所谓，也相当好理解了：<br><img src="https://e.im5i.com/2021/08/11/1vRyx.png" alt="image.png"><br>这怎么想都是相等的。<br>​</p>
 <p>​</p>
 <p>​</p>
 
