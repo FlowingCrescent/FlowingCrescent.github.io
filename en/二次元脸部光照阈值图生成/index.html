@@ -232,9 +232,20 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/about/">
               
-              CATEGORIES
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              ARCHIVES
               
               
             </a>
@@ -254,20 +265,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              ARCHIVES
+              CATEGORIES
               
               
             </a>
@@ -451,35 +451,61 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>久违地发一下技术文章，社畜之后一些工作内容无法公开分享，不过一些业内已公开的方案还是可以聊聊的。</p>
-<p>所谓“二次元脸部光照阈值图”便是类似如下的图，在业内常被称为“SDF图”：<br><img src="https://imgur.com/DOOmKXp.png" alt="image.png"><br>然而其实它在应用时与SDF毫无关联，仅是生成时用到了SDF罢了，因此笔者更想称其为“阈值图”。<br>总而言之，这篇文章将描述如何生成这么一张图，在Unity中编写工具时遇到了什么坑。</p>
-<h2 id="描述各个光照角度"><a href="#描述各个光照角度" class="headerlink" title="描述各个光照角度"></a>描述各个光照角度</h2><p>为了制作阈值图，我们需要让美术去绘制出例如下图中一般，离散的各个角度的光照结果图。<br><img src="https://imgur.com/hIfRnuJ.png" alt="image.png"><br>素材出自<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356185096">https://zhuanlan.zhihu.com/p/356185096</a><br>其实我们要做的，就是让这些离散的图合成一张，使其变得连续。<br>至于这些图怎么出，如果不是直接PS画，也可以在SP里提供特别的shader让美术绘制。</p>
-<h2 id="使用SDF让它们变得连续"><a href="#使用SDF让它们变得连续" class="headerlink" title="使用SDF让它们变得连续"></a>使用SDF让它们变得连续</h2><p>所谓SDF，便是“有向距离场（Signed Distance Field）”，能够描述某一点到最近的边缘的距离，同时使用正与负来区分该点是在边缘内还是外。</p>
-<p>网上生成SDF的代码不少，我直接借用了这位老哥的，使用Compute Shader生成SDF，速度还算蛮快：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/390255113">https://zhuanlan.zhihu.com/p/390255113</a></p>
+        <h2 id="前言">前言</h2>
+<p>久违地发一下技术文章，社畜之后一些工作内容无法公开分享，不过一些业内已公开的方案还是可以聊聊的。</p>
+<p>所谓“二次元脸部光照阈值图”便是类似如下的图，在业内常被称为“SDF图”：<br>
+<img src="https://imgur.com/DOOmKXp.png" alt="image.png"><br>
+然而其实它在应用时与SDF毫无关联，仅是生成时用到了SDF罢了，因此笔者更想称其为“阈值图”。<br>
+总而言之，这篇文章将描述如何生成这么一张图，在Unity中编写工具时遇到了什么坑。</p>
+<h2 id="描述各个光照角度">描述各个光照角度</h2>
+<p>为了制作阈值图，我们需要让美术去绘制出例如下图中一般，离散的各个角度的光照结果图。<br>
+<img src="https://imgur.com/hIfRnuJ.png" alt="image.png"><br>
+素材出自<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356185096">https://zhuanlan.zhihu.com/p/356185096</a><br>
+其实我们要做的，就是让这些离散的图合成一张，使其变得连续。<br>
+至于这些图怎么出，如果不是直接PS画，也可以在SP里提供特别的shader让美术绘制。</p>
+<h2 id="使用SDF让它们变得连续">使用SDF让它们变得连续</h2>
+<p>所谓SDF，便是“有向距离场（Signed Distance Field）”，能够描述某一点到最近的边缘的距离，同时使用正与负来区分该点是在边缘内还是外。</p>
+<p>网上生成SDF的代码不少，我直接借用了这位老哥的，使用Compute Shader生成SDF，速度还算蛮快：<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/390255113">https://zhuanlan.zhihu.com/p/390255113</a></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Each #kernel tells which function to compile; you can have many kernels</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> kernel CSMain</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a RenderTexture with enableRandomWrite flag and set it</span></span><br><span class="line"><span class="comment">// with cs.SetTexture</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> _halfRange;</span><br><span class="line">Texture2D _MainTex;</span><br><span class="line">int4 _MainTex_Size;</span><br><span class="line"></span><br><span class="line">RWTexture2D&lt;float4&gt; outputTexture;</span><br><span class="line"></span><br><span class="line"><span class="function">uint <span class="title">squaredDistanceBetween</span><span class="params">(int2 uv1, int2 uv2)</span> </span>&#123;</span><br><span class="line">    int2 delta = uv1 - uv2;</span><br><span class="line">    uint dist = (delta.x * delta.x) + (delta.y * delta.y);</span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isIn</span><span class="params">(int2 coord)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (coord.x &lt; <span class="number">0</span> || coord.y &lt; <span class="number">0</span> || coord.x &gt;= _MainTex_Size.x || coord.y &gt;= _MainTex_Size.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> _MainTex[coord.xy].r &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="built_in">numthreads</span>(<span class="number">8</span>,<span class="number">8</span>,<span class="number">1</span>)]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CSMain</span> <span class="params">(uint3 id : SV_DispatchThreadID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    int2 coord = id.xy;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> halfRange = _halfRange;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> iRange = <span class="number">2</span> * halfRange;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> int2 startPosition = coord - <span class="built_in">int2</span>(halfRange, halfRange);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> fragIsIn = <span class="built_in">isIn</span>(coord);</span><br><span class="line">    </span><br><span class="line">    uint squaredDistanceToEdge = (halfRange*halfRange)*<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> dx = <span class="number">0</span>; dx &lt;= iRange; dx++) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> dy = <span class="number">0</span>; dy &lt;= iRange; dy++) &#123;</span><br><span class="line">            int2 scanPositionCoord = startPosition + <span class="built_in">int2</span>(dx, dy);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">bool</span> scanIsIn = <span class="built_in">isIn</span>(scanPositionCoord);</span><br><span class="line">            <span class="keyword">if</span> (scanIsIn != fragIsIn) &#123;</span><br><span class="line">                uint scanDistance = <span class="built_in">squaredDistanceBetween</span>(coord, scanPositionCoord);</span><br><span class="line">                <span class="keyword">if</span> (scanDistance &lt; squaredDistanceToEdge) &#123;</span><br><span class="line">                    squaredDistanceToEdge = scanDistance;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> normalised = squaredDistanceToEdge / ((halfRange*halfRange)*<span class="number">2.0</span>);</span><br><span class="line">    <span class="keyword">float</span> distanceToEdge = <span class="built_in">sqrt</span>(normalised);</span><br><span class="line">    <span class="keyword">if</span> (fragIsIn)</span><br><span class="line">        distanceToEdge = -distanceToEdge;</span><br><span class="line"></span><br><span class="line">    normalised = <span class="number">0.5</span> - distanceToEdge;</span><br><span class="line"></span><br><span class="line">    outputTexture[id.xy] = <span class="built_in">float4</span>(normalised, normalised, normalised,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原理而言就是遍历一个像素周围一圈范围的像素，找出其中最近的“边缘”，计算距离值。<br>而这个范围便是SDF的最大距离，试验下来，2048的图片需要约350~400的范围值。<br>而1024则减半，我通常给个256。</p>
+<p>原理而言就是遍历一个像素周围一圈范围的像素，找出其中最近的“边缘”，计算距离值。<br>
+而这个范围便是SDF的最大距离，试验下来，2048的图片需要约350~400的范围值。<br>
+而1024则减半，我通常给个256。</p>
 <p><img src="https://imgur.com/iMQC29H.png" alt="image.png"></p>
 <p align="center">原图</p>
-
 <p><img src="https://imgur.com/OpWDvoG.png" alt="image.png"></p>
 <p align="center">SDF图</p>
-
 <hr>
-<p>而下一步才是生成阈值图的关键，我们需要两两SDF图之间生成一张平滑的小范围“阈值图”。<br><img src="https://imgur.com/iW6xcBR.png" alt="image.png"></p>
+<p>而下一步才是生成阈值图的关键，我们需要两两SDF图之间生成一张平滑的小范围“阈值图”。<br>
+<img src="https://imgur.com/iW6xcBR.png" alt="image.png"></p>
 <p align="center">SDF图1</p>
-
 <p><img src="https://imgur.com/OpWDvoG.png" alt="image.png"></p>
 <p align="center">SDF图2</p>
-
 <p><img src="https://imgur.com/xIvI956.png" alt="image.png"></p>
 <p align="center">阈值图</p>
-
-
-<p>其实说来也很简单，笔者用自身多年的绘画功底画一张示意图：<br><img src="https://imgur.com/2BYTlfM.png" alt="image.png"><br>红色区域表示SDF图1，蓝色区域则表示SDF图2<br>假设我们需要求P点的值，而我们知道从红色的边缘到蓝色的边缘，P点的值将从1递减到0。<br>那么我们其实只需要P到两个边缘的距离的比值即可，而两个距离我们可在SDF图中取得。</p>
-<p>此时要注意，之前的SDF图中，正负距离被映射到了[0, 1]范围内，需要还原一下。<br>代码也比较简单：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Texture2D originPart;</span><br><span class="line">Texture2D nextPart;</span><br><span class="line">Texture2D originSDF;</span><br><span class="line">Texture2D nextSDF;</span><br><span class="line">[<span class="built_in">numthreads</span>(<span class="number">8</span>,<span class="number">8</span>,<span class="number">1</span>)]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CSSmooth</span> <span class="params">(uint3 id : SV_DispatchThreadID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    int2 coord = id.xy;</span><br><span class="line">    <span class="keyword">float</span> distanceOriginPart = originSDF[coord].a * <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">float</span> distanceNextPart = nextSDF[coord].a * <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">float</span> totalDistance = <span class="built_in">abs</span>(distanceNextPart) + <span class="built_in">abs</span>(distanceOriginPart);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">float</span> lerpValue = <span class="built_in">abs</span>(distanceNextPart) / <span class="built_in">max</span>(totalDistance, <span class="number">0.001</span>);</span><br><span class="line"></span><br><span class="line">    outputTexture[coord] = <span class="built_in">lerp</span>(originPart[coord], nextPart[coord], lerpValue);</span><br><span class="line">    outputTexture[coord] = <span class="built_in">pow</span>(outputTexture[coord], <span class="number">0.45</span>);<span class="comment">//gamma correct</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="将各个小阈值图进行合并"><a href="#将各个小阈值图进行合并" class="headerlink" title="将各个小阈值图进行合并"></a>将各个小阈值图进行合并</h2><p>之后便是将几个阈值图进行相加，并除以图片的总量即可。<br>此时笔者第一次在Compute Shader中使用Texture Array，遇到了一点小坑。<br>创建TextureArray的代码极为简单，但绝不能画蛇添足加个Apply()，之前TextureArray硬是内容全空，查了数个小时才发现罪魁祸首竟是看上去人畜无害的<code>textureArray.Apply()</code>……<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var textureArray = <span class="keyword">new</span> <span class="built_in">Texture2DArray</span>(textureWidth, textureWidth, textureCount, TextureFormat.ARGB32, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; textureCount - <span class="number">1</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    Graphics.<span class="built_in">CopyTexture</span>(smoothParts[i], <span class="number">0</span>,  textureArray, i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">computeShader.<span class="built_in">SetTexture</span>(kernel, <span class="string">&quot;_Textures&quot;</span>, textureArray);</span><br></pre></td></tr></table></figure><br>而设置给Compute Shader也直接用SetTexture即可。</p>
-<p>Compute Shader中：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> _TextureCount;</span><br><span class="line">Texture2DArray&lt;float4&gt; _Textures;</span><br><span class="line"></span><br><span class="line">[<span class="built_in">numthreads</span>(<span class="number">8</span>,<span class="number">8</span>,<span class="number">1</span>)]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CSCombine</span> <span class="params">(uint3 id : SV_DispatchThreadID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    int2 coord = id.xy;</span><br><span class="line">    outputTexture[coord] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">float</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(uint i = <span class="number">0</span>; i &lt; _TextureCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += _Textures[<span class="built_in">int3</span>(id.x, id.y, i)];</span><br><span class="line">    &#125;</span><br><span class="line">    outputTexture[coord] =  sum / _TextureCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>最初笔者在for循环中写的是<br><code>outputTexture[coord] += _Textures[int3(id.x, id.y, i)];</code><br>然后再在循环外边<code>/= _TextureCount;</code><br>发现怎么都不对，才意识到texture的RGBA32格式将会自动将值Clamp到[0, 1]，于是才改成如上写法。<br>对于Texture的写入操作，还是先用其他float或half值替代，最后赋值为好。说到底本来应该也就不太推荐频繁地读写Texture，该说是吃一堑长一智吧。</p>
-<p>于是导出后便可获得如下的平滑阈值图：<br><img src="https://imgur.com/o5japgo.png" alt="image.png"></p>
+<p>其实说来也很简单，笔者用自身多年的绘画功底画一张示意图：<br>
+<img src="https://imgur.com/2BYTlfM.png" alt="image.png"><br>
+红色区域表示SDF图1，蓝色区域则表示SDF图2<br>
+假设我们需要求P点的值，而我们知道从红色的边缘到蓝色的边缘，P点的值将从1递减到0。<br>
+那么我们其实只需要P到两个边缘的距离的比值即可，而两个距离我们可在SDF图中取得。</p>
+<p>此时要注意，之前的SDF图中，正负距离被映射到了[0, 1]范围内，需要还原一下。<br>
+代码也比较简单：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Texture2D originPart;</span><br><span class="line">Texture2D nextPart;</span><br><span class="line">Texture2D originSDF;</span><br><span class="line">Texture2D nextSDF;</span><br><span class="line">[<span class="built_in">numthreads</span>(<span class="number">8</span>,<span class="number">8</span>,<span class="number">1</span>)]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CSSmooth</span> <span class="params">(uint3 id : SV_DispatchThreadID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    int2 coord = id.xy;</span><br><span class="line">    <span class="keyword">float</span> distanceOriginPart = originSDF[coord].a * <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">float</span> distanceNextPart = nextSDF[coord].a * <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">float</span> totalDistance = <span class="built_in">abs</span>(distanceNextPart) + <span class="built_in">abs</span>(distanceOriginPart);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">float</span> lerpValue = <span class="built_in">abs</span>(distanceNextPart) / <span class="built_in">max</span>(totalDistance, <span class="number">0.001</span>);</span><br><span class="line"></span><br><span class="line">    outputTexture[coord] = <span class="built_in">lerp</span>(originPart[coord], nextPart[coord], lerpValue);</span><br><span class="line">    outputTexture[coord] = <span class="built_in">pow</span>(outputTexture[coord], <span class="number">0.45</span>);<span class="comment">//gamma correct</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="将各个小阈值图进行合并">将各个小阈值图进行合并</h2>
+<p>之后便是将几个阈值图进行相加，并除以图片的总量即可。<br>
+此时笔者第一次在Compute Shader中使用Texture Array，遇到了一点小坑。<br>
+创建TextureArray的代码极为简单，但绝不能画蛇添足加个Apply()，之前TextureArray硬是内容全空，查了数个小时才发现罪魁祸首竟是看上去人畜无害的<code>textureArray.Apply()</code>……</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var textureArray = <span class="keyword">new</span> <span class="built_in">Texture2DArray</span>(textureWidth, textureWidth, textureCount, TextureFormat.ARGB32, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; textureCount - <span class="number">1</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    Graphics.<span class="built_in">CopyTexture</span>(smoothParts[i], <span class="number">0</span>,  textureArray, i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">computeShader.<span class="built_in">SetTexture</span>(kernel, <span class="string">&quot;_Textures&quot;</span>, textureArray);</span><br></pre></td></tr></table></figure>
+<p>而设置给Compute Shader也直接用SetTexture即可。</p>
+<p>Compute Shader中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> _TextureCount;</span><br><span class="line">Texture2DArray&lt;float4&gt; _Textures;</span><br><span class="line"></span><br><span class="line">[<span class="built_in">numthreads</span>(<span class="number">8</span>,<span class="number">8</span>,<span class="number">1</span>)]</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CSCombine</span> <span class="params">(uint3 id : SV_DispatchThreadID)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    int2 coord = id.xy;</span><br><span class="line">    outputTexture[coord] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">float</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(uint i = <span class="number">0</span>; i &lt; _TextureCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += _Textures[<span class="built_in">int3</span>(id.x, id.y, i)];</span><br><span class="line">    &#125;</span><br><span class="line">    outputTexture[coord] =  sum / _TextureCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>最初笔者在for循环中写的是<br>
+<code>outputTexture[coord] += _Textures[int3(id.x, id.y, i)];</code><br>
+然后再在循环外边<code>/= _TextureCount;</code><br>
+发现怎么都不对，才意识到texture的RGBA32格式将会自动将值Clamp到[0, 1]，于是才改成如上写法。<br>
+对于Texture的写入操作，还是先用其他float或half值替代，最后赋值为好。说到底本来应该也就不太推荐频繁地读写Texture，该说是吃一堑长一智吧。</p>
+<p>于是导出后便可获得如下的平滑阈值图：<br>
+<img src="https://imgur.com/o5japgo.png" alt="image.png"></p>
 <p>生成一张2k图，调整sdf范围为350后在笔者的1060老爷机上需要15秒左右，而1k的图范围设置为256只需要5秒左右，还算是能接受的速度。</p>
 <p>注：Compute Shader中读取Unity设置的SRGB图，似乎并不是以pow 2.2来进行伽马校正，感觉是个小坑，还是尽量将涉及这种计算的图片都设置为Linear空间为好</p>
 
@@ -715,7 +741,7 @@
         <p class="copyright text-muted">
           Copyright &copy;
           FlowingCrescent
-          2025
+          2026
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>

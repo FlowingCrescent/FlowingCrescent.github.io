@@ -232,9 +232,20 @@
           
           
           <li>
-            <a href="/categories/">
+            <a href="/about/">
               
-              CATEGORIES
+              ABOUT
+              
+              
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archive/">
+              
+              ARCHIVES
               
               
             </a>
@@ -254,20 +265,9 @@
           
           
           <li>
-            <a href="/about/">
+            <a href="/categories/">
               
-              ABOUT
-              
-              
-            </a>
-          </li>
-          
-          
-          
-          <li>
-            <a href="/archive/">
-              
-              ARCHIVES
+              CATEGORIES
               
               
             </a>
@@ -441,9 +441,14 @@
       
     </h3>
     <div class="post-content-preview">
-      前言久违地发一下技术文章，社畜之后一些工作内容无法公开分享，不过一些业内已公开的方案还是可以聊聊的。
-所谓“二次元脸部光照阈值图”便是类似如下的图，在业内常被称为“SDF图”：然而其实它在应用时与SDF毫无关联，仅是生成时用到了SDF罢了，因此笔者更想称其为“阈值图”。总而言之，这篇文章将描述如何生成这么一张图，在Unity中编写工具时遇到了什么坑。
-描述各个光照角度为了制作阈值图，我们需要......
+      前言
+久违地发一下技术文章，社畜之后一些工作内容无法公开分享，不过一些业内已公开的方案还是可以聊聊的。
+所谓“二次元脸部光照阈值图”便是类似如下的图，在业内常被称为“SDF图”：
+
+然而其实它在应用时与SDF毫无关联，仅是生成时用到了SDF罢了，因此笔者更想称其为“阈值图”。
+总而言之，这篇文章将描述如何生成这么一张图，在Unity中编写工具时遇到了什么坑。
+描述各个光照角度
+为了制作阈值图......
     </div>
   </a>
   
@@ -481,10 +486,13 @@
     </h3>
     <div class="post-content-preview">
       前言
+
 Github：https://github.com/FlowingCrescent/SimpleProceduralSkybox_URP
 
 虽然我已经写过不少Shader，但程序化Skybox相关的Shader至今还未接触，因此这次先从Unity自带的Procedural  Skybox入手研究，打算之后写个自己的风格化Skybox。
-Unity的自带程序化天空盒Unity Proce......
+Unity的自带程序化天空盒
+
+Unity Pr......
     </div>
   </a>
   
@@ -522,7 +530,8 @@ Unity的自带程序化天空盒Unity Proce......
     </h3>
     <div class="post-content-preview">
       最近做了个有关Particle System的需求，发现Unity这Particle System实在奇葩，遂写篇简单的笔记记录一下。
-根本不存在的“模型空间”由于需求比较特殊，shader中设计一些模型空间的转换，但是我发现本来在普通物体上生效的shader，放在Particle System的Material中就失效了，查找了许久原因，才发现这Partcicle System根本不存在所......
+根本不存在的“模型空间”
+由于需求比较特殊，shader中设计一些模型空间的转换，但是我发现本来在普通物体上生效的shader，放在Particle System的Material中就失效了，查找了许久原因，才发现这Partcicle System根本不存在......
     </div>
   </a>
   
@@ -557,8 +566,12 @@ Unity的自带程序化天空盒Unity Proce......
       
     </h3>
     <div class="post-content-preview">
-      前言距离上一篇关于刘海投影的文章也过了一年有余https://zhuanlan.zhihu.com/p/232450616，笔者也在这期间积累了一些工作经验，于是在实习结束后的某一天灵感迸现，发现刘海投影应有更加简单且高效的做法。​
-效果实现原理以模板测试为核心，原理变得更为简单了：在绘制面部时写入特定的模板值X，然后在不透明物体绘制完之后再绘制一次头发，此时根据屏幕空间的光照方向对它的裁剪......
+      前言
+距离上一篇关于刘海投影的文章也过了一年有余https://zhuanlan.zhihu.com/p/232450616，笔者也在这期间积累了一些工作经验，于是在实习结束后的某一天灵感迸现，发现刘海投影应有更加简单且高效的做法。
+​
+效果实现原理
+以模板测试为核心，原理变得更为简单了：
+在绘制面部时写入特定的模板值X，然后在不透明物体绘制完之后再绘制一次头发，此时根据屏幕空间的光照方向对......
     </div>
   </a>
   
@@ -598,7 +611,10 @@ Unity的自带程序化天空盒Unity Proce......
     </h3>
     <div class="post-content-preview">
       工作相关的内容不太能发，就发点跟项目完全无关的东西……这次选中的是Kejiro大神的NoiseBall系列，2是使用Compute Shader和DrawMeshInstanceIndirect的例子，3是使用DrawProcedural的例子，而5结合了Job System，可以作为这一些API的入门教程学习。
-NoiseBall2Github原理比较清晰明了:使用Compute Shad......
+NoiseBall2
+Github
+
+原理比较清晰明了:使用Compute S......
     </div>
   </a>
   
@@ -633,8 +649,9 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
       
     </h3>
     <div class="post-content-preview">
-      问题起因最近我有一位朋友研究Colin的Screen Space Decal时，对其中的一个部分表示非常不解：
-1234567//in vertex shader :o.viewRayOS.w = viewRay.z;o.viewRayOS.xyz = mul((float3x3)ViewToObjectMatrix, viewRay);.....    //in fragment shad......
+      问题起因
+最近我有一位朋友研究Colin的Screen Space Decal时，对其中的一个部分表示非常不解：
+1234567//in vertex shader :o.viewRayOS.w = viewRay.z;o.viewRayOS.xyz = mul((float3x3)ViewToObjectMatrix, viewRay);.....    //in fragment sha......
     </div>
   </a>
   
@@ -671,7 +688,9 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
     <div class="post-content-preview">
       很久没有更技术方面的内容了，主要是因为入职了之后技术方面做的东西因为大家都懂的原因不方便分享，相对闲了点就打算做一下以前从未做过的DoF，恰好Catlike也有教程，他做的是build-in版，那么我就做个URP版本的好了。
 
-为什么会有景深其实这一点在GAMES101中闫老师讲解得非常清楚，就是因为某一点发出的光线经过凸透镜折射后，未必会在感光元件上达到同一个点，它们很可能会形成一个圆，而......
+为什么会有景深
+
+其实这一点在GAMES101中闫老师讲解得非常清楚，就是因为某一点发出的光线经过凸透镜折射后，未必会在感光元件上达到同一个点，它们很可能会形成一个圆......
     </div>
   </a>
   
@@ -716,8 +735,9 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
 
 
 
-&lt;/meting-js&gt;
-关于善恶我个人一直以来就很喜欢对正义的思辨，究竟何为善恶，何为英雄/恶鬼，在这部作品里都得到了独特且深刻的解答。善恶相抵，不存在绝对的善与恶，善从某一角度来看则是恶，恶从另一角度来看也很可能为善。如果大众都深信战争是善的，那么战争与杀戮将永无终止之日，陶醉于自身“正义”的英雄只会带来更多的杀戮，这或许也是一种“恶”吧，因此只有遵循善恶相抵之原......
+
+关于善恶
+我个人一直以来就很喜欢对正义的思辨，究竟何为善恶，何为英雄/恶鬼，在这部作品里都得到了独特且深刻的解答。善恶相抵，不存在绝对的善与恶，善从某一角度来看则是恶，恶从另一角度来看也很可能为善。如果大众都深信战争是善的，那么战争与杀戮将永无终止之日，陶醉于自身“正义”的英雄只会带来更多的杀戮，这或许也是一种“恶”吧，因此只有遵循善恶相抵之原则，使人们意识到战争…或者说杀人的......
     </div>
   </a>
   
@@ -727,11 +747,11 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
   </p>
   <div class="tags">
     
-    <a href="/tags/#ACG相关" title="ACG相关">ACG相关</a>
-    
     <a href="/tags/#个人杂记" title="个人杂记">个人杂记</a>
     
     <a href="/tags/#作品感想" title="作品感想">作品感想</a>
+    
+    <a href="/tags/#ACG相关" title="ACG相关">ACG相关</a>
     
   </div>
   
@@ -760,9 +780,13 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
 
 
 
-&lt;/meting-js&gt;
-身在异乡，就想着看点以前不看的番，而这次LL新篇的播出让我想起自己还未看过偶像番，因此就在某位朋友的安利之下把山本宽的”Wake Up, Girls！”系列补掉了。
-作品中几个感兴趣的部分首先是Wake Up, Girls! 七人的偶像作为TV前传的剧场版，也是我首先看的部分给我的第一印象就是“好穷的作画，根本不像剧场版的水平”。事实也的确......
+
+身在异乡，就想着看点以前不看的番，而这次LL新篇的播出让我想起自己还未看过偶像番，因此就在某位朋友的安利之下把山本宽的&quot;Wake Up, Girls！&quot;系列补掉了。
+作品中几个感兴趣的部分
+首先是Wake Up, Girls! 七人的偶像
+
+作为TV前传的剧场版，也是我首先看的部分
+给我的第一印象就是“好穷的作画，根本不像剧场版的水平”。事实也的确如此，w......
     </div>
   </a>
   
@@ -772,11 +796,11 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
   </p>
   <div class="tags">
     
-    <a href="/tags/#ACG相关" title="ACG相关">ACG相关</a>
-    
     <a href="/tags/#个人杂记" title="个人杂记">个人杂记</a>
     
     <a href="/tags/#作品感想" title="作品感想">作品感想</a>
+    
+    <a href="/tags/#ACG相关" title="ACG相关">ACG相关</a>
     
   </div>
   
@@ -799,9 +823,13 @@ NoiseBall2Github原理比较清晰明了:使用Compute Shad......
       
     </h3>
     <div class="post-content-preview">
-      本文为个人学习Catlike Coding的教程系列Custom SRP时的学习笔记​
-Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、天空盒、半透明物体以及错误渲染物体的基本渲染管线此时会发现调用到的API与RenderFeature中的相差无几，或许RenderFeature其实就是作为管线的补充内容。​
-使用C#......
+      本文为个人学习Catlike Coding的教程系列Custom SRP时的学习笔记
+​
+Custom Render Pipeline - Taking Control of Rendering
+搭建了渲染不透明、天空盒、半透明物体以及错误渲染物体的基本渲染管线
+此时会发现调用到的API与RenderFeature中的相差无几，或许RenderFeature其实就是作为管线的补充内容。
+​
+......
     </div>
   </a>
   
@@ -875,11 +903,11 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
   <div class="tags">
     
     
-    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="19">Real Time Rendering</a>
+    <a href="/tags/#个人杂记" title="个人杂记" rel="8">个人杂记</a>
     
     
     
-    <a href="/tags/#Unity" title="Unity" rel="17">Unity</a>
+    <a href="/tags/#作品感想" title="作品感想" rel="3">作品感想</a>
     
     
     
@@ -887,11 +915,11 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
     
     
     
-    <a href="/tags/#个人杂记" title="个人杂记" rel="8">个人杂记</a>
+    <a href="/tags/#Real Time Rendering" title="Real Time Rendering" rel="19">Real Time Rendering</a>
     
     
     
-    <a href="/tags/#作品感想" title="作品感想" rel="3">作品感想</a>
+    <a href="/tags/#Unity" title="Unity" rel="17">Unity</a>
     
     
     
@@ -907,15 +935,19 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
     
     
     
-    <a href="/tags/#演出分析" title="演出分析" rel="1">演出分析</a>
-    
-    
-    
     <a href="/tags/#Houdini" title="Houdini" rel="1">Houdini</a>
     
     
     
     <a href="/tags/#VAT" title="VAT" rel="1">VAT</a>
+    
+    
+    
+    <a href="/tags/#演出分析" title="演出分析" rel="1">演出分析</a>
+    
+    
+    
+    <a href="/tags/#Blog相关" title="Blog相关" rel="1">Blog相关</a>
     
     
     
@@ -927,15 +959,11 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
     
     
     
-    <a href="/tags/#Blog相关" title="Blog相关" rel="1">Blog相关</a>
-    
-    
-    
     <a href="/tags/#URP" title="URP" rel="7">URP</a>
     
     
     
-    <a href="/tags/#卡通渲染" title="卡通渲染" rel="5">卡通渲染</a>
+    <a href="/tags/#后处理" title="后处理" rel="2">后处理</a>
     
     
     
@@ -943,7 +971,7 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
     
     
     
-    <a href="/tags/#后处理" title="后处理" rel="2">后处理</a>
+    <a href="/tags/#卡通渲染" title="卡通渲染" rel="5">卡通渲染</a>
     
     
     
@@ -1074,12 +1102,12 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
 <div class="widget">
   <ul>
     
-    <a href="/categories/#技术相关">
-      <li>技术相关</li>
-    </a>
-    
     <a href="/categories/#ACG相关">
       <li>ACG相关</li>
+    </a>
+    
+    <a href="/categories/#技术相关">
+      <li>技术相关</li>
     </a>
     
     <a href="/categories/#个人杂记">
@@ -1145,7 +1173,7 @@ Custom Render Pipeline - Taking Control of Rendering搭建了渲染不透明、�
         <p class="copyright text-muted">
           Copyright &copy;
           FlowingCrescent
-          2025
+          2026
           <br>
           Theme by
           <a target="_blank" rel="noopener" href="http://beantech.org">BeanTech</a>
